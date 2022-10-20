@@ -1,0 +1,72 @@
+.progress-circle {
+    width: 5rem;
+    height: 5rem;
+  }
+  .progress-circle:after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    -webkit-animation: colorload 2.5s;
+    animation: colorload 2.5s;
+  }
+  .progress-circle span {
+    font-size: 1.3rem;
+    left: 50%;
+    top: 50%;
+    width: 4rem;
+    height:4rem;
+    line-height: 4rem;
+    margin-left: -2rem;
+    margin-top: -2rem;
+    z-index: 1;
+  }
+  .progress-circle.progress-25:after {
+    background-image: linear-gradient(
+        95deg,
+        var(--bs-dark) 50%,
+        transparent 50%,
+        transparent
+      ),
+      
+      linear-gradient(180deg, var(--bs-primary) 50%, var(--bs-dark) 50%, var(--bs-dark));
+  }
+  .progress-circle.progress-50:after {
+    background-image: linear-gradient(
+        90deg,
+        var(--bs-dark) 50%,
+        transparent 50%,
+        transparent
+      ),
+      linear-gradient(270deg, var(--bs-primary) 50%, var(--bs-dark) 50%, var(--bs-dark));
+  }
+  .progress-circle.progress-75:after {
+    background-image: linear-gradient(
+      0deg,
+      var(--bs-primary) 50%,
+      transparent 50%,
+      transparent
+    ),
+    
+    linear-gradient(270deg, var(--bs-primary) 50%, var(--bs-dark) 50%, var(--bs-dark));
+  }
+  .progress-circle.progress-100:after {
+    background-image: linear-gradient(
+        90deg,
+       var(--bs-primary) 50%,
+        transparent 50%,
+        transparent
+      ),
+      linear-gradient(270deg, var(--bs-primary) 50%, var(--bs-dark) 50%, var(--bs-dark) 50%);
+  }
+  @keyframes colorload {
+    0% {
+      opacity: 0;
+      transform: rotate(0deg);
+    }
+    100% {
+      opacity: 1;
+      transform: rotate(360deg);
+    }
+  }

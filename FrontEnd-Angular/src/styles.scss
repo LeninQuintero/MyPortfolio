@@ -1,0 +1,28 @@
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+textarea {
+    height: 8rem !important;
+}
+
+.btn-edit {
+    display: visible;
+    cursor: pointer;
+}
+
+.scroll {
+    scroll-margin-top: 4.5rem;
+}
+
+@media (min-width: 992px) {
+    .scale-hover-05:hover {
+        scale: 1.05;
+        transition: 150ms;
+    }
+}
+
+ /* Experiecia */
+ .article-body {
+    padding: 0 0 0 1rem;
+}
+
+/* End experiecia */

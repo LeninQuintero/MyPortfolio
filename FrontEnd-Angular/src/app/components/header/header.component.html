@@ -1,0 +1,72 @@
+<header>
+  <div class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
+    <div class="container justify-content-between">
+      <app-navbar-toggler></app-navbar-toggler>
+      <!-- Nav-Items -->
+      <div class="offcanvas offcanvas-start text-light bg-dark" data-bs-scroll="true" tabindex="-1"
+        id="offcanvasNavOptions" aria-labelledby="offcanvasNavOptionsLabel">
+        <div class="offcanvas-header">
+          <button type="button" class="btn-close btn-close-white shadow-none position-absolute top-0 end-0 m-4"
+            data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          <h5 class="offcanvas-title mt-5 mx-auto display-4" id="offcanvasNavOptionsLabel">¡Bienvenid@s!</h5>
+        </div>
+        <nav class="offcanvas-body justify-content-between mx-3">
+          <ul class="navbar-nav navbar-nav-lg gap-lg-1 fs-1 text-center">
+            <li class="nav-item" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
+              <a class="nav-link" aria-current="page" href="#acercaDe">Acerca de</a>
+            </li>
+            <li class="nav-item" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
+              <a class="nav-link" aria-current="page" href="#experiencia">Experiencia</a>
+            </li>
+            <li class="nav-item active" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
+              <a class="nav-link" aria-current="page" href="#educacion">Educación</a>
+            </li>
+            <li class="nav-item" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
+              <a class="nav-link" aria-current="page" href="#skills">Skills</a>
+            </li>
+            <li class="nav-item" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
+              <a class="nav-link" aria-current="page" href="#proyectos">Proyectos</a>
+            </li>
+            <li class="nav-item" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
+              <a class="nav-link" aria-current="page" href="#contacto">Contacto</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav navbar-nav-lg flex-row gap-5 gap-lg-3 mt-5 mt-md-0 justify-content-center fs-1">
+            <li class="nav-item">
+              <a class="nav-link text-light" target="_blank" href="https://github.com/LeninQuintero">
+                <i class="fa-brands fa-github"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" target="_blank"
+                href="https://www.linkedin.com/in/lenin-quintero-1685b7136">
+                <i class="fa-brands fa-linkedin"></i>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link text-light" target="_blank"
+                href="https://twitter.com/lenartock?t=BLSivQVvhU40xAEu9Lc0fw&s=08">
+                <i class="fa-brands fa-twitter"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- Site logo  -->
+      <a class="navbar-brand order-lg-first m-auto" href="#">
+        <img src="./assets/imagenes/ArgentinaProgramaLogo.png" alt="Logo Argentina Programa" width="110">
+      </a>
+      <!-- Toggler user menu -->
+      <div class="btn-group">
+        <!-- <app-toggler-user-menu></app-toggler-user-menu> -->
+        <app-trigger-login-modal></app-trigger-login-modal>
+        <!-- User menu -->
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark mt-2 mx-0 fs-5">
+          <li><a class="dropdown-item py-3" href="#">Modificar Tema</a></li>
+          <li><a class="dropdown-item py-3" href="#">Ver Mensajes</a></li>
+          <li><a class="dropdown-item py-3" href="#">Cerrar Sesion</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>

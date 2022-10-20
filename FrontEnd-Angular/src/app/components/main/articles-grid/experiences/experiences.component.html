@@ -1,0 +1,59 @@
+<article>
+  <div class="card bg-white bg-opacity-10 py-2">
+    <div id="experiencia" class="scroll card-header d-flex justify-content-between border-0">
+      <h3 class="text-light text-opacity-75"><strong>Experiencia</strong></h3>
+
+      <app-trigger-add-item
+        [addIdModal]="addIdModal" 
+        [addTitleTriggerModal]="addTitleTriggerModal" 
+        [addClassTriggerModal]="addClassTriggerModal"
+      ></app-trigger-add-item>
+
+    </div>
+
+    <div class="accordion accordion-flush border-top border-dark border-1 border-opacity-75"
+      id="accordionFlushExperiences">
+      <div class="accordion-item bg-transparent container">
+        <div class="row p-3">
+          <div class="col-2 p-0">
+            <img class="rounded-circle w-100" src="./assets/imagenes/logo4.webp" alt="">
+          </div>
+          <div class="col-10 text-light article-body">
+            <div class="d-flex justify-content-between">
+              <h5 class="d-inline-block"><strong>4ta Experiencia</strong></h5>
+              
+              <app-trigger-edit-item 
+              [editIdModal]="editIdModal" 
+              [editTitleTriggerModal]="editTitleTriggerModal" 
+              [editClassTriggerModal]="editClassTriggerModal"
+              ></app-trigger-edit-item>
+             
+            </div>
+            <h6 class="opacity-75">4ta Empresa</h6>
+            <div class="opacity-50">
+              <span>Enero 2017</span> - <span>Marzo 2020</span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <div class="opacity-50">
+                <span>Buenos Aires - Argentina</span>
+              </div>
+              <div class="px-1">
+                <button class="accordion-button collapsed bg-transparent shadow-none p-0" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false"
+                  aria-controls="flush-collapseFour"></button>
+              </div>
+            </div>
+          </div>
+          <div id="flush-collapseFour" class="accordion-collapse collapse text-light"
+            aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExperiences">
+            <div class="accordion-body">4Placeholder content for this accordion, which is intended to
+              demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-add-experience-modal></app-add-experience-modal>
+  <app-edit-experience-modal></app-edit-experience-modal>
+</article>

@@ -1,0 +1,19 @@
+<article id="acercaDe" class="scroll">
+  <div class="card bg-white bg-opacity-10 py-2 h-100">
+    <div class="card-header d-flex justify-content-between">
+      <h2 class="text-light text-opacity-75"><strong>Acerca de</strong></h2>
+      
+      <app-trigger-edit-item 
+      [editIdModal]="editIdModal" 
+      [editTitleTriggerModal]="editTitleTriggerModal" 
+      [editClassTriggerModal]="editClassTriggerModal"
+      ></app-trigger-edit-item>
+      
+    </div>
+    <div class="px-3 py-2 fs-5 text-light">
+      <p>Lorem ipsum dolor <strong>sit amet consectetur</strong> adipisicing
+        el inventore voluptatibus sapiente aspernatur. Animi tempora ea asperiores aut.</p>
+    </div>
+  </div>
+  <app-edit-acercade-modal></app-edit-acercade-modal>
+</article>

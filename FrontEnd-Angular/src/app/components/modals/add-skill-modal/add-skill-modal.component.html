@@ -1,0 +1,45 @@
+<div class="modal fade bg-opacity-100" data-bs-backdrop="static" data-bs-keyboard="false" id="addSkillModal"
+    tabindex="-1" aria-labelledby="addSkillModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content text-bg-dark container">
+            <div class="modal-header border-light border-opacity-25">
+                <h5 class="modal-title" id="addSkillModalLabel"><strong class="text-light text-opacity-75">Agregar
+                        skill</strong></h5>
+                <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body row">
+                <form class="col-12 col-md-10 container">
+                    <div class="row gy-2">
+                        <div class="col-12">
+                            <label for="imputTituloSkill" class="form-label opacity-75">Titulo</label>
+                            <input class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="text" id="imputTituloSkill">
+                        </div>
+                        <div class="col-12">
+                            <label for="imputIconoSkill" class="form-label opacity-75">Icono fontawesome</label>
+                            <input class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="text" placeholder="Ej: fa-solid fa-house" id="imputIconoSkill">
+                        </div>
+                        <div class="col-12">
+                            <label for="imputNivelSkill" class="form-label opacity-75">Nivel</label>
+                            <select id="imputNivelSkill"
+                                class="form-select text-bg-dark border border-3 border-light border-opacity-10 shadow-none">
+                                <option selected hidden>Nivel</option>
+                                <option value="1">Basico</option>
+                                <option value="2">Intermedio</option>
+                                <option value="3">Avanzado</option>
+                                <option value="4">Experto</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-lg w-100 mt-2 mb-4">Agregar skill</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

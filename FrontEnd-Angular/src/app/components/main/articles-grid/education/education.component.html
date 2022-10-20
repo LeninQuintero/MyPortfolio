@@ -1,0 +1,45 @@
+<article>
+  <div class="card bg-white bg-opacity-10 py-2">
+    <div id="educacion" class="scroll card-header d-flex justify-content-between border-0 text-light text-opacity-75">
+      <h3><strong>Educación</strong></h3>
+
+      <app-trigger-add-item
+        [addIdModal]="addIdModal" 
+        [addTitleTriggerModal]="addTitleTriggerModal" 
+        [addClassTriggerModal]="addClassTriggerModal"
+      ></app-trigger-add-item>
+
+    </div>
+    <ul class="list-group list-group-flush">
+
+      <li class="list-group-item bg-transparent border-top border-dark border-1 border-opacity-75 p-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-2 p-0">
+              <img class="rounded-circle w-100" src="./assets/imagenes/logo3.webp" alt="">
+            </div>
+            <div class="col-10 text-light article-body">
+              <div class="d-flex justify-content-between">
+                <h5 class="d-inline-block"><strong>E.T.I. "Joaquín Avellan"</strong></h5>
+                
+                <app-trigger-edit-item 
+                [editIdModal]="editIdModal" 
+                [editTitleTriggerModal]="editTitleTriggerModal" 
+                [editClassTriggerModal]="editClassTriggerModal"
+                ></app-trigger-edit-item>
+                
+              </div>
+              <h6 class="opacity-75">Técnico Mecánico (máquinas-Herramientas)</h6>
+              <div class="opacity-50">
+                <span>Maracay</span> - <span>Julio</span> <span>2017</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+  <app-add-education-modal></app-add-education-modal>
+  <app-edit-education-modal></app-edit-education-modal>
+</article>

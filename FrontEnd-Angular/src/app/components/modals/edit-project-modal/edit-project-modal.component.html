@@ -1,0 +1,47 @@
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="editProjModal" tabindex="-1"
+    aria-labelledby="editProjModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content text-bg-dark container">
+            <div class="modal-header border-light border-opacity-25">
+                <h5 class="modal-title" id="editProjModalLabel"><strong class="text-light text-opacity-75">Editar
+                        proyecto</strong></h5>
+                <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body row">
+                <form class="col-12 col-md-10 container">
+                    <div class="row gy-2">
+                        <div class="col-12">
+                            <label for="inputNombreProy1" class="form-label opacity-75">Nombre del proyecto</label>
+                            <input class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="text" id="inputNombreProy1">
+                        </div>
+                        <div class="col-12">
+                            <label for="inputImgProy1" class="form-label opacity-75">Imagen</label>
+                            <input class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="file" id="inputImgProy1" accept="image/jpeg, image/webp, image/png">
+                        </div>
+                        <div class="col-12">
+                            <label for="inputUrlProy1" class="form-label opacity-75">Enlace</label>
+                            <input class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="url" id="inputUrlProy1" accept="image/jpeg, image/webp, image/png">
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="inputDescripcionProy1" class="form-label opacity-75">Descripción</label>
+                            <textarea class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="text" id="inputDescripcionProy1"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-danger btn-lg w-100  mt-2 mb-4">Eliminar</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary btn-lg w-100 mt-2 mb-4">Actualizar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

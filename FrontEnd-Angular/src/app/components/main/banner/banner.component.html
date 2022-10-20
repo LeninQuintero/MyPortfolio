@@ -1,0 +1,13 @@
+<section class="container p-0 banner-container">
+  <picture>
+    <source srcset="./assets/imagenes/banner-mobile.webp" media="(max-width: 767px)" alt="banner-ppal-celular">
+    <source srcset="./assets/imagenes/banner-desktop.webp" media="(min-width: 768px)" alt="banner-ppal-pc">
+    <img src="./assets/imagenes/banner-mobile.webp" width="100%" alt="banner-ppal-generic">
+  </picture>
+  <app-trigger-edit-item 
+  [editIdModal]="editIdModal" 
+  [editTitleTriggerModal]="editTitleTriggerModal" 
+  [editClassTriggerModal]="editClassTriggerModal"
+  ></app-trigger-edit-item>
+  <app-edit-banner-modal></app-edit-banner-modal>
+</section>
