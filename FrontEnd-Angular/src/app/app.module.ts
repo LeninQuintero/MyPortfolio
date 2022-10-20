@@ -42,7 +42,15 @@ import { TriggerShowCertificateComponent } from './components/buttons/trigger-sh
 import { ReactiveFormsModule } from '@angular/forms';
 import { MessagesComponent } from './components/messages/messages.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
 
+
+
+
+const appRoutes: Routes=[
+  {path: '', component:MainComponent},
+  {path: 'mensajes', component:MessagesComponent}
+]
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,7 +96,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
