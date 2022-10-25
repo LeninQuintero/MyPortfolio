@@ -11,17 +11,20 @@ import { Message } from './message';
 export class MessagesComponent implements OnInit, OnDestroy {
 
   messages: Message[] = [];
-  suscription: Subscription = new Subscription;
+
+  suscriptionRefresh: Subscription = new Subscription;
+  suscriptionGet: Subscription = new Subscription;
+  refreshTimer: any;
 
   constructor(private messageService: MessagesService) { };
 
   ngOnInit(): void {
    this.upDateMessages();
 
-    this.suscription = this.messageService.refresh.subscribe(() =>
+    this.suscriptionRefresh = this.messageService.refresh.subscribe(() =>
       this.upDateMessages());
 
-    setInterval(() => this.upDateMessages(), 2000);
+     this.refreshTimer = setInterval(() => this.upDateMessages(), 1*1000);
   }
 
   onDeleteMessage(message: Message) {
@@ -35,11 +38,18 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   upDateMessages() {
-    this.messageService.getMessages().subscribe(messages =>
+    this.suscriptionGet = this.messageService.getMessages().subscribe(messages =>
       this.messages = messages);
   }
 
   ngOnDestroy(): void {
-    this.suscription.unsubscribe();
+
+    this.suscriptionGet.unsubscribe();
+
+    this.suscriptionRefresh.unsubscribe();
+
+    if (this.refreshTimer) {
+      clearInterval(this.refreshTimer);
+    }
   }
 }
