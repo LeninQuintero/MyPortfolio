@@ -40,17 +40,13 @@ import { TriggerAddItemComponent } from './components/buttons/trigger-add-item/t
 import { TriggerEditItemComponent } from './components/buttons/trigger-edit-item/trigger-edit-item.component';
 import { TriggerShowCertificateComponent } from './components/buttons/trigger-show-certificate/trigger-show-certificate.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessagesComponent } from './components/messages/messages.component';
+import { MessagesComponent } from './pages/messages/messages.component';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router';
 
 
 
 
-const appRoutes: Routes=[
-  {path: '', component:MainComponent},
-  {path: 'mensajes', component:MessagesComponent}
-]
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,8 +92,7 @@ const appRoutes: Routes=[
     AppRoutingModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

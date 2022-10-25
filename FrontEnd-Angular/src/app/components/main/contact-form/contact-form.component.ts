@@ -9,7 +9,6 @@ import { MessagesService } from 'src/app/services/messages.service';
 })
 
 export class ContactFormComponent implements OnInit {
-
   contactForm: FormGroup;
   alertSubmit = false;
 
@@ -50,23 +49,24 @@ export class ContactFormComponent implements OnInit {
 
   submit(event: Event) {
 
-    if (this.contactForm.valid) {
-
+    if (this.contactForm.valid) {    
       const newMessage = this.contactForm.value;
+      let NewList = this.messageService.messages;
 
       this.messageService.addMessage(newMessage).subscribe( message =>
         this.messageService.messages.push(message));
 
+      this.messageService._messages$.next(NewList);        
       this.alertSubmit = true;
       this.contactForm.reset();
-      event.stopImmediatePropagation();
-
+      
     } else {
       this.contactForm.markAllAsTouched();
-    }
+    } 
   }
 
   closeAlertSubmit() {
     this.alertSubmit = false;
   }
+  
 }

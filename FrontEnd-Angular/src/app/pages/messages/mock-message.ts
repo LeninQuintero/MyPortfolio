@@ -1,4 +1,4 @@
-import { Message } from 'src/app/components/messages/message';
+import { Message } from 'src/app/pages/messages/message';
 
 export const MESSAGES: Message[] = [
     { 

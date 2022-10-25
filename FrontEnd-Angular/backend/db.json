@@ -27,20 +27,6 @@
       "email": "carlos@carlos.com",
       "asunto": "seguro",
       "mensaje": "tu poliza fue renovada con éxito"
-    },
-    {
-      "nombre": "lenin",
-      "email": "lenin@gmail.com",
-      "asunto": "Interesante",
-      "mensaje": "Por fin hice el fucking CRUD",
-      "id": 5
-    },
-    {
-      "nombre": "pedrito",
-      "email": "pedrito@hotmail.com",
-      "asunto": "oferta",
-      "mensaje": "Revisa esta lista de precios",
-      "id": 6
     }
   ]
 }
