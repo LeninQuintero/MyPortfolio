@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-add-education-modal',
@@ -6,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-education-modal.component.scss']
 })
 export class AddEducationModalComponent implements OnInit {
+  addEducation = FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {
+ 
+   }
 
   ngOnInit(): void {
   }

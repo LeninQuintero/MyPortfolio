@@ -18,16 +18,14 @@ export class MessagesService {
 
   _messages$=  new Subject<Message[]>();
 
-  private apiUrl = 'http://localhost:3000/messages'
+  private apiUrl = 'http://localhost:3000/messages';
 
  get refresh(): Observable<Message[]> {
  
   return this._messages$;
  }
 
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient) {}
 
   getMessages(): Observable<Message[]> {
 

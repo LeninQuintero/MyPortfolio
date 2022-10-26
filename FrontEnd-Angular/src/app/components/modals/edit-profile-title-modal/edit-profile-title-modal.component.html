@@ -10,14 +10,37 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body row justify-content-center">
-                <form class="col-12 col-md-10">
+
+            
+                <form 
+                [formGroup]="titleForm" 
+                (ngSubmit)="submit($event)" 
+
+                class="col-12 col-md-10"
+                >
                     <div class="mt-3 mb-4">
-                        <label for="upProfileName" class="form-label opacity-75">Escribe tu nombre</label>
-                        <input class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none" type="text"
-                            id="upProfileName">
-                        <label for="upProfileTitle" class="form-label opacity-75 mt-3">Escribe un titulo</label>
-                        <input class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none" type="text"
-                            id="upProfileTitle">
+                        <label 
+                            for="upProfileName" 
+                            class="form-label opacity-75"
+                            >
+                            Escribe tu nombre
+                        </label>
+
+                        <input
+                         formControlName="name"
+                         class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none" 
+                         type="text"
+                         id="upProfileName">
+
+                        <label                        
+                        for="upProfileTitle" 
+                        class="form-label opacity-75 mt-3"
+                        >Escribe un titulo</label>
+                        <input 
+                        formControlName="title"
+                        class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none" 
+                        type="text"
+                        id="upProfileTitle">
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg w-100  mt-2 mb-4">Actualizar</button>
                 </form>

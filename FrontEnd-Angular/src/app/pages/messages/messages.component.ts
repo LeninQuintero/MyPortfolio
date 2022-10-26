@@ -24,7 +24,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.suscriptionRefresh = this.messageService.refresh.subscribe(() =>
       this.upDateMessages());
 
-     this.refreshTimer = setInterval(() => this.upDateMessages(), 1*1000);
+     this.refreshTimer = setInterval(() => this.upDateMessages(), 30*1000);
   }
 
   onDeleteMessage(message: Message) {

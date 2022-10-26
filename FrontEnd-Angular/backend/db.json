@@ -27,6 +27,47 @@
       "email": "carlos@carlos.com",
       "asunto": "seguro",
       "mensaje": "tu poliza fue renovada con éxito"
+    },
+    {
+      "nombre": "lenin quintero",
+      "email": "leninquinteroquijano@gmail.com",
+      "asunto": "el fucking crud ",
+      "mensaje": "esta es la prueba definitiva para ver si no he perdido mi tiempo",
+      "id": 5
+    },
+    {
+      "nombre": "probando",
+      "email": "lenindsjidsj@fh.cc",
+      "asunto": "adasdasdas",
+      "mensaje": "dsadasdasd",
+      "id": 6
+    },
+    {
+      "nombre": "dasdsadsa",
+      "email": "asdasd@dbhsd.com",
+      "asunto": "sadas",
+      "mensaje": "asdasasd\n",
+      "id": 7
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Lenin Quintero",
+      "title": "Full Stack Developer Jr",
+      "profilePic": "./assets/imagenes/foto-perfil.webp",
+      "bannerSm": "./assets/imagenes/banner-mobile.webp",
+      "bannerLg": "./assets/imagenes/banner-desktop.webp",
+      "aboutMe": "Lorem ipsum dolor sit amet consectetur adipisicing el inventore voluptatibus sapiente aspernatur. Animi tempora ea asperiores aut."
+    },
+    {
+      "id": 2,
+      "name": "Arturo Quijano",
+      "title": "Programador",
+      "profilePic": "./assets/imagenes/foto-perfil.webp",
+      "bannerSm": "./assets/imagenes/banner-mobile.webp",
+      "bannerLg": "./assets/imagenes/banner-desktop.webp",
+      "aboutMe": "Lorem ipsum dolor sit amet consectetur adipisicing el inventore voluptatibus sapiente aspernatur. Animi tempora ea asperiores aut."
     }
   ]
 }

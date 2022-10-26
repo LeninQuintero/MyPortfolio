@@ -51,12 +51,12 @@ export class ContactFormComponent implements OnInit {
 
     if (this.contactForm.valid) {    
       const newMessage = this.contactForm.value;
-      let NewList = this.messageService.messages;
+      let newList = this.messageService.messages;
 
       this.messageService.addMessage(newMessage).subscribe( message =>
         this.messageService.messages.push(message));
 
-      this.messageService._messages$.next(NewList);        
+      this.messageService._messages$.next(newList);        
       this.alertSubmit = true;
       this.contactForm.reset();
       

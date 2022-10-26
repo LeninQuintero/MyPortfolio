@@ -13,7 +13,7 @@
     <!-- Profile name -->
     <div class="col-12 col-md-9 row">
       <div class="text-center text-md-start">
-        <h1 class="d-inline-block text-light text-md-start px-md-4"><strong>Lenin Quintero</strong></h1>
+        <h1 class="d-inline-block text-light text-md-start px-md-4"><strong>{{ name }}</strong></h1>
         
         <app-trigger-edit-item 
         [editIdModal]="editIdModalTitle" 
@@ -24,10 +24,11 @@
       </div>
       <!-- Profile title -->
       <div class="col-12">
-        <h2 class="text-center h3 text-light text-md-start px-md-4 text-opacity-75 ">Full Stack Developer Jr</h2>
+        <h2 class="text-center h3 text-light text-md-start px-md-4 text-opacity-75 ">{{ title  }}</h2>
       </div>
     </div>
   </div>
+
   <app-edit-profile-picture-modal></app-edit-profile-picture-modal>
   <app-edit-profile-title-modal></app-edit-profile-title-modal>
 </section>
