@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User, UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,35 +18,21 @@ export class ProfileComponent implements OnInit {
 
   // User values
   userId = 1;
-  name = '';
-  title = '';
- 
+  name: string= '';
+  title: string= '';
+  profilePic: string= '';
+  altPic: string= '';
 
   constructor(private userService: UserService) {  
-    
-
-    this.getUserData();
-    
-    
-  }
-
-  ngOnInit(): void {
-
-  }
-
-  getUserData() {   
-
-
     const getUser = this.userService.getUser(this.userId);
 
+    getUser.subscribe(user => this.name = user.name );
+    getUser.subscribe(user => this.title = user.title );
+    getUser.subscribe(user => this.profilePic = user.profilePic );
+    getUser.subscribe(user => this.altPic = `${user.name}'s picture.`);
     
-
-
-    getUser.subscribe(user => console.log(user));
-
-
-    getUser.subscribe(user => this.name = `${user.name}`);
-    getUser.subscribe(user => this.title = `${user.title}`);
   }
+
+  ngOnInit(): void {}
 
 }

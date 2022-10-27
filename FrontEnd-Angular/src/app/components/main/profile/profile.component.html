@@ -1,14 +1,18 @@
 <section class="container pt-md-2">
   <div class="row">
     <div class="col-12 col-md-3 pb-2 pb-md-0">
-      <img src="./assets/imagenes/foto-perfil.webp"
+      <img 
+        [src]="profilePic"
         class="profile-pic rounded-circle d-block mx-auto border border-primary border-5 border-opacity-75 img-fluid"
-        alt="">
+        [alt]="altPic"
+        >
+
       <app-trigger-edit-item 
       [editIdModal]="editIdModalPic" 
       [editTitleTriggerModal]="editTitleTriggerModalPic" 
       [editClassTriggerModal]="editClassTriggerModalPic"
       ></app-trigger-edit-item>
+
     </div>
     <!-- Profile name -->
     <div class="col-12 col-md-9 row">
@@ -24,11 +28,14 @@
       </div>
       <!-- Profile title -->
       <div class="col-12">
-        <h2 class="text-center h3 text-light text-md-start px-md-4 text-opacity-75 ">{{ title  }}</h2>
+        <h2 class="text-center h3 text-light text-md-start px-md-4 text-opacity-75 ">{{ title }}</h2>
       </div>
     </div>
   </div>
 
   <app-edit-profile-picture-modal></app-edit-profile-picture-modal>
-  <app-edit-profile-title-modal></app-edit-profile-title-modal>
+  <app-edit-profile-title-modal  
+  
+  >
+  </app-edit-profile-title-modal>
 </section>

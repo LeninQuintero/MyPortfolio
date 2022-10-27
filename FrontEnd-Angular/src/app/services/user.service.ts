@@ -1,30 +1,27 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'content-type': 'application/json'
-  })
-}
-
+import { HttpClient } from '@angular/common/http';
+import { Observable, Operator, OperatorFunction, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
-user: Observable<User>;
+
+  user: PartialUser = {};
+  _user$ = new Subject<PartialUser>();
 
   private apiUrl = 'http://localhost:3000/users';
 
-
-  constructor(private http: HttpClient) {
-   this.user= this.http.get<User>(`${this.apiUrl}/${1}`)
-   }
-
+  constructor(private http: HttpClient) {}
 
   getUser(id: number): Observable<User> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<User>(url);
+  }
+
+  editUser(id: number, options: PartialUser): Observable<User>{
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.patch<User>(url, options);
   }
 
 }
@@ -33,8 +30,10 @@ export interface User {
   id?: number;
   name: string;
   title: string;
-  profilePic:string;
+  profilePic: string;
   bannerSm: string;
   bannerLg: string;
   aboutMe: string;
 }
+
+export interface PartialUser extends Partial<User> { }

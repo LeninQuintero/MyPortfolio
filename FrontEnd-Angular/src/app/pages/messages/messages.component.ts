@@ -21,7 +21,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
    this.upDateMessages();
 
-    this.suscriptionRefresh = this.messageService.refresh.subscribe(() =>
+    this.suscriptionRefresh = this.messageService.refreshMessages.subscribe(() =>
       this.upDateMessages());
 
      this.refreshTimer = setInterval(() => this.upDateMessages(), 30*1000);
