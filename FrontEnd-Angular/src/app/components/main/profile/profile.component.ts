@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
+import { PartialUser, UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,6 +7,20 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+
+  // User values
+  userId = 2;
+
+  user: PartialUser = {
+    name: '',
+    title: '',
+    profilePic: '',
+    bannerSm: '',
+    bannerLg: '',
+    aboutMe: ''
+  };
+
+  altPic: string = '';
 
   // Btn-edit values
   editIdModalPic: string = "#editProfilePicModal";
@@ -16,21 +30,18 @@ export class ProfileComponent implements OnInit {
   editTitleTriggerModalTitle: string = "Actualizar nombre y titulo";
   editClassTriggerModalTitle: string = "btn-profile-title d-inline-block";
 
-  // User values
-  userId = 1;
-  name: string= '';
-  title: string= '';
-  profilePic: string= '';
-  altPic: string= '';
-
-  constructor(private userService: UserService) {  
+  constructor(private userService: UserService) {
     const getUser = this.userService.getUser(this.userId);
 
-    getUser.subscribe(user => this.name = user.name );
-    getUser.subscribe(user => this.title = user.title );
-    getUser.subscribe(user => this.profilePic = user.profilePic );
-    getUser.subscribe(user => this.altPic = `${user.name}'s picture.`);
-    
+    getUser.subscribe(user => {
+      this.user.name = user.name;
+      this.user.title = user.title;
+      this.user.profilePic = user.profilePic;
+      this.user.bannerSm = user.bannerSm;
+      this.user.bannerLg = user.bannerLg;
+      this.user.aboutMe = user.aboutMe;
+      this.altPic = `${user.name}'s picture.`;
+    });
   }
 
   ngOnInit(): void {}

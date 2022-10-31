@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { PartialUser, UserService } from 'src/app/services/user.service';
 
@@ -10,16 +10,20 @@ import { PartialUser, UserService } from 'src/app/services/user.service';
 
 
 export class EditProfileTitleModalComponent implements OnInit {
-
-  userId = 1;
+  @Input() userId:number=2 
   titleForm: FormGroup;
   
   constructor(private fb: FormBuilder, private userService: UserService) {    
     
     const getUser = this.userService.getUser(this.userId);
 
-    getUser.subscribe(user => this.titleForm.controls['name'].setValue(user.name));
-    getUser.subscribe(user => this.titleForm.controls['title'].setValue(user.title));
+    getUser.subscribe(user => {
+      this.titleForm.controls['name'].setValue(user.name);
+      this.titleForm.controls['title'].setValue(user.title);
+
+
+    });
+    
 
     this.titleForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { MessagesService } from '../../services/messages.service';
-import { Message } from './message';
+import { Message, MessagesService } from '../../services/messages.service';
+
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
@@ -16,29 +16,33 @@ export class MessagesComponent implements OnInit, OnDestroy {
   suscriptionGet: Subscription = new Subscription;
   refreshTimer: any;
 
-  constructor(private messageService: MessagesService) { };
+  constructor(private messageService: MessagesService) {
+    messageService.getMessages().subscribe(messages =>
+      this.messages = messages);
+  };
 
   ngOnInit(): void {
-   this.upDateMessages();
 
-    this.suscriptionRefresh = this.messageService.refreshMessages.subscribe(() =>
-      this.upDateMessages());
+    this.messageService.getNewMessages.subscribe(() =>
+      this.refreshMessages());
 
-     this.refreshTimer = setInterval(() => this.upDateMessages(), 30*1000);
+    this.refreshTimer = setInterval(() => this.refreshMessages(), 20 * 1000);
   }
 
   onDeleteMessage(message: Message) {
-    this.messageService.deleteMessage(message).subscribe(() => (
-      this.messageService.messages = this.messageService.messages.filter((m) => {
-        return m.id !== message.id
-      })
-    ));
 
-    this.upDateMessages();
+    this.messageService.deleteMessage(message).subscribe(() => {
+      let list = this.messageService.messages;
+
+      list.filter(m => { return m.id !== message.id });
+
+      this.messageService._messages$.next(list);
+    });
+
   }
 
-  upDateMessages() {
-    this.suscriptionGet = this.messageService.getMessages().subscribe(messages =>
+  refreshMessages() {
+    this.messageService.getMessages().subscribe(messages =>
       this.messages = messages);
   }
 

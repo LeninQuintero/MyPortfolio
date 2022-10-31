@@ -1,18 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Operator, OperatorFunction, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
 
-  user: PartialUser = {};
-  _user$ = new Subject<PartialUser>();
+  user: PartialUser={
+    id: 0,
+    name: '',
+    title: '',
+    profilePic: '',
+    bannerSm: '',
+    bannerLg: '',
+    aboutMe: ''
+  };
+ 
+  // user$= new Observable<User>();
 
   private apiUrl = 'http://localhost:3000/users';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    
+  }
 
   getUser(id: number): Observable<User> {
     const url = `${this.apiUrl}/${id}`;
@@ -27,7 +38,7 @@ export class UserService {
 }
 
 export interface User {
-  id?: number;
+  id: number;
   name: string;
   title: string;
   profilePic: string;

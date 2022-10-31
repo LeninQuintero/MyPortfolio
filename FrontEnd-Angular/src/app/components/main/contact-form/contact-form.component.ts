@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MessagesService } from 'src/app/services/messages.service';
@@ -53,11 +52,16 @@ export class ContactFormComponent implements OnInit {
       const newMessage = this.contactForm.value;
       let newList = this.messageService.messages;
 
-      this.messageService.addMessage(newMessage).subscribe( message =>
-        this.messageService.messages.push(message));
-
-      this.messageService._messages$.next(newList);        
+      this.messageService.addMessage(newMessage).subscribe( message => {
+        this.messageService.messages.push(message);        
+        this.messageService._messages$.next(newList);        
+      });
+             
       this.alertSubmit = true;
+
+      setTimeout(() => this.closeAlertSubmit(), 15 * 1000);
+
+
       this.contactForm.reset();
       
     } else {

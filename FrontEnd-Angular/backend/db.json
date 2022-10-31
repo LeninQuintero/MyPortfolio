@@ -36,18 +36,53 @@
       "id": 5
     },
     {
-      "nombre": "probando",
-      "email": "lenindsjidsj@fh.cc",
-      "asunto": "adasdasdas",
-      "mensaje": "dsadasdasd",
+      "nombre": "ffewewr",
+      "email": "werwe@jdf.coo",
+      "asunto": "ewrewr",
+      "mensaje": "ewrewrew",
       "id": 6
     },
     {
-      "nombre": "dasdsadsa",
-      "email": "asdasd@dbhsd.com",
-      "asunto": "sadas",
-      "mensaje": "asdasasd\n",
+      "nombre": "cxzczxc",
+      "email": "zxczxczc@dsvsdf.xx",
+      "asunto": "xczxc",
+      "mensaje": "zxczxczx",
       "id": 7
+    },
+    {
+      "nombre": "vxvcxv",
+      "email": "xcvcxvx@fdsfds.cc",
+      "asunto": "cvxcv",
+      "mensaje": "cxvcxvxc",
+      "id": 8
+    },
+    {
+      "nombre": "xzcxzcxz",
+      "email": "czxc@fasffdsasd.ss",
+      "asunto": "zxcxzc",
+      "mensaje": "zxcxzczx",
+      "id": 9
+    },
+    {
+      "nombre": "dsfsdfsd",
+      "email": "fdsfsd@dsjnfdsjf.cc",
+      "asunto": "fdsf",
+      "mensaje": "dsfdsfsd",
+      "id": 10
+    },
+    {
+      "nombre": "dsfsdfsd",
+      "email": "fdsfsd@dsjnfdsjf.cc",
+      "asunto": "fdsf",
+      "mensaje": "dsfdsfsd",
+      "id": 11
+    },
+    {
+      "nombre": "xvzdfdz",
+      "email": "fdsfs@dhbuydshb.coomm",
+      "asunto": "sdfsdf",
+      "mensaje": "sdfsdfds",
+      "id": 12
     }
   ],
   "users": [
@@ -62,8 +97,8 @@
     },
     {
       "id": 2,
-      "name": "Arturo Quijano",
-      "title": "Programador",
+      "name": "Lenin Quinter",
+      "title": "Full Stack Developer Jr",
       "profilePic": "./assets/imagenes/foto-perfil.webp",
       "bannerSm": "./assets/imagenes/banner-mobile.webp",
       "bannerLg": "./assets/imagenes/banner-desktop.webp",
