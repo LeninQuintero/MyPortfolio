@@ -142,13 +142,11 @@
             >Enviar
             </button>
             <div 
-            *ngIf="alertSubmit"
-            class="alert alert-success alert-dismissible mt-4"
-            role="alert"
-           
+            [ngClass]="{'show': alertSubmit , 'fade': !alertSubmit}"
+            class="alert alert-success mt-4 show"
+            role="alert"           
             >
               <span class="fs-5">Tu mensaje fue enviado con éxito.</span>
-              <button type="button" class="btn-close" (click)="closeAlertSubmit()"></button>
             </div>
             
           </div>

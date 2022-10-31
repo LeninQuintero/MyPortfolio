@@ -9,7 +9,7 @@ import { MessagesService } from 'src/app/services/messages.service';
 
 export class ContactFormComponent implements OnInit {
   contactForm: FormGroup;
-  alertSubmit = false;
+  alertSubmit: boolean;
 
   constructor(private fb: FormBuilder, private messageService: MessagesService) {
 
@@ -21,6 +21,8 @@ export class ContactFormComponent implements OnInit {
       asunto: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       mensaje: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(500)]]
     });
+
+    this.alertSubmit= false;
 
   }
 
@@ -46,20 +48,24 @@ export class ContactFormComponent implements OnInit {
     return fieldName?.errors?.[validator]?.[type];
   }
 
+  closeAlertSubmit() {
+    this.alertSubmit = false;
+  }
+
   submit(event: Event) {
 
     if (this.contactForm.valid) {    
       const newMessage = this.contactForm.value;
-      let newList = this.messageService.messages;
+      let list = this.messageService.messages;
 
       this.messageService.addMessage(newMessage).subscribe( message => {
-        this.messageService.messages.push(message);        
-        this.messageService._messages$.next(newList);        
+       list.push(message);        
+        this.messageService._messages$.next(list);    
       });
              
       this.alertSubmit = true;
 
-      setTimeout(() => this.closeAlertSubmit(), 15 * 1000);
+      setTimeout(() => this.closeAlertSubmit(), 5 * 1000);
 
 
       this.contactForm.reset();
@@ -67,10 +73,6 @@ export class ContactFormComponent implements OnInit {
     } else {
       this.contactForm.markAllAsTouched();
     } 
-  }
-
-  closeAlertSubmit() {
-    this.alertSubmit = false;
   }
   
 }

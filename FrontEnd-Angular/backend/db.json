@@ -27,62 +27,6 @@
       "email": "carlos@carlos.com",
       "asunto": "seguro",
       "mensaje": "tu poliza fue renovada con éxito"
-    },
-    {
-      "nombre": "lenin quintero",
-      "email": "leninquinteroquijano@gmail.com",
-      "asunto": "el fucking crud ",
-      "mensaje": "esta es la prueba definitiva para ver si no he perdido mi tiempo",
-      "id": 5
-    },
-    {
-      "nombre": "ffewewr",
-      "email": "werwe@jdf.coo",
-      "asunto": "ewrewr",
-      "mensaje": "ewrewrew",
-      "id": 6
-    },
-    {
-      "nombre": "cxzczxc",
-      "email": "zxczxczc@dsvsdf.xx",
-      "asunto": "xczxc",
-      "mensaje": "zxczxczx",
-      "id": 7
-    },
-    {
-      "nombre": "vxvcxv",
-      "email": "xcvcxvx@fdsfds.cc",
-      "asunto": "cvxcv",
-      "mensaje": "cxvcxvxc",
-      "id": 8
-    },
-    {
-      "nombre": "xzcxzcxz",
-      "email": "czxc@fasffdsasd.ss",
-      "asunto": "zxcxzc",
-      "mensaje": "zxcxzczx",
-      "id": 9
-    },
-    {
-      "nombre": "dsfsdfsd",
-      "email": "fdsfsd@dsjnfdsjf.cc",
-      "asunto": "fdsf",
-      "mensaje": "dsfdsfsd",
-      "id": 10
-    },
-    {
-      "nombre": "dsfsdfsd",
-      "email": "fdsfsd@dsjnfdsjf.cc",
-      "asunto": "fdsf",
-      "mensaje": "dsfdsfsd",
-      "id": 11
-    },
-    {
-      "nombre": "xvzdfdz",
-      "email": "fdsfs@dhbuydshb.coomm",
-      "asunto": "sdfsdf",
-      "mensaje": "sdfsdfds",
-      "id": 12
     }
   ],
   "users": [
@@ -97,7 +41,7 @@
     },
     {
       "id": 2,
-      "name": "Lenin Quinter",
+      "name": "Lenin Quintero",
       "title": "Full Stack Developer Jr",
       "profilePic": "./assets/imagenes/foto-perfil.webp",
       "bannerSm": "./assets/imagenes/banner-mobile.webp",

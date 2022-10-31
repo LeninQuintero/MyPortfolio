@@ -13,7 +13,7 @@ export class MessagesService {
 
   messages: Message[];
 
-  _messages$: Subject<Message[]>;
+ _messages$: Subject<Message[]>;
 
   private apiUrl = 'http://localhost:3000/messages';
 

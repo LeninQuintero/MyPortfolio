@@ -22,7 +22,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
   };
 
   ngOnInit(): void {
-
     this.messageService.getNewMessages.subscribe(() =>
       this.refreshMessages());
 
@@ -30,15 +29,13 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   onDeleteMessage(message: Message) {
-
+    
     this.messageService.deleteMessage(message).subscribe(() => {
       let list = this.messageService.messages;
 
       list.filter(m => { return m.id !== message.id });
-
       this.messageService._messages$.next(list);
     });
-
   }
 
   refreshMessages() {
