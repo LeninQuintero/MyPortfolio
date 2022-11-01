@@ -13,10 +13,22 @@
                     <div class="mt-3 mb-4">
                         <label for="upAcercaDe" class="form-label opacity-75">Escribe algo sobre ti</label>
                         <textarea 
-                        formControlName="aboutMe"
-                        class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
-                        type="text" id="upAcercaDe"
-                        ></textarea>
+                            formControlName="aboutMe"
+                            class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                            type="text" id="upAcercaDe"
+                            [ngClass]="{'is-invalid': isInvalidField('aboutMe')}"
+                            required>
+                        </textarea>
+
+                        <div class="invalid-feedback mx-1">
+                            <span *ngIf="errorsFeedback('aboutMe', 'required')">Este campo no puede estar vacio.</span>
+                            <span *ngIf="errorsFeedback('aboutMe', 'minlength')">Escribe un poco mas sobre ti.</span>
+                            <span *ngIf="errorsFeedback('aboutMe', 'maxlength')">Esta seccion puede tener un maximo de
+                                {{ requiredType('aboutMe', 'maxlength', 'requiredLength') }}
+                                caracteres.
+                            </span>
+                        </div>
+
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg w-100  mt-2 mb-4" data-bs-dismiss="modal">Actualizar</button>
                 </form>
