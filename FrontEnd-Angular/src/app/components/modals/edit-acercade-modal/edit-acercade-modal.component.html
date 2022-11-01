@@ -9,13 +9,16 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body row justify-content-center">
-                <form class="col-12 col-md-10">
+                <form [formGroup]="aboutMeForm" (ngSubmit)="submit($event)" class="col-12 col-md-10">
                     <div class="mt-3 mb-4">
                         <label for="upAcercaDe" class="form-label opacity-75">Escribe algo sobre ti</label>
-                        <textarea class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
-                            type="text" id="upAcercaDe"></textarea>
+                        <textarea 
+                        formControlName="aboutMe"
+                        class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                        type="text" id="upAcercaDe"
+                        ></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg w-100  mt-2 mb-4">Actualizar</button>
+                    <button type="submit" class="btn btn-primary btn-lg w-100  mt-2 mb-4" data-bs-dismiss="modal">Actualizar</button>
                 </form>
             </div>
         </div>

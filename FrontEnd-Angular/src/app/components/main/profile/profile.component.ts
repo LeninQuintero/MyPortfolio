@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PartialUser, User, UserService } from 'src/app/services/user.service';
-
+import { PartialUser, UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -19,18 +18,8 @@ export class ProfileComponent implements OnInit {
   editIdModalTitle: string = "#editProfileTitleModal";
   editTitleTriggerModalTitle: string = "Actualizar nombre y titulo";
   editClassTriggerModalTitle: string = "btn-profile-title d-inline-block";
-
-  constructor(private userService: UserService) {
-    this.refreshUser();   
-  }
-
-  ngOnInit(): void {
-    this.userService.getUser$.subscribe(() => 
-    this.refreshUser()
-    );
-   }
-
-   refreshUser() {
+  
+  refreshUser() {
     const getUser = this.userService.getUser();
 
     getUser.subscribe(user => {
@@ -44,4 +33,13 @@ export class ProfileComponent implements OnInit {
     });
    }
 
+  constructor(private userService: UserService) {
+    this.refreshUser();   
+  }
+
+  ngOnInit(): void {
+    this.userService.getUser$.subscribe(() => 
+    this.refreshUser()
+    );
+  }
 }

@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'content-type': 'application/json'
-  })
-}
 
 @Injectable({
   providedIn: 'root'
@@ -35,9 +29,8 @@ export class UserService {
   }
 
   editUser(options: PartialUser): Observable<User>{
-
-
-    return this.http.patch<User>(this.apiUrl, options);
+   this.user = this.http.patch<User>(this.apiUrl, options);
+    return this.user
   }
 
 }
@@ -51,5 +44,4 @@ export interface User {
   bannerLg: string;
   aboutMe: string;
 }
-
 export interface PartialUser extends Partial<User> { }

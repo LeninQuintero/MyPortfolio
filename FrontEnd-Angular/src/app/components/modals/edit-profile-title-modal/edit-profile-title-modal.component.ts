@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 
@@ -7,7 +7,6 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './edit-profile-title-modal.component.html',
   styleUrls: ['./edit-profile-title-modal.component.scss']
 })
-
 
 export class EditProfileTitleModalComponent implements OnInit {
 
@@ -48,8 +47,7 @@ export class EditProfileTitleModalComponent implements OnInit {
 
     if (this.titleForm.valid){
       this.userService.editUser(this.titleForm.value).subscribe( user =>
-        this.userService._user$.next(user)); 
-           
+        this.userService._user$.next(user));            
   }};
 
 }
