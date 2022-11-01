@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'content-type': 'application/json'
+  })
+}
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +20,7 @@ export class UserService {
   private apiUrl = 'http://localhost:3000/users/1';
 
   constructor(private http: HttpClient) {
+
     this.user = this.http.get<User>(this.apiUrl);
     this._user$= new Subject<User>();        
   }
@@ -23,8 +30,14 @@ export class UserService {
     return this.user
   }
 
-  editUser(user: User): Observable<User>{
-    return this.http.patch<User>(this.apiUrl, user);
+  get getUser$() {  
+    return this._user$
+  }
+
+  editUser(options: PartialUser): Observable<User>{
+
+
+    return this.http.patch<User>(this.apiUrl, options);
   }
 
 }
@@ -36,7 +49,7 @@ export interface User {
   profilePic: string;
   bannerSm: string;
   bannerLg: string;
-  acercade : string;
+  aboutMe: string;
 }
 
 export interface PartialUser extends Partial<User> { }

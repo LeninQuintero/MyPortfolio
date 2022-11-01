@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-acerca-de',
-  templateUrl: './acercade .component.html',
-  styleUrls: ['./acercade .component.scss']
+  templateUrl: './acerca-de.component.html',
+  styleUrls: ['./acerca-de.component.scss']
 })
-export class acercade Component implements OnInit {
-  editIdModal: string="#editSectiomacercade Modal";
+export class AcercaDeComponent implements OnInit {
+  editIdModal: string="#editSectiomAcercaDeModal";
   editTitleTriggerModal: string="Actualizar sección";
   editClassTriggerModal: string="d-inline-block";
   

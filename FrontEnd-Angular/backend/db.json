@@ -34,13 +34,6 @@
       "asunto": "encomienda",
       "mensaje": "visita programada para el 25/11/2022",
       "id": 5
-    },
-    {
-      "nombre": "Paula",
-      "email": "paula@gmail.com",
-      "asunto": "Documentacion",
-      "mensaje": "Por favor enviar documentacion requerida al correo gyug@hgy.com",
-      "id": 6
     }
   ],
   "users": [
@@ -51,7 +44,7 @@
       "profilePic": "./assets/imagenes/foto-perfil.webp",
       "bannerSm": "./assets/imagenes/banner-mobile.webp",
       "bannerLg": "./assets/imagenes/banner-desktop.webp",
-      "acercade ": "Lorem ipsum dolor sit amet consectetur adipisicing el inventore voluptatibus sapiente aspernatur. Animi tempora ea asperiores aut."
+      "aboutMe": "Lorem ipsum dolor sit amet consectetur adipisicing el inventore voluptatibus sapiente aspernatur. Animi tempora ea asperiores aut."
     }
   ]
 }

@@ -13,7 +13,7 @@ import { ProfileComponent } from './components/main/profile/profile.component';
 import { ArticlesGridComponent } from './components/main/articles-grid/articles-grid.component';
 import { SkillsComponent } from './components/main/skills/skills.component';
 import { ProjectsComponent } from './components/main/projects/projects.component';
-import { acercade Component } from './components/main/articles-grid/acerca-de/acerca-de.component';
+import { AcercaDeComponent } from './components/main/articles-grid/acerca-de/acerca-de.component';
 import { ExperiencesComponent } from './components/main/articles-grid/experiences/experiences.component';
 import { EducationComponent } from './components/main/articles-grid/education/education.component';
 import { CertificationsComponent } from './components/main/articles-grid/certifications/certifications.component';
@@ -24,7 +24,7 @@ import { NavbarTogglerComponent } from './components/buttons/navbar-toggler/navb
 import { EditBannerModalComponent } from './components/modals/edit-banner-modal/edit-banner-modal.component';
 import { EditProfilePictureModalComponent } from './components/modals/edit-profile-picture-modal/edit-profile-picture-modal.component';
 import { EditProfileTitleModalComponent } from './components/modals/edit-profile-title-modal/edit-profile-title-modal.component';
-import { Editacercade ModalComponent } from './components/modals/edit-acercade -modal/edit-acercade -modal.component';
+import { EditAcercadeModalComponent } from './components/modals/edit-acercade-modal/edit-acercade-modal.component';
 import { AddExperienceModalComponent } from './components/modals/add-experience-modal/add-experience-modal.component';
 import { EditExperienceModalComponent } from './components/modals/edit-experience-modal/edit-experience-modal.component';
 import { EditEducationModalComponent } from './components/modals/edit-education-modal/edit-education-modal.component';
@@ -59,7 +59,7 @@ import { HttpClientModule } from '@angular/common/http';
     ArticlesGridComponent,
     SkillsComponent,
     ProjectsComponent,
-    acercade Component,
+    AcercaDeComponent,
     ExperiencesComponent,
     EducationComponent,
     CertificationsComponent,
@@ -70,7 +70,7 @@ import { HttpClientModule } from '@angular/common/http';
     EditBannerModalComponent,
     EditProfilePictureModalComponent,
     EditProfileTitleModalComponent,
-    Editacercade ModalComponent,
+    EditAcercadeModalComponent,
     AddExperienceModalComponent,
     EditExperienceModalComponent,
     EditEducationModalComponent,
