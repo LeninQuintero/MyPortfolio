@@ -5,7 +5,7 @@ import { MessagesComponent } from './pages/messages/messages.component';
 
 const appRoutes: Routes=[
   {path: '', component:MainComponent},
-  {path: 'mensajes', component:MessagesComponent}
+  {path:'mensajes', component:MessagesComponent}
 ];
 
 @NgModule({

@@ -1,25 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { PartialUser, UserService } from 'src/app/services/user.service';
+import { PartialUser, User, UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
+
 export class ProfileComponent implements OnInit {
 
-  // User values
-  userId = 2;
-
-  user: PartialUser = {
-    name: '',
-    title: '',
-    profilePic: '',
-    bannerSm: '',
-    bannerLg: '',
-    aboutMe: ''
-  };
-
+  user: PartialUser = {};
   altPic: string = '';
 
   // Btn-edit values
@@ -31,7 +21,17 @@ export class ProfileComponent implements OnInit {
   editClassTriggerModalTitle: string = "btn-profile-title d-inline-block";
 
   constructor(private userService: UserService) {
-    const getUser = this.userService.getUser(this.userId);
+    this.refreshUser();   
+  }
+
+  ngOnInit(): void {
+    this.userService.getUser$.subscribe(() => 
+    this.refreshUser()
+    );
+   }
+
+   refreshUser() {
+    const getUser = this.userService.getUser();
 
     getUser.subscribe(user => {
       this.user.name = user.name;
@@ -42,8 +42,6 @@ export class ProfileComponent implements OnInit {
       this.user.aboutMe = user.aboutMe;
       this.altPic = `${user.name}'s picture.`;
     });
-  }
-
-  ngOnInit(): void {}
+   }
 
 }

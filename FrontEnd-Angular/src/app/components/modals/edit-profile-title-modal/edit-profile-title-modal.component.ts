@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { PartialUser, UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-edit-profile-title-modal',
@@ -10,24 +10,19 @@ import { PartialUser, UserService } from 'src/app/services/user.service';
 
 
 export class EditProfileTitleModalComponent implements OnInit {
-  @Input() userId:number=2 
+
   titleForm: FormGroup;
   
-  constructor(private fb: FormBuilder, private userService: UserService) {    
-    
-    const getUser = this.userService.getUser(this.userId);
-
-    getUser.subscribe(user => {
-      this.titleForm.controls['name'].setValue(user.name);
-      this.titleForm.controls['title'].setValue(user.title);
-
-
-    });
-    
+  constructor(private fb: FormBuilder, private userService: UserService) {  
 
     this.titleForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
       title: ['', [Validators.maxLength(40)]]
+    });
+
+    this.userService.user.subscribe(user => {     
+      this.titleForm.controls['name'].setValue(user.name);
+      this.titleForm.controls['title'].setValue(user.title);
     });
 
   }
@@ -52,11 +47,9 @@ export class EditProfileTitleModalComponent implements OnInit {
   submit(event: Event) {
 
     if (this.titleForm.valid){
-
-    const body: PartialUser = this.titleForm.value;
-    this.userService.editUser(this.userId, body).subscribe();
-
-    location.reload();
-        
+      this.userService.editUser(this.titleForm.value).subscribe( user =>
+        this.userService._user$.next(user)); 
+           
   }};
+
 }

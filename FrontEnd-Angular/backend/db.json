@@ -27,20 +27,18 @@
       "email": "carlos@carlos.com",
       "asunto": "seguro",
       "mensaje": "tu poliza fue renovada con éxito"
+    },
+    {
+      "nombre": "alejandro",
+      "email": "aleajandro@ale.jocom",
+      "asunto": "encomienda",
+      "mensaje": "visita programada para el 25/11/2022",
+      "id": 5
     }
   ],
   "users": [
     {
       "id": 1,
-      "name": "Lenin Quintero",
-      "title": "Full Stack Developer Jr",
-      "profilePic": "./assets/imagenes/foto-perfil.webp",
-      "bannerSm": "./assets/imagenes/banner-mobile.webp",
-      "bannerLg": "./assets/imagenes/banner-desktop.webp",
-      "aboutMe": "Lorem ipsum dolor sit amet consectetur adipisicing el inventore voluptatibus sapiente aspernatur. Animi tempora ea asperiores aut."
-    },
-    {
-      "id": 2,
       "name": "Lenin Quintero",
       "title": "Full Stack Developer Jr",
       "profilePic": "./assets/imagenes/foto-perfil.webp",

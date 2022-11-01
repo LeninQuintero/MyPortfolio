@@ -1,38 +1,43 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'content-type': 'application/json'
+  })
+}
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
+  
+  user: Observable<User>;
+  _user$: Subject<User>;
 
-  user: PartialUser={
-    id: 0,
-    name: '',
-    title: '',
-    profilePic: '',
-    bannerSm: '',
-    bannerLg: '',
-    aboutMe: ''
-  };
- 
-  // user$= new Observable<User>();
-
-  private apiUrl = 'http://localhost:3000/users';
+  private apiUrl = 'http://localhost:3000/users/1';
 
   constructor(private http: HttpClient) {
-    
+
+    this.user = this.http.get<User>(this.apiUrl);
+    this._user$= new Subject<User>();        
   }
 
-  getUser(id: number): Observable<User> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.get<User>(url);
+  getUser(): Observable<User> {
+     this.user = this.http.get<User>(this.apiUrl);
+    return this.user
   }
 
-  editUser(id: number, options: PartialUser): Observable<User>{
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.patch<User>(url, options);
+  get getUser$() {  
+    return this._user$
+  }
+
+  editUser(options: PartialUser): Observable<User>{
+
+
+    return this.http.patch<User>(this.apiUrl, options);
   }
 
 }
