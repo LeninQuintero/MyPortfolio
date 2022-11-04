@@ -10,6 +10,7 @@ export class NavbarTogglerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

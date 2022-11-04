@@ -21,9 +21,9 @@
                         </textarea>
 
                         <div class="invalid-feedback mx-1">
-                            <span *ngIf="errorsFeedback('aboutMe', 'required')">Este campo no puede estar vacio.</span>
+                            <span *ngIf="errorsFeedback('aboutMe', 'required')">Este campo no puede estar vacío.</span>
                             <span *ngIf="errorsFeedback('aboutMe', 'minlength')">Escribe un poco mas sobre ti.</span>
-                            <span *ngIf="errorsFeedback('aboutMe', 'maxlength')">Esta seccion puede tener un maximo de
+                            <span *ngIf="errorsFeedback('aboutMe', 'maxlength')">Esta sección puede tener un máximo de
                                 {{ requiredType('aboutMe', 'maxlength', 'requiredLength') }}
                                 caracteres.
                             </span>

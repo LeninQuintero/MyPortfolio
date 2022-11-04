@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UploadFilesService } from 'src/app/services/upload-files.service';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-banner-modal',
@@ -7,9 +10,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditBannerModalComponent implements OnInit {
 
-  constructor() { }
+  constructor(private uploadFilesService: UploadFilesService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
+
+upBannerMobile(event: any) {
+const image = event.target.files[0];
+const name = event.target.files[0].name;
+const ref = this.uploadFilesService.ref(name);
+const task = this.uploadFilesService.uploadFile(image);
+
+
+
+
+
+
+// task.pipe(
+//   finalize( () => {
+// ref.
+//   })
+// )
+
+
+
+
+}
 
 }

@@ -16,16 +16,16 @@ export class MessagesComponent implements OnInit, OnDestroy {
   suscriptionGet: Subscription = new Subscription;
   refreshTimer: any;
 
-  constructor(private messageService: MessagesService) {
-    messageService.getMessages().subscribe(messages =>
-      this.messages = messages);
-  };
+  constructor(private messageService: MessagesService) {};
 
   ngOnInit(): void {
-    this.messageService.getNewMessages.subscribe(() =>
-      this.refreshMessages());
+    this.refreshMessages();
 
-    this.refreshTimer = setInterval(() => this.refreshMessages(), 20 * 1000);
+    this.messageService.getNewMessages.subscribe(() =>
+    this.refreshMessages());
+
+      // Optional timer to refresh inbox automatically
+    this.refreshTimer = setInterval(() => this.refreshMessages(), 15 * 1000);
   }
 
   onDeleteMessage(message: Message) {
