@@ -1,4 +1,4 @@
-package com.proyectoAP.Portfolio;
+package com.backendspringboot.portfolio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

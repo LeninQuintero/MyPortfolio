@@ -1,4 +1,4 @@
-package com.proyectoAP.Portfolio;
+package com.backendspringboot.portfolio;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
