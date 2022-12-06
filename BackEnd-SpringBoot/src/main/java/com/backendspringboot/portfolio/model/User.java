@@ -15,7 +15,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     
-    private String nombre;
+    private String userName;
+    private String password;
+    private String name;
     private String title;
     private String urlProfilePic;
     private String urlBannerSm;
@@ -25,14 +27,15 @@ public class User {
     public User() {
     }
 
-    public User(long id, String nombre, String title, String urlProfilePic, String urlBannerSm, String urlBannerLg, String aboutMe) {
+    public User(long id, String userName, String password, String name, String title, String urlProfilePic, String urlBannerSm, String urlBannerLg, String aboutMe) {
         this.id = id;
-        this.nombre = nombre;
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
         this.title = title;
         this.urlProfilePic = urlProfilePic;
         this.urlBannerSm = urlBannerSm;
         this.urlBannerLg = urlBannerLg;
         this.aboutMe = aboutMe;
-    }
-    
+    } 
 }

@@ -29,12 +29,12 @@ public class UserService implements IUserService {
 
     @Override
     public User userFind(Long id) {
-        return (User) userRepo.findById(id).orElse(null);
+        return userRepo.findById(id).orElse(null);
     }
 
     @Override
     public User userEdit(User user) {
-        return (User) userRepo.save(user);
+        return userRepo.save(user);
     }
     
 }
