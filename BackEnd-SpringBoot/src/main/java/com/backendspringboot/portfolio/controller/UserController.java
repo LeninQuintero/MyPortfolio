@@ -4,8 +4,11 @@ import com.backendspringboot.portfolio.model.User;
 import com.backendspringboot.portfolio.service.IUserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +19,7 @@ public class UserController {
     private IUserService userServ;
 
     @PostMapping("/new-user")
-    public void agregarPersona(@RequestBody User user) {
+    public void userCreate(@RequestBody User user) {
         userServ.userCreate(user);
     }
     
@@ -24,5 +27,21 @@ public class UserController {
     @ResponseBody
     public List<User> userList() {
         return userServ.userList();
+    }
+    
+    @DeleteMapping ("/delete-user/{id}")
+    public void userDelete(@PathVariable Long id){
+    userServ.userDelete(id);
+    }
+    
+    @PutMapping("/edit-user")
+    public void userEdit(@RequestBody User user) {
+        userServ.userEdit(user);
+    }
+    
+    @GetMapping("/find-user/{id}")
+    @ResponseBody
+    public User userFind(@PathVariable Long id) {
+        return userServ.userFind(id);
     }
 }
