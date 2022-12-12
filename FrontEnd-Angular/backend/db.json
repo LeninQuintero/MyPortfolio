@@ -62,19 +62,12 @@
       "id": 1,
       "name": "Lenin Quintero",
       "title": "Full Stack Developer Jr",
-      "profilePic": "./assets/imagenes/foto-perfil.webp",
-      "bannerSm": "./assets/imagenes/banner-mobile.webp",
-      "bannerLg": "./assets/imagenes/banner-desktop.webp",
-      "aboutMe": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ipsam nostrum? Earum illo nisi dolore, voluptates accusamus placeat distinctio fugit minima id incidunt tempora.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ipsam nostrum? Earum illo nisi dolore, voluptates accusamus placeat distinctio fugit minima id incidunt tempora.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ipsam nostrum? Earum illo nisi dolore, voluptates accusamus placeat distinctio fugit minima id incidunt temporal..."
-    },
-    {
-      "id": 2,
-      "name": "Arturo Quijano",
-      "title": "Desarrollador",
-      "profilePic": "./assets/imagenes/foto-perfil.webp",
-      "bannerSm": "./assets/imagenes/banner-mobile.webp",
-      "bannerLg": "./assets/imagenes/banner-desktop.webp",
-      "aboutMe": "Earum illo nisi dolore, mus placeat distinctio fugit minima id incidunt tempora"
+      "urlProfilePic": "./assets/imagenes/foto-perfil.webp",
+      "urlBannerSm": "./assets/imagenes/banner-mobile.webp",
+      "urlBannerLg": "./assets/imagenes/banner-desktop.webp",
+      "aboutMe": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ipsam nostrum? Earum illo nisi dolore, voluptates accusamus placeat distinctio fugit minima id incidunt tempora.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ipsam nostrum? Earum illo nisi dolore, voluptates accusamus placeat distinctio fugit minima id incidunt tempora.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ipsam nostrum? Earum illo nisi dolore, voluptates accusamus placeat distinctio fugit minima id incidunt temporal.",
+      "userName": "lenar",
+      "password": "lenar123"
     }
   ]
 }

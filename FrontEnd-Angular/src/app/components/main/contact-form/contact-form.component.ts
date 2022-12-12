@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MessagesService } from 'src/app/services/messages.service';
 @Component({
@@ -7,7 +7,7 @@ import { MessagesService } from 'src/app/services/messages.service';
   styleUrls: ['./contact-form.component.scss']
 })
 
-export class ContactFormComponent implements OnInit {
+export class ContactFormComponent  {
   contactForm: FormGroup;
   alertSubmit: boolean;
 
@@ -25,8 +25,6 @@ export class ContactFormComponent implements OnInit {
     this.alertSubmit= false;
 
   }
-
-  ngOnInit(): void { }
 
   isValidField(field: string) {
     const fieldName = this.contactForm.get(field);

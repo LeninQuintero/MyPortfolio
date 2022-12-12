@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 
@@ -8,7 +8,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./edit-profile-title-modal.component.scss']
 })
 
-export class EditProfileTitleModalComponent implements OnInit {
+export class EditProfileTitleModalComponent  {
 
   titleForm: FormGroup;
   
@@ -26,7 +26,7 @@ export class EditProfileTitleModalComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {}
+  
 
   isValidField(field: string) {
     const fieldName = this.titleForm.get(field);
