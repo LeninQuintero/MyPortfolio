@@ -49,6 +49,4 @@ public class User {
         this.urlBannerLg = urlBannerLg;
         this.aboutMe = aboutMe;
     }
-
-
 }

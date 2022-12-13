@@ -14,5 +14,5 @@ public interface IUserService {
     public User userFind (Long id);
     
     public User userEdit (User user);
-    
+
 }

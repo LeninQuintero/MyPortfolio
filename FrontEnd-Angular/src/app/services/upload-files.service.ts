@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UrlTree } from '@angular/router';
 
-// const httpOptions = {
-//   headers: new HttpHeaders({
-//     'content-file': 'application/json'
-//   })
-// }
+const httpOptions = {
+  headers: new HttpHeaders({
+    'content-file': 'application/json'
+  })
+}
 
 @Injectable({
   providedIn: 'root'

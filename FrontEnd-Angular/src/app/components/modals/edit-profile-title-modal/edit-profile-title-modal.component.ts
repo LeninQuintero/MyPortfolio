@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
+import { User, UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-edit-profile-title-modal',
@@ -8,9 +8,21 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./edit-profile-title-modal.component.scss']
 })
 
-export class EditProfileTitleModalComponent  {
+export class EditProfileTitleModalComponent {
 
   titleForm: FormGroup;
+
+  private user: User= {
+    id: 0,
+    userName: '',
+    password: '',
+    name: '',
+    title: '',
+    urlProfilePic: '',
+    urlBannerSm: '',
+    urlBannerLg: '',
+    aboutMe: ''
+  };
   
   constructor(private fb: FormBuilder, private userService: UserService) {  
 
@@ -22,11 +34,10 @@ export class EditProfileTitleModalComponent  {
     this.userService.user.subscribe(user => {     
       this.titleForm.controls['name'].setValue(user.name);
       this.titleForm.controls['title'].setValue(user.title);
+      this.user = user;
     });
 
   }
-
-  
 
   isValidField(field: string) {
     const fieldName = this.titleForm.get(field);
@@ -46,8 +57,9 @@ export class EditProfileTitleModalComponent  {
   submit(event: Event) {
 
     if (this.titleForm.valid){
-      this.userService.editUser(this.titleForm.value).subscribe( user =>
+      this.user.name = this.titleForm.value.name;
+      this.user.title = this.titleForm.value.title;
+      this.userService.editUser(this.user).subscribe( user => 
         this.userService._user$.next(user));            
   }};
-
 }

@@ -36,5 +36,4 @@ public class UserService implements IUserService {
     public User userEdit(User user) {
         return userRepo.save(user);
     }
-    
 }

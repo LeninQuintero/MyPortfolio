@@ -13,12 +13,14 @@ const httpOptions = {
 })
 
 export class UserService {
+
+  
   
   user: Observable<User>;
   _user$: Subject<User>;
 
-  private apiUrlFindUser = 'http://localhost:3000/users/1';
-  private apiUrlEditUser = 'http://localhost:3000/users/1';
+  private apiUrlFindUser = 'http://localhost:8080/find-user/1';
+  private apiUrlEditUser = 'http://localhost:8080/edit-user';
 
   constructor(private http: HttpClient) {
 
@@ -35,18 +37,13 @@ export class UserService {
     return this._user$
   }
 
-  editUser(options: PartialUser): Observable<User>{
-    
-   this.user = this.http.patch<User>(this.apiUrlEditUser, options);
-   console.log("PATCH USUARIO: =>", this.user);
- 
-    return this.user
+  editUser(user : User): Observable<User>{  
+    return this.http.put<User>(this.apiUrlEditUser, user)
   }
-
 }
 
 export interface User {
-  id: number;
+  id?: number;
   userName: string;
   password: string;
 
