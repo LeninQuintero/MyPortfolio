@@ -1,19 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'content-file': 'application/json'
-  })
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class UploadFilesService {
 
-  private apiUrl = 'http://localhost:3000/assets/images';
+  private apiUrl = 'http://localhost:8080/files/uploads';
 
   constructor(private http: HttpClient) { }
 
@@ -25,15 +18,7 @@ upload(name: string, file: File){
 
 }
 
-uploadFile (file: File): Observable<File> {
-  return this.http.post<File>(this.apiUrl, file);
+uploadFile (file: FormData): Observable<Blob> {
+  return this.http.post<Blob>(this.apiUrl, file, {responseType: 'string' as 'json'});
 }
-
-
-}
-
-export interface Image {
-  name: string;
-  url: string;
-  image: File;
 }
