@@ -40,6 +40,16 @@ export class UserService {
   editUser(user : User): Observable<User>{  
     return this.http.put<User>(this.apiUrlEditUser, user)
   }
+
+  setUserUrlprofilePic(urlImg: string): void {
+    
+    this.getUser().subscribe(user => {
+      var us;
+      us = user;
+      us.urlProfilePic = urlImg;
+      this._user$.next(us);
+    })
+  }
 }
 
 export interface User {

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 })
 export class UploadFilesService {
 
-  private apiUrl = 'http://localhost:8080/files/uploads';
+  private apiUrl = 'http://localhost:8080/uploads';
 
   constructor(private http: HttpClient) { }
 
@@ -14,11 +14,11 @@ ref(name: string){
 return `${this.apiUrl}/${name}`
 }
 
-upload(name: string, file: File){
-
-}
 
 uploadFile (file: FormData): Observable<Blob> {
   return this.http.post<Blob>(this.apiUrl, file, {responseType: 'string' as 'json'});
 }
+
+
 }
+
