@@ -13,9 +13,10 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
 
   public editForm = new FormControl;
   public files: any = [];
-  private urlImg: string = "";
+  private urlImgName: string = "";
+  private actualImgName: string = "";
 
-  user: User = {
+ private user: User = {
     id: 0,
     userName: '',
     password: '',
@@ -29,7 +30,11 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
 
   private userSuscription = this.userService.getUser().subscribe(user => {
     this.user = user;
+    this.actualImgName = this.uploadFilesService.getUrlsFilename(user.urlProfilePic);
+    
   });
+
+ private formDataImage = new FormData();
 
   constructor(private userService: UserService, private uploadFilesService: UploadFilesService) { }
 
@@ -37,55 +42,30 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
     this.userSuscription;
   }
 
-  captureFile(event: any) {
-    const image = event.target.files[0];
-    this.urlImg = this.uploadFilesService.ref(image.name);
-    this.files.push(image);
-    this.user.urlProfilePic = this.urlImg;
-  }
-
-   update() {
-    try {
-      const formData = new FormData();
-       this.files.forEach((file: string | Blob) => {
-        formData.append('files', file)
-      });
-       this.uploadFilesService.uploadFile(formData).subscribe( res => {
-
-         console.log(res);
-
-      });
-
-       this.userService.editUser(this.user).subscribe();
-
-
-
-       this.editForm.reset();
-
-      //  this.userService.setUserUrlprofilePic(this.urlImg);
-      
-
-    } catch (error) {
-      console.log(error);
-      this.editForm.reset();
-    }
-
-
-    setTimeout(() => {
-      location.reload();
-    }, 1000);
-  
-  
-  }
-
-
-
-
-
   ngOnDestroy(): void {
     if (this.userSuscription) {
       this.userSuscription.unsubscribe;
     }
   }
 
+  captureFile(event: any) {
+    const image = event.target.files[0];
+    this.urlImgName = this.uploadFilesService.uploadRef(image.name);
+    this.files.push(image);
+    this.user.urlProfilePic = this.urlImgName;
+    this.files.forEach((file: string | Blob) => {
+      this.formDataImage.append('files', file)
+    });
+  }
+
+  update() {   
+      this.uploadFilesService.uploadFile(this.formDataImage).subscribe();
+      this.userService.editUser(this.user).subscribe();
+      this.uploadFilesService.deleteFile(this.actualImgName).subscribe();
+
+    setTimeout(() => {
+      location.reload();
+    }, 1500);
+
+  }
 }

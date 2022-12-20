@@ -15,23 +15,8 @@ export class EditBannerModalComponent {
 upBannerMobile(event: any) {
 const image = event.target.files[0];
 const name = event.target.files[0].name;
-const ref = this.uploadFilesService.ref(name);
+const ref = this.uploadFilesService.uploadRef(name);
 const task = this.uploadFilesService.uploadFile(image);
-
-
-
-
-
-
-// task.pipe(
-//   finalize( () => {
-// ref.
-//   })
-// )
-
-
-
-
 }
 
 }

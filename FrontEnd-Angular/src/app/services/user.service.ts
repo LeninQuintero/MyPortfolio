@@ -14,8 +14,6 @@ const httpOptions = {
 
 export class UserService {
 
-  
-  
   user: Observable<User>;
   _user$: Subject<User>;
 
@@ -37,19 +35,10 @@ export class UserService {
     return this._user$
   }
 
-  editUser(user : User): Observable<User>{  
-    return this.http.put<User>(this.apiUrlEditUser, user)
+  editUser(user : User): Observable<User>{
+    return this.http.put<User>(this.apiUrlEditUser, user);
   }
 
-  setUserUrlprofilePic(urlImg: string): void {
-    
-    this.getUser().subscribe(user => {
-      var us;
-      us = user;
-      us.urlProfilePic = urlImg;
-      this._user$.next(us);
-    })
-  }
 }
 
 export interface User {
@@ -63,6 +52,6 @@ export interface User {
   urlBannerSm: string;
   urlBannerLg: string;
   aboutMe: string;
-
 }
+
 export interface PartialUser extends Partial<User> { }
