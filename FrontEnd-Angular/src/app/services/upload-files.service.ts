@@ -35,10 +35,10 @@ export class UploadFilesService {
 
 }
 
-export interface Image {
-  name: string;
-  lastModified: number; 
-  webkitRelativePath: string; 
-  size: number; 
-  type: string;
-}
+// export interface ImageDataa {
+//   name: string;
+//   lastModified: number; 
+//   webkitRelativePath: string; 
+//   size: number; 
+//   type: string;
+// }
