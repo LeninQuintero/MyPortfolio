@@ -89,7 +89,7 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
             
             location.reload();
             this.userService._user$.next(this.user);
-          }, 1000);
+          }, 2000);
 
         });
 
