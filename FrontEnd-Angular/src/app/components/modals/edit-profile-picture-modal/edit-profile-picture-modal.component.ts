@@ -92,20 +92,8 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
           }, 2000);
 
         });
-
-
-
-
-      });
-
-      
-
-      
+      });   
     });
-
- 
-
-
 }
 
 }
