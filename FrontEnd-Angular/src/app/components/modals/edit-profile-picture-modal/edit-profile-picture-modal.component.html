@@ -9,14 +9,52 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body row justify-content-center">
-                <form class="col-12 col-md-10">
+
+                <form class="col-12 col-md-10" [formGroup]="editForm">
                     <div class="mt-3 mb-4">
                         <label for="upProfilePic" class="form-label opacity-50"><small>Dimensiones recomendadas 500 x
                                 500px</small></label>
-                        <input [formControl]="editForm" (change)="captureFile($event)" class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none" type="file"
-                            id="upProfilePic" accept="image/jpeg, image/webp">
+                        <input 
+                         formControlName="image"
+                         (change)="captureFile($event)" 
+                         class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none" 
+                         [ngClass]="{'is-valid': isValidField('image'), 'is-invalid': isInvalidField('image')}"
+                         type="file"
+                         id="upProfilePic" 
+                         accept="image/jpeg, image/jpg, image/png, image/webp"
+                         required
+                         >
+
+                        <div class="invalid-feedback mx-1">
+                        
+                            <span *ngIf="errorsFeedback('image', 'minlength')">El nombre de la imagen debe contener al menos
+                                {{ minLengthPictureName }}
+                                <span *ngIf="minLengthPictureName === 1">carácter</span>
+                                <span *ngIf="minLengthPictureName >= 2">caracteres</span>.
+                            </span>
+                        
+                            <span *ngIf="errorsFeedback('image', 'required')">Selecciona una imagen.</span>
+                        
+                            <span *ngIf="errorsFeedback('image', 'maxlength')">El nombre de la imagen debe contener menos de
+                                {{ maxLengthPictureName }} caracteres.
+                            </span>
+                        
+                            <span *ngIf="errorsFeedback('image', 'pattern')">Formato de imagen NO admitido. Los formatos de imagen válidos son: .webp  .jpg  .jpeg  y .png</span>
+                        
+                        </div>
+
+
                     </div>
-                    <button type="button" (click)="update()" class="btn btn-primary btn-lg w-100  mt-2 mb-4" data-bs-dismiss="modal">Actualizar</button>
+
+
+
+                    <button 
+                    type="button" 
+                    (click)="update()" 
+                    class="btn btn-primary btn-lg w-100  mt-2 mb-4" 
+                    data-bs-dismiss="modal"
+                    [disabled]="editForm.invalid"
+                    >Actualizar</button>
                 </form>
             </div>
         </div>

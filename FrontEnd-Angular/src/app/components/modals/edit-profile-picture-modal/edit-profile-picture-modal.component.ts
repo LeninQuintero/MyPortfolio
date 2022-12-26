@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadFilesService } from 'src/app/services/upload-files.service';
 import { User, UserService } from 'src/app/services/user.service';
 
@@ -11,11 +11,14 @@ import { User, UserService } from 'src/app/services/user.service';
 
 export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
 
-  public editForm = new FormControl;
+  public editForm: FormGroup;
   public files: any = [];
   private urlImgName: string = "";
   private actualImgName: string = "";
   private image: any;
+  public minLengthPictureName: number= 1;
+  public maxLengthPictureName: number= 50;
+  public alertSubmit: boolean;
 
 
  private user: User = {
@@ -38,26 +41,67 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
 
  private formDataImage = new FormData();
 
-  constructor(private userService: UserService, private uploadFilesService: UploadFilesService) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private uploadFilesService: UploadFilesService) { 
+      const imageValidator = /.(jpg|JPG|jpeg|JPEG|png|PNG|webp|WEBP)$/i;
+      const minLengthValidator = 17 + this.minLengthPictureName;
+      const maxLengthValidator = 17 + this.maxLengthPictureName;
+
+    this.editForm= this.fb.group({
+      image: ['', [
+                    Validators.required, 
+                    Validators.minLength(minLengthValidator), 
+                    Validators.maxLength(maxLengthValidator), 
+                    Validators.pattern(imageValidator)
+                  ] 
+
+              ]});
+
+    this.alertSubmit= false;
+  }
 
   ngOnInit(): void {
-    console.log("ngOnInit")
     this.userSuscription;
   }
 
   ngOnDestroy(): void {
-    console.log("ngOnDestroy")
     if (this.userSuscription) {
       this.userSuscription.unsubscribe;
     }
   }
 
+
+  isValidField(field: string) {
+    const fieldName = this.editForm.get(field);
+    return fieldName?.valid && (fieldName?.touched || fieldName?.dirty);
+  }
+
+  isInvalidField(field: string) {
+    const fieldName = this.editForm.get(field);
+    return fieldName?.invalid && (fieldName?.touched || fieldName?.dirty);
+  }
+
+
+  errorsFeedback(field: string, validator: string) {
+    const fieldName = this.editForm.get(field);
+    return fieldName?.hasError(validator);
+  }
+
+  requiredType(field: string, validator: string, type: string) {
+    const fieldName = this.editForm.get(field);
+    return fieldName?.errors?.[validator]?.[type];
+  }
+
+  closeAlertSubmit() {
+    this.alertSubmit = false;
+  }
+
+
+
+
   captureFile(event: any) {
     this.image = event.target.files[0];
-    console.log("ESTA ES LA IMAGEN CARGADA==> ",this.image);
 
     this.urlImgName = this.uploadFilesService.uploadRef(this.image.name);
-    console.log("ESTE ES EL NIOMBRE DE LA IMAGEN==> ", this.image.name);
 
     this.files.push(this.image);
 
@@ -68,32 +112,24 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
     });
   }
 
- async update() {  
-   await this.uploadFilesService.uploadFile(this.formDataImage).subscribe(async res => {
-    
-      console.log("actual usuario UPLOAD==>", this.user.urlProfilePic);
-       console.log("ASYNC 1 UPLOAD FILE ==>", res);
-       
-       await  this.userService.editUser(this.user).subscribe(async res => {
-        console.log("actual usuario EDIT==>", this.user.urlProfilePic)
-        console.log("ASYNC 2 EDIT USER ==>", res);
-        
+  update() {
 
+    if (this.editForm.valid) {
+    this.uploadFilesService.uploadFile(this.formDataImage).subscribe(() => {
 
-        await  this.uploadFilesService.deleteFile(this.actualImgName).subscribe(async res => {
-          await console.log("actual usuario DELETE==>", this.user.urlProfilePic)
-          await console.log("ASYNC 3 DELETE FILE ==>", res);  
-          
-          await setTimeout(() => {
-            console.log("TEMPORIZADOR********")
-            
-            location.reload();
-            this.userService._user$.next(this.user);
+      this.userService.editUser(this.user).subscribe(() => {
+
+        this.uploadFilesService.deleteFile(this.actualImgName).subscribe( () => {       
+
+          setTimeout(() => {
+          location.reload();
+          //  await this.userService._user$.next(this.user);
           }, 2000);
 
         });
-      });   
-    });
-}
 
+      });
+    });
+  }
+  }
 }
