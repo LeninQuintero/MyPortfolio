@@ -17,8 +17,8 @@ export class UploadFilesService {
     return `${this.apiUrlUpload}/${name}`
   }
 
-  uploadFile(file: FormData): Observable<Blob> {
-    return this.http.post<Blob>(this.apiUrlUpload, file, { responseType: 'string' as 'json' });
+ uploadFile(file: FormData): Observable<string> {
+    return this.http.post<string>(this.apiUrlUpload, file, { responseType: 'string' as 'json' });
   }
 
   deleteFile(filename: string): Observable<string> {
@@ -34,3 +34,11 @@ export class UploadFilesService {
   }
 
 }
+
+// export interface ImageDataa {
+//   name: string;
+//   lastModified: number; 
+//   webkitRelativePath: string; 
+//   size: number; 
+//   type: string;
+// }

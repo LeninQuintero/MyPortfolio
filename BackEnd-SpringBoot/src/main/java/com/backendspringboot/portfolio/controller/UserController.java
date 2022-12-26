@@ -42,8 +42,10 @@ public class UserController {
     
     @CrossOrigin ("http://localhost:4200")
     @PutMapping("/edit-user")
-    public void userEdit(@RequestBody User user) {
+    @ResponseBody
+    public User userEdit(@RequestBody User user) {
         userServ.userEdit(user);
+        return userServ.userFind(user.getId());
     }
     
     @CrossOrigin ("http://localhost:4200")
