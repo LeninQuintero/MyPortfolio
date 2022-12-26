@@ -13,15 +13,18 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
 
   public editForm: FormGroup;
   public files: any = [];
+  public minLengthPictureName: number = 1;
+  public maxLengthPictureName: number = 50;
+  public spinnerButton: boolean = false;
   private urlImgName: string = "";
   private actualImgName: string = "";
-  private image: any;
-  public minLengthPictureName: number= 1;
-  public maxLengthPictureName: number= 50;
-  public alertSubmit: boolean;
-
-
- private user: User = {
+  private image: any;  
+  private formDataImage = new FormData();
+  private userSuscription = this.userService.getUser().subscribe(user => {
+    this.user = user;
+    this.actualImgName = this.uploadFilesService.getUrlsFilename(user.urlProfilePic);
+  });
+  private user: User = {
     id: 0,
     userName: '',
     password: '',
@@ -33,30 +36,19 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
     aboutMe: ''
   };
 
-  private userSuscription = this.userService.getUser().subscribe(user => {
-    this.user = user;
-    this.actualImgName = this.uploadFilesService.getUrlsFilename(user.urlProfilePic);
-    
-  });
+  constructor(private fb: FormBuilder, private userService: UserService, private uploadFilesService: UploadFilesService) {
 
- private formDataImage = new FormData();
+    const imageValidator = /.(jpg|JPG|jpeg|JPEG|png|PNG|webp|WEBP)$/i;
+    const minLengthValidator = 17 + this.minLengthPictureName;
+    const maxLengthValidator = 17 + this.maxLengthPictureName;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private uploadFilesService: UploadFilesService) { 
-      const imageValidator = /.(jpg|JPG|jpeg|JPEG|png|PNG|webp|WEBP)$/i;
-      const minLengthValidator = 17 + this.minLengthPictureName;
-      const maxLengthValidator = 17 + this.maxLengthPictureName;
+    this.editForm = this.fb.group({
 
-    this.editForm= this.fb.group({
-      image: ['', [
-                    Validators.required, 
-                    Validators.minLength(minLengthValidator), 
-                    Validators.maxLength(maxLengthValidator), 
-                    Validators.pattern(imageValidator)
-                  ] 
-
-              ]});
-
-    this.alertSubmit= false;
+      image: ['', [ Validators.required,
+                    Validators.minLength(minLengthValidator),
+                    Validators.maxLength(maxLengthValidator),
+                    Validators.pattern(imageValidator)]]
+                });
   }
 
   ngOnInit(): void {
@@ -68,7 +60,6 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
       this.userSuscription.unsubscribe;
     }
   }
-
 
   isValidField(field: string) {
     const fieldName = this.editForm.get(field);
@@ -91,45 +82,40 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
     return fieldName?.errors?.[validator]?.[type];
   }
 
-  closeAlertSubmit() {
-    this.alertSubmit = false;
-  }
-
-
-
-
   captureFile(event: any) {
-    this.image = event.target.files[0];
 
-    this.urlImgName = this.uploadFilesService.uploadRef(this.image.name);
+    if (this.editForm.valid) {
+      this.image = event.target.files[0];
 
-    this.files.push(this.image);
+      this.urlImgName = this.uploadFilesService.uploadRef(this.image.name);
 
-    this.user.urlProfilePic = this.urlImgName;
+      this.files.push(this.image);
 
-    this.files.forEach((file: string | Blob) => {
-      this.formDataImage.append('files', file)
-    });
+      this.user.urlProfilePic = this.urlImgName;
+
+      this.files.forEach((file: string | Blob) => {
+        this.formDataImage.append('files', file)
+      });
+    }
   }
 
   update() {
 
     if (this.editForm.valid) {
-    this.uploadFilesService.uploadFile(this.formDataImage).subscribe(() => {
+      this.uploadFilesService.deleteFile(this.actualImgName).subscribe(() => {
+        
+        this.spinnerButton = true;
 
-      this.userService.editUser(this.user).subscribe(() => {
+        this.uploadFilesService.uploadFile(this.formDataImage).subscribe(() => {
+          this.userService.editUser(this.user).subscribe(() => {
 
-        this.uploadFilesService.deleteFile(this.actualImgName).subscribe( () => {       
-
-          setTimeout(() => {
-          location.reload();
-          //  await this.userService._user$.next(this.user);
-          }, 2000);
-
+            setTimeout(() => {
+              location.reload();
+              // this.userService._user$.next(this.user);
+            }, 2000);
+          });
         });
-
       });
-    });
-  }
+    }
   }
 }

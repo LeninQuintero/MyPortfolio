@@ -65,7 +65,6 @@ export class ContactFormComponent  {
 
       setTimeout(() => this.closeAlertSubmit(), 5 * 1000);
 
-
       this.contactForm.reset();
       
     } else {
