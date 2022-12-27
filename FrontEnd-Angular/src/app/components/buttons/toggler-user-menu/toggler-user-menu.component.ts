@@ -16,5 +16,4 @@ export class TogglerUserMenuComponent implements OnInit {
       this.urlProfilePic = user.urlProfilePic;
     });
   }
-
 }
