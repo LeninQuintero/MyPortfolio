@@ -17,6 +17,7 @@
                         <input formControlName="image" (change)="captureFile($event)"
                             class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
                             [ngClass]="{'is-valid': isValidField('image'), 'is-invalid': isInvalidField('image')}"
+                            [ngClass]="{'is-invalid': errorMaxSize}" 
                             type="file" id="upProfilePic" accept="image/jpeg, image/jpg, image/png, image/webp"
                             required>
 
@@ -39,12 +40,19 @@
                             <span *ngIf="errorsFeedback('image', 'pattern')">Formato de imagen NO admitido. Los formatos
                                 de imagen válidos son: .webp .jpg .jpeg y .png</span>
 
+                            
+
                         </div>
 
+                        <span *ngIf=errorMaxSize class="text-danger">Archivo muy grande</span>
                     </div>
 
-                    <button type="button" (click)="update()" class="btn btn-primary btn-lg w-100  mt-2 mb-4"
-                        [disabled]="editForm.invalid">
+                    <button type="button" 
+                            (click)="update()" 
+                            class="btn btn-primary btn-lg w-100 mt-2 mb-4"
+                            [disabled]="editForm.invalid || errorMaxSize">
+                            
+
                         <span *ngIf="!spinnerButton">Actualizar</span>
 
                         <div *ngIf="spinnerButton">

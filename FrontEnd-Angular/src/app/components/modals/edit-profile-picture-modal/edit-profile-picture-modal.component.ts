@@ -10,15 +10,17 @@ import { User, UserService } from 'src/app/services/user.service';
 })
 
 export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
-
   public editForm: FormGroup;
   public files: any = [];
   public minLengthPictureName: number = 1;
   public maxLengthPictureName: number = 50;
   public spinnerButton: boolean = false;
+  public errorMaxSize: boolean = false;
   private urlImgName: string = "";
   private actualImgName: string = "";
-  private image: any;  
+  private imgSize: number = 0;
+  private maxImageSize: number = 5242880;
+  private image: any;
   private formDataImage = new FormData();
   private userSuscription = this.userService.getUser().subscribe(user => {
     this.user = user;
@@ -44,11 +46,12 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
 
     this.editForm = this.fb.group({
 
-      image: ['', [ Validators.required,
-                    Validators.minLength(minLengthValidator),
-                    Validators.maxLength(maxLengthValidator),
-                    Validators.pattern(imageValidator)]]
-                });
+      image: ['', [Validators.required,
+      Validators.minLength(minLengthValidator),
+      Validators.maxLength(maxLengthValidator),
+      Validators.pattern(imageValidator)
+      ]]
+    });
   }
 
   ngOnInit(): void {
@@ -71,22 +74,20 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
     return fieldName?.invalid && (fieldName?.touched || fieldName?.dirty);
   }
 
-
   errorsFeedback(field: string, validator: string) {
     const fieldName = this.editForm.get(field);
     return fieldName?.hasError(validator);
   }
 
-  requiredType(field: string, validator: string, type: string) {
-    const fieldName = this.editForm.get(field);
-    return fieldName?.errors?.[validator]?.[type];
-  }
-
   captureFile(event: any) {
+    this.image = event.target.files[0];
+    this.imgSize = this.image.size;
 
     if (this.editForm.valid) {
-      this.image = event.target.files[0];
-
+            
+      if (this.imgSize <= this.maxImageSize){
+        this.errorMaxSize= false;
+      
       this.urlImgName = this.uploadFilesService.uploadRef(this.image.name);
 
       this.files.push(this.image);
@@ -96,14 +97,23 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
       this.files.forEach((file: string | Blob) => {
         this.formDataImage.append('files', file)
       });
-    }
+      }
+
+      if (this.imgSize >= this.maxImageSize){
+        this.errorMaxSize= true;
+      }
+      
+      console.log("NOMBRE DE IMAGEN==>> ", this.image.name);
+      console.log("TAMAÑO DE IMAGEN==>> ", this.image.size);
+    } 
   }
 
   update() {
 
-    if (this.editForm.valid) {
+    if (this.editForm.valid && (this.imgSize <= this.maxImageSize)) {
+
       this.uploadFilesService.deleteFile(this.actualImgName).subscribe(() => {
-        
+
         this.spinnerButton = true;
 
         this.uploadFilesService.uploadFile(this.formDataImage).subscribe(() => {
@@ -116,6 +126,13 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
           });
         });
       });
-    }
+
+    } 
+    
+    // else if (this.editForm.valid && (this.imgSize >= this.maxImageSize)) {
+    //   location.reload();
+      
+    // }
   }
 }
+

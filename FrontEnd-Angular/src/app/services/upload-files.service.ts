@@ -32,13 +32,4 @@ export class UploadFilesService {
       return file
     }
   }
-
 }
-
-// export interface ImageDataa {
-//   name: string;
-//   lastModified: number; 
-//   webkitRelativePath: string; 
-//   size: number; 
-//   type: string;
-// }
