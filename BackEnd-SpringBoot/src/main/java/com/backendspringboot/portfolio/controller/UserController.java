@@ -15,32 +15,32 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
+@CrossOrigin ("*")
 @RestController
 public class UserController {
     @Autowired
     private IUserService userServ;
     
-    @CrossOrigin ("http://localhost:4200")
+
     @PostMapping("/new-user")
     public void userCreate(@RequestBody User user) {
         userServ.userCreate(user);
     }
     
-    @CrossOrigin ("http://localhost:4200")
+
     @GetMapping("/user-list")
     @ResponseBody
     public List<User> userList() {
         return userServ.userList();
     }
     
-    @CrossOrigin ("http://localhost:4200")
+
     @DeleteMapping ("/delete-user/{id}")
     public void userDelete(@PathVariable Long id){
     userServ.userDelete(id);
     }
     
-    @CrossOrigin ("http://localhost:4200")
+
     @PutMapping("/edit-user")
     @ResponseBody
     public User userEdit(@RequestBody User user) {
@@ -48,7 +48,7 @@ public class UserController {
         return userServ.userFind(user.getId());
     }
     
-    @CrossOrigin ("http://localhost:4200")
+
     @GetMapping("/find-user/{id}")
     @ResponseBody
     public User userFind(@PathVariable Long id) {

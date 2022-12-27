@@ -102,9 +102,6 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
       if (this.imgSize >= this.maxImageSize){
         this.errorMaxSize= true;
       }
-      
-      console.log("NOMBRE DE IMAGEN==>> ", this.image.name);
-      console.log("TAMAÑO DE IMAGEN==>> ", this.image.size);
     } 
   }
 
@@ -122,17 +119,11 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
             setTimeout(() => {
               location.reload();
               // this.userService._user$.next(this.user);
-            }, 2000);
+            }, 1500);
           });
         });
       });
 
     } 
-    
-    // else if (this.editForm.valid && (this.imgSize >= this.maxImageSize)) {
-    //   location.reload();
-      
-    // }
   }
 }
-

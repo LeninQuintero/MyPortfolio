@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+@CrossOrigin ("*")
 @Controller
 public class FileController {
 
     @Autowired
     private FileService fileService;
     
-    @CrossOrigin ("http://localhost:4200")
+
     @PostMapping("/uploads")
     public ResponseEntity<String> uploadFiles(@RequestParam("files") List<MultipartFile> files) {
         try {
@@ -32,7 +33,7 @@ public class FileController {
         } 
     } 
     
-    @CrossOrigin ("http://localhost:4200")
+
     @DeleteMapping("/delete/{filename}")
     public ResponseEntity<String> deleteFile(@PathVariable String filename){
        try {
