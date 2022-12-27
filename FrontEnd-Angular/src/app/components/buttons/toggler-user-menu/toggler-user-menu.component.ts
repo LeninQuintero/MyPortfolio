@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PartialUser, User, UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-toggler-user-menu',
@@ -7,15 +7,12 @@ import { PartialUser, User, UserService } from 'src/app/services/user.service';
   styleUrls: ['./toggler-user-menu.component.scss']
 })
 export class TogglerUserMenuComponent implements OnInit {
-  urlProfilePic: string = "";
-
-  user: PartialUser = {};
+ public urlProfilePic: string = "";
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.userService.getUser().subscribe(user => {
-      this.user = user;
       this.urlProfilePic = user.urlProfilePic;
     });
   }
