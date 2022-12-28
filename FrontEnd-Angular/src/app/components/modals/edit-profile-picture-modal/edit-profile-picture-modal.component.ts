@@ -11,7 +11,6 @@ import { User, UserService } from 'src/app/services/user.service';
 
 export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
   public editForm: FormGroup;
-  public files: any = [];
   public minLengthPictureName: number = 1;
   public maxLengthPictureName: number = 50;
   public spinnerButton: boolean = false;
@@ -27,7 +26,6 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
     this.actualImgName = this.uploadFilesService.getUrlsFilename(user.urlProfilePic);
   });
   private user: User = {
-    id: 0,
     userName: '',
     password: '',
     name: '',
@@ -89,14 +87,7 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
         this.errorMaxSize= false;
       
       this.urlImgName = this.uploadFilesService.uploadRef(this.image.name);
-
-      this.files.push(this.image);
-
       this.user.urlProfilePic = this.urlImgName;
-
-      this.files.forEach((file: string | Blob) => {
-        this.formDataImage.append('files', file)
-      });
       }
 
       if (this.imgSize >= this.maxImageSize){
@@ -108,10 +99,11 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
   update() {
 
     if (this.editForm.valid && (this.imgSize <= this.maxImageSize)) {
+      this.spinnerButton = true;
+
+      this.formDataImage.append('files', this.image);
 
       this.uploadFilesService.deleteFile(this.actualImgName).subscribe(() => {
-
-        this.spinnerButton = true;
 
         this.uploadFilesService.uploadFile(this.formDataImage).subscribe(() => {
           this.userService.editUser(this.user).subscribe(() => {

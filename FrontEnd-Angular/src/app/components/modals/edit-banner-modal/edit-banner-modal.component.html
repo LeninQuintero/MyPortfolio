@@ -20,11 +20,34 @@
                         <input 
                         formControlName="bannerSm"
                         (change)="captureBannerSm($event)"
-                        class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none" 
+                        class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                        [ngClass]="{'is-valid': isValidField('bannerSm')  && !errorMaxSizeSm , 'is-invalid': isInvalidField('bannerSm') || errorMaxSizeSm }" 
                         type="file"
                         id="upBannerMobile" 
                         accept="image/jpeg, image/jpg, image/png, image/webp"
                         required>
+
+                        <div class="invalid-feedback mx-1">
+
+                            <span *ngIf="errorsFeedback('bannerSm', 'minlength')">El nombre de la imagen debe contener al
+                                menos
+                                {{ minLengthPictureName }}
+                                <span *ngIf="minLengthPictureName === 1">carácter</span>
+                                <span *ngIf="minLengthPictureName >= 2">caracteres</span>.
+                            </span>
+
+                            <span *ngIf="errorsFeedback('bannerSm', 'required')">Selecciona una imagen.</span>
+
+                            <span *ngIf="errorsFeedback('bannerSm', 'maxlength')">El nombre de la imagen debe contener
+                                menos de {{ maxLengthPictureName }} caracteres.
+                            </span>
+
+                            <span *ngIf="errorsFeedback('bannerSm', 'pattern')">Formato de imagen NO admitido. Los formatos
+                                de imagen válidos son: .webp .jpg .jpeg y .png</span>
+                        </div>
+
+                        <span *ngIf=errorMaxSizeSm class="text-danger">La imagen es muy pesada, elige una imagen menor a
+                            5Mb.</span>
 
                     </div>
 
@@ -36,19 +59,53 @@
                         <input 
                         formControlName="bannerLg"
                         (change)="captureBannerLg($event)"
-                        class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none" 
+                        class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                        [ngClass]="{'is-valid': isValidField('bannerLg') && !errorMaxSizeLg , 'is-invalid': isInvalidField('bannerLg') || errorMaxSizeLg }" 
                         type="file"
                         id="upBannerDesktop" 
                         accept="image/jpeg, image/jpg, image/png, image/webp"
                         required>
+
+                        <div class="invalid-feedback mx-1">
+
+                            <span *ngIf="errorsFeedback('bannerLg', 'minlength')">El nombre de la imagen debe contener al
+                                menos
+                                {{ minLengthPictureName }}
+                                <span *ngIf="minLengthPictureName === 1">carácter</span>
+                                <span *ngIf="minLengthPictureName >= 2">caracteres</span>.
+                            </span>
+
+                            <span *ngIf="errorsFeedback('bannerLg', 'required')">Selecciona una imagen.</span>
+
+                            <span *ngIf="errorsFeedback('bannerLg', 'maxlength')">El nombre de la imagen debe contener
+                                menos de {{ maxLengthPictureName }} caracteres.
+                            </span>
+
+                            <span *ngIf="errorsFeedback('bannerLg', 'pattern')">Formato de imagen NO admitido. Los formatos
+                                de imagen válidos son: .webp .jpg .jpeg y .png</span>
+                        </div>
+
+                        <span *ngIf=errorMaxSizeLg class="text-danger">La imagen es muy pesada, elige una imagen menor a
+                            5Mb.</span>
+
+
                     </div>
 
                     <button 
                     type="button" 
                     (click)="update()" 
                     class="btn btn-primary btn-lg w-100  mt-2 mb-3"
-                    [disabled]="this.bannerForm.invalid"
-                    >Actualizar</button>
+                    [disabled]="this.bannerForm.invalid || errorMaxSizeSm || errorMaxSizeLg">
+                    
+                    <span *ngIf="!spinnerButton">Actualizar</span>
+
+                    <div *ngIf="spinnerButton">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span> Actualizando...</span>
+                    </div>
+                    
+                    
+                </button>
                 </form>
 
 

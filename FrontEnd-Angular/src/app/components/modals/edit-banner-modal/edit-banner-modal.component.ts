@@ -11,7 +11,7 @@ import { User, UserService } from 'src/app/services/user.service';
 export class EditBannerModalComponent implements OnInit, OnDestroy {
 
   public bannerForm: FormGroup;
-  public spinnerButton: boolean = true;
+  public spinnerButton: boolean = false;
   private maxImageSize: number = 5242880;
   private user: User = {
     userName: '',
@@ -24,8 +24,8 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
     aboutMe: ''
   };
 
-  private minLengthPictureName: number = 1;
-  private maxLengthPictureName: number = 50;
+  public minLengthPictureName: number = 1;
+  public maxLengthPictureName: number = 50;
   private userSuscription = this.userService.getUser().subscribe(user => {
     this.user = user;
     this.actualBannerSmName = this.uploadFilesService.getUrlsFilename(user.urlBannerSm);
@@ -72,6 +72,21 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
     this.userSuscription;
   }
 
+  isValidField(field: string) {
+    const fieldName = this.bannerForm.get(field);
+    return fieldName?.valid && (fieldName?.touched || fieldName?.dirty);
+  }
+
+  isInvalidField(field: string) {
+    const fieldName = this.bannerForm.get(field);
+    return fieldName?.invalid && (fieldName?.touched || fieldName?.dirty);
+  }
+
+  errorsFeedback(field: string, validator: string) {
+    const fieldName = this.bannerForm.get(field);
+    return fieldName?.hasError(validator);
+  }
+
   captureBannerSm(event: any) {
 
     if (this.bannerForm.get('bannerSm')?.valid) {
@@ -81,11 +96,9 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
 
       if (this.bannerSmSize <= this.maxImageSize) {
 
-        this.bannerSmData.append("files", this.bannerSm);
-        this.errorMaxSizeSm = false;
         this.urlBannerSm = this.uploadFilesService.uploadRef(this.bannerSm.name);
         this.user.urlBannerSm = this.urlBannerSm;
-
+        this.errorMaxSizeSm = false;
       }
 
       if (this.bannerSmSize >= this.maxImageSize) {
@@ -103,10 +116,9 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
 
       if (this.bannerLgSize <= this.maxImageSize) {
 
-        this.bannerLgData.append("files", this.bannerLg);
-        this.errorMaxSizeLg = false;
         this.urlBannerLg = this.uploadFilesService.uploadRef(this.bannerLg.name);
         this.user.urlBannerLg = this.urlBannerLg;
+        this.errorMaxSizeLg = false;
 
       }
 
@@ -117,12 +129,15 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
   }
 
   update() {
-
     let imgValidationSize: boolean = (this.bannerSmSize <= this.maxImageSize) &&
       (this.bannerSmSize <= this.maxImageSize);
 
     if (this.bannerForm.valid && imgValidationSize) {
+
       this.spinnerButton = true;
+
+      this.bannerSmData.append("files", this.bannerSm);
+      this.bannerLgData.append("files", this.bannerLg);
 
       this.uploadFilesService.deleteFile(this.actualBannerSmName).subscribe(() => { });
       this.uploadFilesService.deleteFile(this.actualBannerLgName).subscribe(() => { });
@@ -137,5 +152,4 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
       });
     }
   }
-
 }
