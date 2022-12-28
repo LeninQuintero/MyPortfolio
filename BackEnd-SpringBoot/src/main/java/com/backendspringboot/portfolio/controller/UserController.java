@@ -20,26 +20,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     @Autowired
     private IUserService userServ;
-    
 
     @PostMapping("/new-user")
     public void userCreate(@RequestBody User user) {
         userServ.userCreate(user);
-    }
-    
+    } 
 
     @GetMapping("/user-list")
     @ResponseBody
     public List<User> userList() {
         return userServ.userList();
     }
-    
 
     @DeleteMapping ("/delete-user/{id}")
     public void userDelete(@PathVariable Long id){
     userServ.userDelete(id);
     }
-    
 
     @PutMapping("/edit-user")
     @ResponseBody
@@ -47,7 +43,6 @@ public class UserController {
         userServ.userEdit(user);
         return userServ.userFind(user.getId());
     }
-    
 
     @GetMapping("/find-user/{id}")
     @ResponseBody

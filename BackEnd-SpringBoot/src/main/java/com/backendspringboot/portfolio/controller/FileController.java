@@ -19,7 +19,6 @@ public class FileController {
 
     @Autowired
     private FileService fileService;
-    
 
     @PostMapping("/uploads")
     public ResponseEntity<String> uploadFiles(@RequestParam("files") List<MultipartFile> files) {
@@ -32,7 +31,6 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error uploading file(s)");
         } 
     } 
-    
 
     @DeleteMapping("/delete/{filename}")
     public ResponseEntity<String> deleteFile(@PathVariable String filename){
