@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadFilesService } from 'src/app/services/upload-files.service';
-import { PartialUser, UserService } from 'src/app/services/user.service';
+import { User, UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-edit-banner-modal',
@@ -11,9 +11,19 @@ import { PartialUser, UserService } from 'src/app/services/user.service';
 export class EditBannerModalComponent implements OnInit, OnDestroy {
 
   public bannerForm: FormGroup;
+  public spinnerButton: boolean = true;
   private maxImageSize: number = 5242880;
-  private user: PartialUser = {};
-  private files: any = [];
+  private user: User = {
+    userName: '',
+    password: '',
+    name: '',
+    title: '',
+    urlProfilePic: '',
+    urlBannerSm: '',
+    urlBannerLg: '',
+    aboutMe: ''
+  };
+
   private minLengthPictureName: number = 1;
   private maxLengthPictureName: number = 50;
   private userSuscription = this.userService.getUser().subscribe(user => {
@@ -63,22 +73,18 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
   }
 
   captureBannerSm(event: any) {
-    this.files[0] = "",
-      this.bannerSm = event.target.files[0];
-    this.bannerSmSize = this.bannerSm.size;
 
     if (this.bannerForm.get('bannerSm')?.valid) {
 
+      this.bannerSm = event.target.files[0];
+      this.bannerSmSize = this.bannerSm.size;
+
       if (this.bannerSmSize <= this.maxImageSize) {
+
+        this.bannerSmData.append("files", this.bannerSm);
         this.errorMaxSizeSm = false;
-
         this.urlBannerSm = this.uploadFilesService.uploadRef(this.bannerSm.name);
-
         this.user.urlBannerSm = this.urlBannerSm;
-
-        this.files.forEach((file: string | Blob) => {
-          this.bannerSmData.append('files', file)
-        });
 
       }
 
@@ -86,27 +92,21 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
         this.errorMaxSizeSm = true;
       }
     }
-    console.log("BANNER SM NAME ==>>", this.bannerSm.name);
-    console.log("BANNER SM SIZE ==>>", this.bannerSm.size);
-    console.log("BANNER SM ==>>", this.bannerSm)
   }
 
   captureBannerLg(event: any) {
-    this.bannerLg = event.target.files[0];
-    this.bannerLgSize = this.bannerLg.size;
 
     if (this.bannerForm.get('bannerLg')?.valid) {
 
+      this.bannerLg = event.target.files[0];
+      this.bannerLgSize = this.bannerLg.size;
+
       if (this.bannerLgSize <= this.maxImageSize) {
+
+        this.bannerLgData.append("files", this.bannerLg);
         this.errorMaxSizeLg = false;
-
         this.urlBannerLg = this.uploadFilesService.uploadRef(this.bannerLg.name);
-
         this.user.urlBannerLg = this.urlBannerLg;
-
-        this.files.forEach((file: string | Blob) => {
-          this.bannerLgData.append('files', file)
-        });
 
       }
 
@@ -114,14 +114,28 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
         this.errorMaxSizeLg = true;
       }
     }
-    console.log("BANNER LG NAME ==>>", this.bannerLg.name);
-    console.log("BANNER LG SIZE ==>>", this.bannerLg.size);
-    console.log("BANNER LG ==>>", this.bannerLg)
   }
 
+  update() {
 
+    let imgValidationSize: boolean = (this.bannerSmSize <= this.maxImageSize) &&
+      (this.bannerSmSize <= this.maxImageSize);
 
+    if (this.bannerForm.valid && imgValidationSize) {
+      this.spinnerButton = true;
 
-  
+      this.uploadFilesService.deleteFile(this.actualBannerSmName).subscribe(() => { });
+      this.uploadFilesService.deleteFile(this.actualBannerLgName).subscribe(() => { });
+
+      this.uploadFilesService.uploadFile(this.bannerSmData).subscribe(() => { });
+      this.uploadFilesService.uploadFile(this.bannerLgData).subscribe(() => { });
+
+      this.userService.editUser(this.user).subscribe(() => {
+        setTimeout(() => {
+          location.reload();
+        }, 1500);
+      });
+    }
+  }
 
 }
