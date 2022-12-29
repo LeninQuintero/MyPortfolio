@@ -1,18 +1,18 @@
 package com.backendspringboot.portfolio.service;
 
-import com.backendspringboot.portfolio.model.User;
+import com.backendspringboot.portfolio.model.UserProfile;
 import java.util.List;
 
 public interface IUserService {
     
-    public List<User> userList();
+    public List<UserProfile> userList();
     
-    public void userCreate (User user);
+    public void userCreate (UserProfile user);
     
     public void userDelete (Long id);
     
-    public User userFind (Long id);
+    public UserProfile userFind (Long id);
     
-    public User userEdit (User user);
+    public UserProfile userEdit (UserProfile user);
 
 }

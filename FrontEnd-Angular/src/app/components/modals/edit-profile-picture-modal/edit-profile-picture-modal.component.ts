@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadFilesService } from 'src/app/services/upload-files.service';
-import { User, UserService } from 'src/app/services/user.service';
+import { UserProfile, UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-edit-profile-picture-modal',
@@ -21,19 +21,22 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
   private maxImageSize: number = 5242880;
   private image: any;
   private formDataImage = new FormData();
+
   private userSuscription = this.userService.getUser().subscribe(user => {
     this.user = user;
     this.actualImgName = this.uploadFilesService.getUrlsFilename(user.urlProfilePic);
   });
-  private user: User = {
-    userName: '',
-    password: '',
+  
+  private user: UserProfile = {
     name: '',
     title: '',
     urlProfilePic: '',
     urlBannerSm: '',
     urlBannerLg: '',
-    aboutMe: ''
+    aboutMe: '',
+    urlGithub: '',
+    urlTwitter: '',
+    urlLinkedin: ''
   };
 
   constructor(private fb: FormBuilder, private userService: UserService, private uploadFilesService: UploadFilesService) {

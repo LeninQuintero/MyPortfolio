@@ -9,20 +9,20 @@ import { Observable, Subject } from 'rxjs';
 
 export class UserService {
 
-  user: Observable<User>;
-  _user$: Subject<User>;
+  user: Observable<UserProfile>;
+  _user$: Subject<UserProfile>;
 
   private apiUrlFindUser = 'http://localhost:8080/find-user/1';
   private apiUrlEditUser = 'http://localhost:8080/edit-user';
 
   constructor(private http: HttpClient) {
 
-    this.user = this.http.get<User>(this.apiUrlFindUser);
-    this._user$= new Subject<User>();        
+    this.user = this.http.get<UserProfile>(this.apiUrlFindUser);
+    this._user$= new Subject<UserProfile>();        
   }
 
-  getUser(): Observable<User> {
-     this.user = this.http.get<User>(this.apiUrlFindUser);
+  getUser(): Observable<UserProfile> {
+     this.user = this.http.get<UserProfile>(this.apiUrlFindUser);
     return this.user
   }
 
@@ -30,23 +30,23 @@ export class UserService {
     return this._user$
   }
 
-  editUser(user : User): Observable<User>{
-    return this.http.put<User>(this.apiUrlEditUser, user);
+  editUser(user : UserProfile): Observable<UserProfile>{
+    return this.http.put<UserProfile>(this.apiUrlEditUser, user);
   }
 
 }
 
-export interface User {
+export interface UserProfile {
   id?: number;
-  userName: string;
-  password: string;
-
   name: string;
   title: string;
   urlProfilePic: string;
   urlBannerSm: string;
   urlBannerLg: string;
   aboutMe: string;
+  urlGithub: string;
+  urlTwitter: string;
+  urlLinkedin: string;
 }
 
-export interface PartialUser extends Partial<User> { }
+export interface PartialUserProfile extends Partial<UserProfile> { }

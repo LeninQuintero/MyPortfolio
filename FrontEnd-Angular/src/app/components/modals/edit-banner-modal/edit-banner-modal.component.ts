@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadFilesService } from 'src/app/services/upload-files.service';
-import { User, UserService } from 'src/app/services/user.service';
+import { UserProfile, UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-edit-banner-modal',
@@ -13,15 +13,16 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
   public bannerForm: FormGroup;
   public spinnerButton: boolean = false;
   private maxImageSize: number = 5242880;
-  private user: User = {
-    userName: '',
-    password: '',
+  private user: UserProfile = {
     name: '',
     title: '',
     urlProfilePic: '',
     urlBannerSm: '',
     urlBannerLg: '',
-    aboutMe: ''
+    aboutMe: '',
+    urlGithub: '',
+    urlTwitter: '',
+    urlLinkedin: ''
   };
 
   public minLengthPictureName: number = 1;

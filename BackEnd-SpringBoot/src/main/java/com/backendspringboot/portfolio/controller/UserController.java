@@ -1,6 +1,6 @@
 package com.backendspringboot.portfolio.controller;
 
-import com.backendspringboot.portfolio.model.User;
+import com.backendspringboot.portfolio.model.UserProfile;
 import com.backendspringboot.portfolio.service.IUserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +22,13 @@ public class UserController {
     private IUserService userServ;
 
     @PostMapping("/new-user")
-    public void userCreate(@RequestBody User user) {
+    public void userCreate(@RequestBody UserProfile user) {
         userServ.userCreate(user);
     } 
 
     @GetMapping("/user-list")
     @ResponseBody
-    public List<User> userList() {
+    public List<UserProfile> userList() {
         return userServ.userList();
     }
 
@@ -39,14 +39,14 @@ public class UserController {
 
     @PutMapping("/edit-user")
     @ResponseBody
-    public User userEdit(@RequestBody User user) {
+    public UserProfile userEdit(@RequestBody UserProfile user) {
         userServ.userEdit(user);
         return userServ.userFind(user.getId());
     }
 
     @GetMapping("/find-user/{id}")
     @ResponseBody
-    public User userFind(@PathVariable Long id) {
+    public UserProfile userFind(@PathVariable Long id) {
         return userServ.userFind(id);
     }
 }

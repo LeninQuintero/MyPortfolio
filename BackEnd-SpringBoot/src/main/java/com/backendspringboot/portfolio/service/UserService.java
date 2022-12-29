@@ -1,6 +1,6 @@
 package com.backendspringboot.portfolio.service;
 
-import com.backendspringboot.portfolio.model.User;
+import com.backendspringboot.portfolio.model.UserProfile;
 import com.backendspringboot.portfolio.repository.UserRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,12 @@ public class UserService implements IUserService {
     public UserRepository userRepo;
 
     @Override
-    public List<User> userList() {
+    public List<UserProfile> userList() {
         return userRepo.findAll();
     }
 
     @Override
-    public void userCreate(User user) {
+    public void userCreate(UserProfile user) {
          userRepo.save(user);
     }
 
@@ -28,12 +28,12 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User userFind(Long id) {
+    public UserProfile userFind(Long id) {
         return userRepo.findById(id).orElse(null);
     }
 
     @Override
-    public User userEdit(User user) {
+    public UserProfile userEdit(UserProfile user) {
         return userRepo.save(user);
     }
 }

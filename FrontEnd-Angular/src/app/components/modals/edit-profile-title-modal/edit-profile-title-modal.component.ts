@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { User, UserService } from 'src/app/services/user.service';
+import { UserProfile, UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-edit-profile-title-modal',
@@ -12,16 +12,16 @@ export class EditProfileTitleModalComponent {
 
   titleForm: FormGroup;
 
-  private user: User= {
-    id: 0,
-    userName: '',
-    password: '',
+  private user: UserProfile= {
     name: '',
     title: '',
     urlProfilePic: '',
     urlBannerSm: '',
     urlBannerLg: '',
-    aboutMe: ''
+    aboutMe: '',
+    urlGithub: '',
+    urlTwitter: '',
+    urlLinkedin: ''
   };
   
   constructor(private fb: FormBuilder, private userService: UserService) {  

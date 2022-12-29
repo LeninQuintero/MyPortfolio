@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PartialUser, UserService } from 'src/app/services/user.service';
+import { PartialUserProfile, UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -8,7 +8,7 @@ import { PartialUser, UserService } from 'src/app/services/user.service';
 
 export class ProfileComponent implements OnInit {
 
-  user: PartialUser = {};
+  user: PartialUserProfile = {};
   altPic: string = '';
 
   // Btn-edit values
