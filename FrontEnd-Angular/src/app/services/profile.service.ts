@@ -12,17 +12,17 @@ export class UserService {
   user: Observable<UserProfile>;
   _user$: Subject<UserProfile>;
 
-  private apiUrlFindUser = 'http://localhost:8080/find-user/1';
-  private apiUrlEditUser = 'http://localhost:8080/edit-user';
+  private apiUrlFindProfile = 'http://localhost:8080/find-profile/1';
+  private apiUrlEditProfile = 'http://localhost:8080/edit-profile';
 
   constructor(private http: HttpClient) {
 
-    this.user = this.http.get<UserProfile>(this.apiUrlFindUser);
+    this.user = this.http.get<UserProfile>(this.apiUrlFindProfile);
     this._user$= new Subject<UserProfile>();        
   }
 
   getUser(): Observable<UserProfile> {
-     this.user = this.http.get<UserProfile>(this.apiUrlFindUser);
+     this.user = this.http.get<UserProfile>(this.apiUrlFindProfile);
     return this.user
   }
 
@@ -31,7 +31,7 @@ export class UserService {
   }
 
   editUser(user : UserProfile): Observable<UserProfile>{
-    return this.http.put<UserProfile>(this.apiUrlEditUser, user);
+    return this.http.put<UserProfile>(this.apiUrlEditProfile, user);
   }
 
 }

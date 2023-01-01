@@ -5,14 +5,14 @@ import java.util.List;
 
 public interface IUserService {
     
-    public List<UserProfile> userList();
+    public List<UserProfile> profileList();
     
-    public void userCreate (UserProfile user);
+    public void profileCreate (UserProfile Profile);
     
-    public void userDelete (Long id);
+    public void profileDelete (Long id);
     
-    public UserProfile userFind (Long id);
+    public UserProfile profileFind (Long id);
     
-    public UserProfile userEdit (UserProfile user);
+    public UserProfile profileEdit (UserProfile profile);
 
 }

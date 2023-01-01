@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadFilesService } from 'src/app/services/upload-files.service';
-import { UserProfile, UserService } from 'src/app/services/user.service';
+import { UserProfile, UserService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-edit-profile-picture-modal',

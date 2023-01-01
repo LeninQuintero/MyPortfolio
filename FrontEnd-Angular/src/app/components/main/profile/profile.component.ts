@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PartialUserProfile, UserService } from 'src/app/services/user.service';
+import { PartialUserProfile, UserService } from 'src/app/services/profile.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',

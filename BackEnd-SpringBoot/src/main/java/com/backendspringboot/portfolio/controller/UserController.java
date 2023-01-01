@@ -21,32 +21,32 @@ public class UserController {
     @Autowired
     private IUserService userServ;
 
-    @PostMapping("/new-user")
+    @PostMapping("/new-profile")
     public void userCreate(@RequestBody UserProfile user) {
-        userServ.userCreate(user);
+        userServ.profileCreate(user);
     } 
 
-    @GetMapping("/user-list")
+    @GetMapping("/profile-list")
     @ResponseBody
     public List<UserProfile> userList() {
-        return userServ.userList();
+        return userServ.profileList();
     }
 
-    @DeleteMapping ("/delete-user/{id}")
+    @DeleteMapping ("/delete-profile/{id}")
     public void userDelete(@PathVariable Long id){
-    userServ.userDelete(id);
+    userServ.profileDelete(id);
     }
 
-    @PutMapping("/edit-user")
+    @PutMapping("/edit-profile")
     @ResponseBody
     public UserProfile userEdit(@RequestBody UserProfile user) {
-        userServ.userEdit(user);
-        return userServ.userFind(user.getId());
+        userServ.profileEdit(user);
+        return userServ.profileFind(user.getId());
     }
 
-    @GetMapping("/find-user/{id}")
+    @GetMapping("/find-profile/{id}")
     @ResponseBody
     public UserProfile userFind(@PathVariable Long id) {
-        return userServ.userFind(id);
+        return userServ.profileFind(id);
     }
 }

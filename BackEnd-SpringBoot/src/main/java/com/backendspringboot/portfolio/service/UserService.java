@@ -13,27 +13,27 @@ public class UserService implements IUserService {
     public UserRepository userRepo;
 
     @Override
-    public List<UserProfile> userList() {
+    public List<UserProfile> profileList() {
         return userRepo.findAll();
     }
 
     @Override
-    public void userCreate(UserProfile user) {
+    public void profileCreate(UserProfile user) {
          userRepo.save(user);
     }
 
     @Override
-    public void userDelete(Long id) {
+    public void profileDelete(Long id) {
         userRepo.deleteById(id);
     }
 
     @Override
-    public UserProfile userFind(Long id) {
+    public UserProfile profileFind(Long id) {
         return userRepo.findById(id).orElse(null);
     }
 
     @Override
-    public UserProfile userEdit(UserProfile user) {
+    public UserProfile profileEdit(UserProfile user) {
         return userRepo.save(user);
     }
 }
