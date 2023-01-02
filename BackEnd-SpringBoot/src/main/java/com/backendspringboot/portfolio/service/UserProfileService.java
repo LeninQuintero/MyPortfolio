@@ -1,16 +1,16 @@
 package com.backendspringboot.portfolio.service;
 
 import com.backendspringboot.portfolio.model.UserProfile;
-import com.backendspringboot.portfolio.repository.UserRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.backendspringboot.portfolio.repository.UserProfileRepository;
 
 @Service
-public class UserService implements IUserService {
+public class UserProfileService implements IUserProfileService {
     
     @Autowired
-    public UserRepository userRepo;
+    public UserProfileRepository userRepo;
 
     @Override
     public List<UserProfile> profileList() {

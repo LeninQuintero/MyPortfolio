@@ -3,7 +3,7 @@ package com.backendspringboot.portfolio.service;
 import com.backendspringboot.portfolio.model.UserProfile;
 import java.util.List;
 
-public interface IUserService {
+public interface IUserProfileService {
     
     public List<UserProfile> profileList();
     

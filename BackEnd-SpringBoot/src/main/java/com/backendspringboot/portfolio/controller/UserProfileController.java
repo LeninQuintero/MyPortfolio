@@ -1,7 +1,6 @@
 package com.backendspringboot.portfolio.controller;
 
 import com.backendspringboot.portfolio.model.UserProfile;
-import com.backendspringboot.portfolio.service.IUserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,40 +12,41 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.backendspringboot.portfolio.service.IUserProfileService;
 
 
 @CrossOrigin ("*")
 @RestController
-public class UserController {
+public class UserProfileController {
     @Autowired
-    private IUserService userServ;
+    private IUserProfileService userProfileServ;
 
     @PostMapping("/new-profile")
-    public void userCreate(@RequestBody UserProfile user) {
-        userServ.profileCreate(user);
+    public void profileCreate(@RequestBody UserProfile profile) {
+        userProfileServ.profileCreate(profile);
     } 
 
     @GetMapping("/profile-list")
     @ResponseBody
-    public List<UserProfile> userList() {
-        return userServ.profileList();
+    public List<UserProfile> profileList() {
+        return userProfileServ.profileList();
     }
 
     @DeleteMapping ("/delete-profile/{id}")
-    public void userDelete(@PathVariable Long id){
-    userServ.profileDelete(id);
+    public void profileDelete(@PathVariable Long id){
+    userProfileServ.profileDelete(id);
     }
 
     @PutMapping("/edit-profile")
     @ResponseBody
-    public UserProfile userEdit(@RequestBody UserProfile user) {
-        userServ.profileEdit(user);
-        return userServ.profileFind(user.getId());
+    public UserProfile profileEdit(@RequestBody UserProfile profile) {
+        userProfileServ.profileEdit(profile);
+        return userProfileServ.profileFind(profile.getId());
     }
 
     @GetMapping("/find-profile/{id}")
     @ResponseBody
-    public UserProfile userFind(@PathVariable Long id) {
-        return userServ.profileFind(id);
+    public UserProfile profileFind(@PathVariable Long id) {
+        return userProfileServ.profileFind(id);
     }
 }
