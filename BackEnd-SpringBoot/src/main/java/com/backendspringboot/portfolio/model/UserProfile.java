@@ -2,11 +2,7 @@ package com.backendspringboot.portfolio.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,10 +12,6 @@ import lombok.Setter;
 @Table(name = "user_profile")
 public class UserProfile {
     
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name= "id_profile", nullable = false, unique = true)
-//    private Long id;  
     
     @Column(name= "name", nullable = false, length = 40)
     private String name;
@@ -67,8 +59,4 @@ public class UserProfile {
         this.urlLinkedin = urlLinkedin;
         this.IdUserCredentials = IdUserCredentials;
     }
-
-
-
-  
 }

@@ -28,9 +28,6 @@ public class UserCredentials {
     @Column(name= "password",  nullable = false, length = 40)
     private String password;
     
-//    @OneToOne(mappedBy= "userCredentials", cascade=CascadeType.ALL)
-//    private UserProfile userProfile;
-    
      @OneToOne(cascade=CascadeType.ALL)
      @JoinColumn(name = "id_user")
      private UserProfile userProfile;
