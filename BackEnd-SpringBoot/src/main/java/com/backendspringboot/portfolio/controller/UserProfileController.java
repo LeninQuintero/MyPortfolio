@@ -41,7 +41,7 @@ public class UserProfileController {
     @ResponseBody
     public UserProfile profileEdit(@RequestBody UserProfile profile) {
         userProfileServ.profileEdit(profile);
-        return userProfileServ.profileFind(profile.getId());
+        return userProfileServ.profileFind(profile.getIdUserCredentials());
     }
 
     @GetMapping("/find-profile/{id}")

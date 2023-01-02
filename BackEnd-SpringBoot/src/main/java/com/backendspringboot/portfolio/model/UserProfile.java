@@ -16,10 +16,10 @@ import lombok.Setter;
 @Table(name = "user_profile")
 public class UserProfile {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "id_profile", nullable = false, unique = true)
-    private Long id;  
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name= "id_profile", nullable = false, unique = true)
+//    private Long id;  
     
     @Column(name= "name", nullable = false, length = 40)
     private String name;
@@ -48,17 +48,14 @@ public class UserProfile {
     @Column(name= "url_linkedin", nullable = false, length = 255)
     private String urlLinkedin;
     
-    @OneToOne
-    @JoinColumn(name = "id_user", unique = true)
-    private UserCredentials userCredentials;
+    @Id
+    @Column(name = "id_user", nullable = false, unique = true)
+    private Long IdUserCredentials;
 
     public UserProfile() {
     }
 
-    public UserProfile(String name, String title, String urlProfilePic, String urlBannerSm, 
-            String urlBannerLg, String aboutMe, String urlGithub, String urlTwitter, 
-            String urlLinkedin, UserCredentials userCredentials) {
-        
+    public UserProfile(String name, String title, String urlProfilePic, String urlBannerSm, String urlBannerLg, String aboutMe, String urlGithub, String urlTwitter, String urlLinkedin, Long IdUserCredentials) {
         this.name = name;
         this.title = title;
         this.urlProfilePic = urlProfilePic;
@@ -68,8 +65,10 @@ public class UserProfile {
         this.urlGithub = urlGithub;
         this.urlTwitter = urlTwitter;
         this.urlLinkedin = urlLinkedin;
-        this.userCredentials = userCredentials;
+        this.IdUserCredentials = IdUserCredentials;
     }
 
-    
+
+
+  
 }

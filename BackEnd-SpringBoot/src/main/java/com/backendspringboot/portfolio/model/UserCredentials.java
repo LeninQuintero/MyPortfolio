@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -27,8 +28,12 @@ public class UserCredentials {
     @Column(name= "password",  nullable = false, length = 40)
     private String password;
     
-    @OneToOne(mappedBy= "userCredentials",cascade=CascadeType.ALL)
-    private UserProfile userProfile;
+//    @OneToOne(mappedBy= "userCredentials", cascade=CascadeType.ALL)
+//    private UserProfile userProfile;
+    
+     @OneToOne(cascade=CascadeType.ALL)
+     @JoinColumn(name = "id_user")
+     private UserProfile userProfile;
 
     public UserCredentials() {
     }

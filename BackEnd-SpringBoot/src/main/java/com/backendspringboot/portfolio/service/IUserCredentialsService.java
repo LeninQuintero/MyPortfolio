@@ -12,7 +12,6 @@ public interface IUserCredentialsService {
     public void userCredentialDelete (Long id);
     
     public UserCredentials userCredentialFindId (Long id);
-   
     
     public UserCredentials userCredentialEdit (UserCredentials user);
     
