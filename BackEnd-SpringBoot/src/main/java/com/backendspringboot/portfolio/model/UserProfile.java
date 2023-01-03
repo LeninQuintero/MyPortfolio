@@ -12,6 +12,9 @@ import lombok.Setter;
 @Table(name = "user_profile")
 public class UserProfile {
     
+    @Id
+    @Column(name = "id_user", nullable = false, unique = true)
+    private Long Id;
     
     @Column(name= "name", nullable = false, length = 40)
     private String name;
@@ -40,14 +43,16 @@ public class UserProfile {
     @Column(name= "url_linkedin", nullable = false, length = 255)
     private String urlLinkedin;
     
-    @Id
-    @Column(name = "id_user", nullable = false, unique = true)
-    private Long IdUserCredentials;
+    @Column(name= "url_profile", nullable = false, length = 255)
+    private String urlProfile;
 
     public UserProfile() {
     }
 
-    public UserProfile(String name, String title, String urlProfilePic, String urlBannerSm, String urlBannerLg, String aboutMe, String urlGithub, String urlTwitter, String urlLinkedin, Long IdUserCredentials) {
+    public UserProfile(Long Id, String name, String title, String urlProfilePic, 
+            String urlBannerSm, String urlBannerLg, String aboutMe, String urlGithub, 
+            String urlTwitter, String urlLinkedin, String urlProfile) {
+        this.Id = Id;
         this.name = name;
         this.title = title;
         this.urlProfilePic = urlProfilePic;
@@ -57,6 +62,7 @@ public class UserProfile {
         this.urlGithub = urlGithub;
         this.urlTwitter = urlTwitter;
         this.urlLinkedin = urlLinkedin;
-        this.IdUserCredentials = IdUserCredentials;
+        this.urlProfile = urlProfile;
     }
+
 }

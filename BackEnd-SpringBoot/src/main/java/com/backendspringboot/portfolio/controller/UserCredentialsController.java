@@ -32,6 +32,7 @@ public class UserCredentialsController {
      userCredentialsServ.userCredentialCreate(user);
 
         UserProfile userProfile = new UserProfile(
+                user.getId(),
                 "Lenin Quintero",
                 "Full Stack Developer Jr.",
                 "http://localhost:8080/uploads/foto-perfil.webp",
@@ -44,12 +45,14 @@ public class UserCredentialsController {
                 "https://github.com/LeninQuintero",
                 "https://twitter.com/lenartock",
                 "https://www.linkedin.com/in/lenin-quintero-1685b7136",
-                user.getId());
+                "http://localhost:8080/" + user.getUserName()
+        );
+                
         
         userProfileServ.profileCreate(userProfile);
         
         
-        return userProfileServ.profileFind(userProfile.getIdUserCredentials());
+        return userProfileServ.profileFind(userProfile.getId());
     }
 
     @GetMapping("/user-list")

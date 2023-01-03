@@ -25,7 +25,7 @@ public class UserCredentials {
     @Column(name= "user_name",  nullable = false, unique = true, length = 40)
     private String userName;
     
-    @Column(name= "password",  nullable = false, length = 40)
+    @Column(name= "password",  nullable = false, length = 60)
     private String password;
     
      @OneToOne(cascade=CascadeType.ALL)

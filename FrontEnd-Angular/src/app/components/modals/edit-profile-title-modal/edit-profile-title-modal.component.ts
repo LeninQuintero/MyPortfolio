@@ -21,7 +21,8 @@ export class EditProfileTitleModalComponent {
     aboutMe: '',
     urlGithub: '',
     urlTwitter: '',
-    urlLinkedin: ''
+    urlLinkedin: '',
+    urlProfile: ''
   };
   
   constructor(private fb: FormBuilder, private userService: UserService) {  

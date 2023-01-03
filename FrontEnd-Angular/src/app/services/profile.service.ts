@@ -47,6 +47,7 @@ export interface UserProfile {
   urlGithub: string;
   urlTwitter: string;
   urlLinkedin: string;
+  urlProfile: string;
 }
 
 export interface PartialUserProfile extends Partial<UserProfile> { }
