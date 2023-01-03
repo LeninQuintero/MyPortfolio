@@ -20,10 +20,10 @@ public class FileController {
     @Autowired
     private FileService fileService;
 
-    @PostMapping("/uploads")
-    public ResponseEntity<String> uploadFiles(@RequestParam("files") List<MultipartFile> files) {
+    @PostMapping("/uploads/{directoryName}")
+    public ResponseEntity<String> uploadFiles(@PathVariable String directoryName, @RequestParam("files") List<MultipartFile> files) {
         try {
-            fileService.saveFiles(files);
+            fileService.saveFiles(directoryName, files);
             return ResponseEntity.status(HttpStatus.OK).body("file(s) uploaded successfully");
             
         } catch (Exception e) {
@@ -32,10 +32,10 @@ public class FileController {
         } 
     } 
 
-    @DeleteMapping("/delete/{filename}")
-    public ResponseEntity<String> deleteFile(@PathVariable String filename){
+    @DeleteMapping("/delete/{directoryName}/{filename}")
+    public ResponseEntity<String> deleteFile(@PathVariable String directoryName, @PathVariable String filename){
        try {
-           fileService.deleteFile(filename);
+           fileService.deleteFile(directoryName, filename);
            return ResponseEntity.status(HttpStatus.OK).body("file deleted");
            
        } catch (Exception e) {

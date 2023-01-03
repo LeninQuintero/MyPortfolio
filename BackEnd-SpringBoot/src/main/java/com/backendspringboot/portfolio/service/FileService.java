@@ -1,5 +1,6 @@
 package com.backendspringboot.portfolio.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,31 +8,33 @@ import java.nio.file.Paths;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.apache.commons.io.FileUtils;
 
 @Service
 public class FileService implements IFileService {
-    
-    private String urlUploads = "src/main/resources/static/uploads";
-    private final Path rootFolder = Paths.get(urlUploads);
 
-    
-    
+    private String urlUploads = "src/main/resources/static/uploads";
+
     @Override
-    public void saveFile(MultipartFile file) throws Exception {
-        Files.copy(file.getInputStream(), this.rootFolder.resolve(file.getOriginalFilename()));
+    public void saveFile(String directoryName, MultipartFile file) throws Exception {
+        String url = this.urlUploads + "/" + directoryName;
+        Path rootFolder = Paths.get(url);
+        Files.copy(file.getInputStream(), rootFolder.resolve(file.getOriginalFilename()));
     }
 
     @Override
-    public void saveFiles(List<MultipartFile> files) throws Exception {
+    public void saveFiles(String directoryName, List<MultipartFile> files) throws Exception {
         for (MultipartFile file : files) {
-            this.saveFile(file);
+            this.saveFile(directoryName, file);
         }
     }
 
     @Override
-    public String deleteFile(String filename) {
+    public String deleteFile(String directoryName, String filename) {
+        String url = this.urlUploads + "/" + directoryName;
+        Path rootFolder = Paths.get(url);
         try {
-            Files.deleteIfExists(this.rootFolder.resolve(filename));
+            Files.deleteIfExists(rootFolder.resolve(filename));
             return "Deleted";
         } catch (IOException e) {
             return "Error deleting";
@@ -40,8 +43,8 @@ public class FileService implements IFileService {
 
     @Override
     public String initStorage(String username) {
-        String UrlUserStorage = urlUploads + "/" + username;
-        Path  userFolder= Paths.get(UrlUserStorage);
+        String UrlUserStorage = this.urlUploads + "/" + username;
+        Path userFolder = Paths.get(UrlUserStorage);
         try {
             Files.createDirectory(userFolder);
             return "directory created successfully";
@@ -49,9 +52,23 @@ public class FileService implements IFileService {
             return "error, directory not created";
         }
     }
-    
+
     @Override
-    public String getUrlUploads(String directoryName){
-       return this.urlUploads + "/" + directoryName;
+    public String getUrlUploads(String directoryName) {
+        return this.urlUploads + "/" + directoryName;
     }
+
+    @Override
+    public String deleteStorage(String username) {
+        String urlUserStorage = urlUploads + "/" + username;
+        File userFolder = new File(urlUserStorage);
+
+        try {
+            FileUtils.deleteDirectory(userFolder);
+            return "directory deleted successfully";
+        } catch (IOException ex) {
+            return "error, directory not deleted";
+        }
+    }
+
 }

@@ -9,7 +9,7 @@ import { UserProfile, UserService } from 'src/app/services/profile.service';
   styleUrls: ['./edit-banner-modal.component.scss']
 })
 export class EditBannerModalComponent implements OnInit, OnDestroy {
-
+  private directoryName: string = "";
   public bannerForm: FormGroup;
   public spinnerButton: boolean = false;
   private maxImageSize: number = 5242880;
@@ -30,8 +30,9 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
   public maxLengthPictureName: number = 50;
   private userSuscription = this.userService.getUser().subscribe(user => {
     this.user = user;
-    this.actualBannerSmName = this.uploadFilesService.getUrlsFilename(user.urlBannerSm);
-    this.actualBannerLgName = this.uploadFilesService.getUrlsFilename(user.urlBannerLg);
+    this.actualBannerSmName = this.uploadFilesService.getUrlsName(user.urlBannerSm);
+    this.actualBannerLgName = this.uploadFilesService.getUrlsName(user.urlBannerLg);
+    this.directoryName = this.uploadFilesService.getUrlsName(user.urlProfile);
   });
 
   private actualBannerSmName: string = "";
@@ -98,7 +99,7 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
 
       if (this.bannerSmSize <= this.maxImageSize) {
 
-        this.urlBannerSm = this.uploadFilesService.uploadRef(this.bannerSm.name);
+        this.urlBannerSm = this.uploadFilesService.uploadRef(this.directoryName, this.bannerSm.name);
         this.user.urlBannerSm = this.urlBannerSm;
         this.errorMaxSizeSm = false;
       }
@@ -118,7 +119,7 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
 
       if (this.bannerLgSize <= this.maxImageSize) {
 
-        this.urlBannerLg = this.uploadFilesService.uploadRef(this.bannerLg.name);
+        this.urlBannerLg = this.uploadFilesService.uploadRef(this.directoryName, this.bannerLg.name);
         this.user.urlBannerLg = this.urlBannerLg;
         this.errorMaxSizeLg = false;
 
@@ -141,11 +142,11 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
       this.bannerSmData.append("files", this.bannerSm);
       this.bannerLgData.append("files", this.bannerLg);
 
-      this.uploadFilesService.deleteFile(this.actualBannerSmName).subscribe(() => { });
-      this.uploadFilesService.deleteFile(this.actualBannerLgName).subscribe(() => { });
+      this.uploadFilesService.deleteFile(this.directoryName, this.actualBannerSmName).subscribe(() => { });
+      this.uploadFilesService.deleteFile(this.directoryName, this.actualBannerLgName).subscribe(() => { });
 
-      this.uploadFilesService.uploadFile(this.bannerSmData).subscribe(() => { });
-      this.uploadFilesService.uploadFile(this.bannerLgData).subscribe(() => { });
+      this.uploadFilesService.uploadFile(this.directoryName, this.bannerSmData).subscribe(() => { });
+      this.uploadFilesService.uploadFile(this.directoryName, this.bannerLgData).subscribe(() => { });
 
       this.userService.editUser(this.user).subscribe(() => {
         setTimeout(() => {

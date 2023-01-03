@@ -37,18 +37,15 @@ public class UserCredentialsController {
 
         UserProfile userProfile = new UserProfile(
                 user.getId(),
-                "Lenin Quintero",
-                "Full Stack Developer Jr.",
-                "http://localhost:8080/uploads/foto-perfil.webp",
-                "http://localhost:8080/uploads/banner-mobile.webp",
-                "http://localhost:8080/uploads/banner-desktop.webp",
-                "Desde muy pequeño he tenido especial interés en saber el funcionamiento de las \"cosas\" lo cual me ha "
-                        + "resultado muy útil a la hora de enfrentar desafíos personales y laborales a lo largo de mi vida. "
-                        + "Descubrí la programación hace muy poco y me he vuelto a sentir como aquel niño con hambre de conocimiento. "
-                        + "Hoy en día me estoy preparando para poder insertarme en el mercado laboral IT enfocado a Data Science y/o Business Intelligence.",
-                "https://github.com/LeninQuintero",
-                "https://twitter.com/lenartock",
-                "https://www.linkedin.com/in/lenin-quintero-1685b7136",
+                "Nuevo Usuario",
+                "Titulo del Portafolio",
+                "http://localhost:8080/uploads/defaultimages/foto-perfil.webp",
+                "http://localhost:8080/uploads/defaultimages/banner-mobile.webp",
+                "http://localhost:8080/uploads/defaultimages/banner-desktop.webp",
+                "Descripción del perfil del usuario",
+                "https://github.com/#",
+                "https://twitter.com/#",
+                "https://www.linkedin.com/#",
                 "http://localhost:8080/" + user.getUserName()
         );
                 
@@ -70,7 +67,9 @@ public class UserCredentialsController {
 
     @DeleteMapping("/delete-user/{id}")
     public void userDelete(@PathVariable Long id) {
-        userCredentialsServ.userCredentialDelete(id);
+        UserCredentials user = userCredentialsServ.userCredentialFindId(id);  
+        userCredentialsServ.userCredentialDelete(id);  
+        fileService.deleteStorage(user.getUserName());        
     }
 
     @PutMapping("/edit-user")

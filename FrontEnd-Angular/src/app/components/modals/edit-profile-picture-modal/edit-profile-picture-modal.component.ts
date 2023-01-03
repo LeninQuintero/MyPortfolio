@@ -15,6 +15,7 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
   public maxLengthPictureName: number = 50;
   public spinnerButton: boolean = false;
   public errorMaxSize: boolean = false;
+  private directoryName: string = "";
   private urlImgName: string = "";
   private actualImgName: string = "";
   private imgSize: number = 0;
@@ -24,7 +25,8 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
 
   private userSuscription = this.userService.getUser().subscribe(user => {
     this.user = user;
-    this.actualImgName = this.uploadFilesService.getUrlsFilename(user.urlProfilePic);
+    this.actualImgName = this.uploadFilesService.getUrlsName(user.urlProfilePic);
+    this.directoryName = this.uploadFilesService.getUrlsName(user.urlProfile);
   });
   
   private user: UserProfile = {
@@ -58,6 +60,7 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userSuscription;
+    
   }
 
   ngOnDestroy(): void {
@@ -90,7 +93,7 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
       if (this.imgSize <= this.maxImageSize){
         this.errorMaxSize= false;
       
-      this.urlImgName = this.uploadFilesService.uploadRef(this.image.name);
+      this.urlImgName = this.uploadFilesService.uploadRef(this.directoryName, this.image.name);
       this.user.urlProfilePic = this.urlImgName;
       }
 
@@ -101,15 +104,15 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
   }
 
   update() {
-
     if (this.editForm.valid && (this.imgSize <= this.maxImageSize)) {
       this.spinnerButton = true;
 
       this.formDataImage.append('files', this.image);
 
-      this.uploadFilesService.deleteFile(this.actualImgName).subscribe(() => {
+      this.uploadFilesService.deleteFile(this.directoryName, this.actualImgName).subscribe(() => {
 
-        this.uploadFilesService.uploadFile(this.formDataImage).subscribe(() => {
+        this.uploadFilesService.uploadFile(this.directoryName, this.formDataImage).subscribe(() => {
+
           this.userService.editUser(this.user).subscribe(() => {
 
             setTimeout(() => {

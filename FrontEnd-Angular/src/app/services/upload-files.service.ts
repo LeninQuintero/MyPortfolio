@@ -13,19 +13,19 @@ export class UploadFilesService {
 
   constructor(private http: HttpClient) { }
 
-  uploadRef(name: string) {
-    return `${this.apiUrlUpload}/${name}`
+  uploadRef(directoryName: string, name: string) {
+    return `${this.apiUrlUpload}/${directoryName}/${name}`
   }
 
- uploadFile(file: FormData): Observable<string> {
-    return this.http.post<string>(this.apiUrlUpload, file, { responseType: 'string' as 'json' });
+ uploadFile(directoryName: string, file: FormData): Observable<string> {
+    return this.http.post<string>(`${this.apiUrlUpload}/${directoryName}`, file, { responseType: 'string' as 'json' });
   }
 
-  deleteFile(filename: string): Observable<string> {
-    return this.http.delete<string>(`${this.apiUrlDelete}/${filename}`, { responseType: 'string' as 'json' });
+  deleteFile(directoryName: string, filename: string): Observable<string> {
+    return this.http.delete<string>(`${this.apiUrlDelete}/${directoryName}/${filename}`, { responseType: 'string' as 'json' });
   }
 
-  getUrlsFilename(url: string): any {
+  getUrlsName(url: string): any {
     let match = url.match(/\/([^\/]+)$/);
     if (match) {
       let file = match[1];
