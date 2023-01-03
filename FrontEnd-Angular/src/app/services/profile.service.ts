@@ -37,7 +37,7 @@ export class UserService {
 }
 
 export interface UserProfile {
-  id?: number;
+  id: number;
   name: string;
   title: string;
   urlProfilePic: string;

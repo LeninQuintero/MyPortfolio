@@ -39,7 +39,8 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
     urlGithub: '',
     urlTwitter: '',
     urlLinkedin: '',
-    urlProfile: ''
+    urlProfile: '',
+    id: 0
   };
 
   constructor(private fb: FormBuilder, private userService: UserService, private uploadFilesService: UploadFilesService) {

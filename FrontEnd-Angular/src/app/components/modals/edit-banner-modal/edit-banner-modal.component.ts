@@ -23,7 +23,8 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
     urlGithub: '',
     urlTwitter: '',
     urlLinkedin: '',
-    urlProfile: ''
+    urlProfile: '',
+    id: 0
   };
 
   public minLengthPictureName: number = 1;

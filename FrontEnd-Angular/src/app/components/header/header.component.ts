@@ -18,7 +18,8 @@ export class HeaderComponent implements OnInit  {
     urlGithub: '',
     urlTwitter: '',
     urlLinkedin: '',
-    urlProfile: ''
+    urlProfile: '',
+    id: 0
   };
 
   constructor(private userService: UserService) { }
