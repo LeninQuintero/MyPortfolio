@@ -10,9 +10,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileService implements IFileService {
+    
+    private String urlUploads = "src/main/resources/static/uploads";
+    private final Path rootFolder = Paths.get(urlUploads);
 
-    private final Path rootFolder = Paths.get("src/main/resources/static/uploads");
-
+    
+    
     @Override
     public void saveFile(MultipartFile file) throws Exception {
         Files.copy(file.getInputStream(), this.rootFolder.resolve(file.getOriginalFilename()));
@@ -35,4 +38,20 @@ public class FileService implements IFileService {
         }
     }
 
+    @Override
+    public String initStorage(String username) {
+        String UrlUserStorage = urlUploads + "/" + username;
+        Path  userFolder= Paths.get(UrlUserStorage);
+        try {
+            Files.createDirectory(userFolder);
+            return "directory created successfully";
+        } catch (IOException ex) {
+            return "error, directory not created";
+        }
+    }
+    
+    @Override
+    public String getUrlUploads(String directoryName){
+       return this.urlUploads + "/" + directoryName;
+    }
 }

@@ -11,4 +11,7 @@ public interface IFileService {
         
     public String deleteFile(String filename);
     
+    public String initStorage(String username);
+    
+    public String getUrlUploads(String directoryName);
 }

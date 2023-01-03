@@ -2,6 +2,7 @@ package com.backendspringboot.portfolio.controller;
 
 import com.backendspringboot.portfolio.model.UserCredentials;
 import com.backendspringboot.portfolio.model.UserProfile;
+import com.backendspringboot.portfolio.service.FileService;
 import com.backendspringboot.portfolio.service.UserCredentialsService;
 import com.backendspringboot.portfolio.service.UserProfileService;
 import java.util.List;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 @RestController
 public class UserCredentialsController {
+    
+    @Autowired
+    private FileService fileService;
 
     @Autowired
     private UserCredentialsService userCredentialsServ;
@@ -50,6 +54,9 @@ public class UserCredentialsController {
                 
         
         userProfileServ.profileCreate(userProfile);
+        
+        
+        fileService.initStorage(user.getUserName());
         
         
         return userProfileServ.profileFind(userProfile.getId());
