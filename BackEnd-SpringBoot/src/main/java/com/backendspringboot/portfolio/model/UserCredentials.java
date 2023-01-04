@@ -19,7 +19,7 @@ public class UserCredentials {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "id_user", nullable = false, unique = true)
+    @Column(name= "id", nullable = false, unique = true)
     private Long id;  
     
     @Column(name= "user_name",  nullable = false, unique = true, length = 40)
@@ -29,7 +29,7 @@ public class UserCredentials {
     private String password;
     
      @OneToOne(cascade=CascadeType.ALL)
-     @JoinColumn(name = "id_user")
+     @JoinColumn(name = "id")
      private UserProfile userProfile;
 
     public UserCredentials() {

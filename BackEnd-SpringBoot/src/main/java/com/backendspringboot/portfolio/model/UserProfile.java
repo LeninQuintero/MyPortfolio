@@ -13,7 +13,7 @@ import lombok.Setter;
 public class UserProfile {
     
     @Id
-    @Column(name = "id_user", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     private Long Id;
     
     @Column(name= "name", nullable = false, length = 40)
