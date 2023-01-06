@@ -7,7 +7,7 @@ public interface IUserProfileService {
     
     public List<UserProfile> profileList();
     
-    public void profileCreate (UserProfile Profile);
+    public void profileCreate (UserProfile profile);
     
     public void profileDelete (Long id);
     

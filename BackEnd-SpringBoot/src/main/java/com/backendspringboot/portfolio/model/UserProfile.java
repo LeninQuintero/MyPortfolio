@@ -1,20 +1,34 @@
 package com.backendspringboot.portfolio.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+
+
+@Getter
+@Setter
 @Entity
 @Table(name = "user_profile")
-public class UserProfile {
+public class UserProfile implements Serializable {
     
     @Id
     @Column(name = "id", nullable = false, unique = true)
-    private Long Id;
+    private Long id;
     
     @Column(name= "name", nullable = false, length = 40)
     private String name;
@@ -44,15 +58,21 @@ public class UserProfile {
     private String urlLinkedin;
     
     @Column(name= "url_profile", nullable = false, length = 255)
-    private String urlProfile;
+    private String urlProfile; 
+    
+     @OneToOne
+     @JsonIgnore
+     private UserCredentials userCredentials;
+    
+    @OneToMany(mappedBy="userProfile", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    List<Experience> experienceList = new ArrayList<>();
 
     public UserProfile() {
     }
 
-    public UserProfile(Long Id, String name, String title, String urlProfilePic, 
-            String urlBannerSm, String urlBannerLg, String aboutMe, String urlGithub, 
-            String urlTwitter, String urlLinkedin, String urlProfile) {
-        this.Id = Id;
+    public UserProfile(Long id, String name, String title, String urlProfilePic, String urlBannerSm, String urlBannerLg, String aboutMe, String urlGithub, String urlTwitter, String urlLinkedin, String urlProfile, UserCredentials userCredentials) {
+        this.id = id;
         this.name = name;
         this.title = title;
         this.urlProfilePic = urlProfilePic;
@@ -63,6 +83,11 @@ public class UserProfile {
         this.urlTwitter = urlTwitter;
         this.urlLinkedin = urlLinkedin;
         this.urlProfile = urlProfile;
+        this.userCredentials = userCredentials;
     }
 
+
+
+    
+   
 }

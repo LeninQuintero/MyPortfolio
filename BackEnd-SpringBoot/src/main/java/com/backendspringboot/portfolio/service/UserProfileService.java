@@ -18,8 +18,8 @@ public class UserProfileService implements IUserProfileService {
     }
 
     @Override
-    public void profileCreate(UserProfile user) {
-         userRepo.save(user);
+    public void profileCreate(UserProfile profile) {
+         userRepo.save(profile);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class UserProfileService implements IUserProfileService {
     }
 
     @Override
-    public UserProfile profileEdit(UserProfile user) {
-        return userRepo.save(user);
+    public UserProfile profileEdit(UserProfile profile) {
+        return userRepo.save(profile);
     }
 }
