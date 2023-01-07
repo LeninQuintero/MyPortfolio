@@ -8,7 +8,7 @@ import com.backendspringboot.portfolio.repository.UserProfileRepository;
 
 @Service
 public class UserProfileService implements IUserProfileService {
-    
+
     @Autowired
     public UserProfileRepository userRepo;
 
@@ -19,7 +19,7 @@ public class UserProfileService implements IUserProfileService {
 
     @Override
     public void profileCreate(UserProfile profile) {
-         userRepo.save(profile);
+        userRepo.save(profile);
     }
 
     @Override

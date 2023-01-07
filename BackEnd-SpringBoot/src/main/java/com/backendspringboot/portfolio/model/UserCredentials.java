@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,22 +19,22 @@ import lombok.Setter;
 @Entity
 @Table(name = "user_credentials")
 public class UserCredentials implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "id", nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
-    
-    @Column(name= "username",  nullable = false, unique = true, length = 40)
+
+    @Column(name = "username", nullable = false, unique = true, length = 40)
     private String userName;
     
-    @Column(name= "password",  nullable = false, length = 60)
+    @Column(name = "password", nullable = false, length = 60)
     private String password;
-    
-     @OneToOne(cascade=CascadeType.ALL)
-     @JoinColumn(name = "id")
-     @JsonIgnore
-     private UserProfile userProfile;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    @JsonIgnore
+    private UserProfile userProfile;
 
     public UserCredentials() {
     }
@@ -45,10 +44,4 @@ public class UserCredentials implements Serializable {
         this.password = password;
         this.userProfile = userProfile;
     }
-
-
-
-
-
-
 }

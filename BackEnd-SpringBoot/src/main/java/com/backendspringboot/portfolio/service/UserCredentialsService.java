@@ -36,5 +36,10 @@ public class UserCredentialsService implements IUserCredentialsService {
     public UserCredentials userCredentialEdit(UserCredentials user) {
         return userCredRepo.save(user);
     }
+
+    @Override
+    public UserCredentials findByUsername(String username) {
+        return userCredRepo.findByUserName(username);
+    }
        
 }

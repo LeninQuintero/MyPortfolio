@@ -15,4 +15,6 @@ public interface IUserCredentialsService {
     
     public UserCredentials userCredentialEdit (UserCredentials user);
     
+    public UserCredentials findByUsername(String username);
+    
 }

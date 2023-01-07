@@ -1,7 +1,9 @@
 package com.backendspringboot.portfolio.service;
 
 import com.backendspringboot.portfolio.model.Experience;
+import com.backendspringboot.portfolio.model.UserProfile;
 import com.backendspringboot.portfolio.repository.ExperienceRepository;
+import com.backendspringboot.portfolio.repository.UserProfileRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExperienceService implements IExperienceService {
     
+    @Autowired
+    public UserProfileRepository userProfileRepo;
+
     @Autowired
     public ExperienceRepository expRepo;
 
@@ -19,7 +24,7 @@ public class ExperienceService implements IExperienceService {
 
     @Override
     public void experienceCreate(Experience experience) {
-         expRepo.save(experience);
+        expRepo.save(experience);
     }
 
     @Override
@@ -37,4 +42,9 @@ public class ExperienceService implements IExperienceService {
         return expRepo.save(experience);
     }
     
+    @Override
+    public List<Experience> userExperienceList(Long id) {
+        UserProfile user = userProfileRepo.findById(id).orElse(null);
+        return expRepo.findByUserProfile(user);
+    }
 }

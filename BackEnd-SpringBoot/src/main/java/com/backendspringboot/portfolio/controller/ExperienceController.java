@@ -21,59 +21,52 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExperienceController {
 
     @Autowired
-    private ExperienceService ExpServ;
-    
-    @Autowired
-    private UserProfileRepository UserProfileRepo;
+    private ExperienceService expServ;
 
-//    @PostMapping("/new-experience")
-//    public void experienceCreate(@RequestBody Experience experience) {
-//        ExpServ.experienceCreate(experience);
-//    }
-    
-    
-    
-    
+    @Autowired
+    private UserProfileRepository userProfileRepo;
+
     @PostMapping("/{id}/new-experience")
     public void experienceCreate(@PathVariable Long id, @RequestBody Experience experience) {
-    UserProfile userProfile = UserProfileRepo.findById(id).orElse(null);
-    if (userProfile != null) {
-      experience.setUserProfile(userProfile);
-      ExpServ.experienceCreate(experience);
-    } 
+
+        UserProfile userProfile = userProfileRepo.findById(id).orElse(null);
+
+        if (userProfile != null) {
+            experience.setUserProfile(userProfile);
+            expServ.experienceCreate(experience);
+        }
+    }
+
+    @GetMapping("/experience-list/{id}")
+    @ResponseBody
+    public List<Experience> experienceList(@PathVariable Long id) {
+        return expServ.userExperienceList(id);
     }
     
-//    @PostMapping("/new-experience/{idUser}")
-//    public void experienceCreate(@RequestBody Experience experience, @PathVariable Long idUser) {
-//        
-//        
-//        
-//        
-//        ExpServ.experienceCreate(experience);
-//    }
-
-    @GetMapping("/experience-list")
-    @ResponseBody
-    public List<Experience> experienceList() {
-        return ExpServ.experienceList();
-    }
-
     @DeleteMapping("/delete-experience/{id}")
-    public void experienceDelete(@PathVariable Long id) {
-        ExpServ.experienceDelete(id);
+    public void experienceDelete(@PathVariable Long id) {       
+       
+  Experience experience = expServ.experienceFind(id);
+  
+    if (experience.getUserProfile() != null) {
+        
+    experience.setUserProfile(null);
+
+    }   
+        expServ.experienceDelete(id);
     }
 
+    
     @PutMapping("/edit-experience")
     @ResponseBody
     public Experience experienceEdit(@RequestBody Experience experience) {
-        ExpServ.experienceEdit(experience);
-        return ExpServ.experienceFind(experience.getId());
+        expServ.experienceEdit(experience);
+        return expServ.experienceFind(experience.getId());
     }
 
     @GetMapping("/find-experience/{id}")
     @ResponseBody
     public Experience experienceFind(@PathVariable Long id) {
-        return ExpServ.experienceFind(id);
+        return expServ.experienceFind(id);
     }
-
 }
