@@ -62,7 +62,9 @@ public class Experience implements Serializable {
     public Experience() {
     }
 
-    public Experience(String position, String companyName, String urlCompanyLogo, Boolean currentJob, Date startDate, Date endDate, String location, String description, UserProfile userProfile) {
+    public Experience(String position, String companyName, String urlCompanyLogo, 
+            Boolean currentJob, Date startDate, Date endDate, String location, 
+            String description, UserProfile userProfile) {
         this.position = position;
         this.companyName = companyName;
         this.urlCompanyLogo = urlCompanyLogo;

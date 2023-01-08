@@ -26,7 +26,7 @@ public class ExperienceController {
     @Autowired
     private UserProfileRepository userProfileRepo;
 
-    @PostMapping("/{id}/new-experience")
+    @PostMapping("/new-experience/{id}")
     public void experienceCreate(@PathVariable Long id, @RequestBody Experience experience) {
 
         UserProfile userProfile = userProfileRepo.findById(id).orElse(null);
@@ -42,25 +42,30 @@ public class ExperienceController {
     public List<Experience> experienceList(@PathVariable Long id) {
         return expServ.userExperienceList(id);
     }
-    
-    @DeleteMapping("/delete-experience/{id}")
-    public void experienceDelete(@PathVariable Long id) {       
-       
-  Experience experience = expServ.experienceFind(id);
-  
-    if (experience.getUserProfile() != null) {
-        
-    experience.setUserProfile(null);
 
-    }   
+    @DeleteMapping("/delete-experience/{id}")
+    public void experienceDelete(@PathVariable Long id) {
+
+        Experience experience = expServ.experienceFind(id);
+
+        if (experience.getUserProfile() != null) {
+
+            experience.setUserProfile(null);
+
+        }
         expServ.experienceDelete(id);
     }
 
-    
     @PutMapping("/edit-experience")
     @ResponseBody
     public Experience experienceEdit(@RequestBody Experience experience) {
+
+        Experience expeDB = expServ.experienceFind(experience.getId());
+
+        experience.setUserProfile(expeDB.getUserProfile());
+
         expServ.experienceEdit(experience);
+
         return expServ.experienceFind(experience.getId());
     }
 
