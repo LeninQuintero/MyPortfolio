@@ -2,8 +2,8 @@ package com.backendspringboot.portfolio.controller;
 
 import com.backendspringboot.portfolio.model.Experience;
 import com.backendspringboot.portfolio.model.UserProfile;
-import com.backendspringboot.portfolio.repository.UserProfileRepository;
 import com.backendspringboot.portfolio.service.ExperienceService;
+import com.backendspringboot.portfolio.service.UserProfileService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,12 +24,11 @@ public class ExperienceController {
     private ExperienceService expServ;
 
     @Autowired
-    private UserProfileRepository userProfileRepo;
+    private UserProfileService userProfileServ;
 
     @PostMapping("/new-experience/{id}")
     public void experienceCreate(@PathVariable Long id, @RequestBody Experience experience) {
-
-        UserProfile userProfile = userProfileRepo.findById(id).orElse(null);
+        UserProfile userProfile = userProfileServ.profileFind(id);
 
         if (userProfile != null) {
             experience.setUserProfile(userProfile);
@@ -45,7 +44,6 @@ public class ExperienceController {
 
     @DeleteMapping("/delete-experience/{id}")
     public void experienceDelete(@PathVariable Long id) {
-
         Experience experience = expServ.experienceFind(id);
 
         if (experience.getUserProfile() != null) {
@@ -59,14 +57,7 @@ public class ExperienceController {
     @PutMapping("/edit-experience")
     @ResponseBody
     public Experience experienceEdit(@RequestBody Experience experience) {
-
-        Experience expeDB = expServ.experienceFind(experience.getId());
-
-        experience.setUserProfile(expeDB.getUserProfile());
-
-        expServ.experienceEdit(experience);
-
-        return expServ.experienceFind(experience.getId());
+        return expServ.experienceEdit(experience);
     }
 
     @GetMapping("/find-experience/{id}")

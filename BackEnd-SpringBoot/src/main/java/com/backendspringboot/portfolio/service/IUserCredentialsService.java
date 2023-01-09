@@ -1,13 +1,14 @@
 package com.backendspringboot.portfolio.service;
 
 import com.backendspringboot.portfolio.model.UserCredentials;
+import com.backendspringboot.portfolio.model.UserProfile;
 import java.util.List;
 
 public interface IUserCredentialsService {
     
     public List<UserCredentials> userCredentialList();
     
-    public void userCredentialCreate (UserCredentials user);
+    public UserProfile userCredentialCreate (UserCredentials user);
     
     public void userCredentialDelete (Long id);
     

@@ -19,15 +19,14 @@ public class FileController {
 
     @Autowired
     private FileService fileService;
-
+    
     @PostMapping("/uploads/{directoryName}")
     public ResponseEntity<String> uploadFiles(@PathVariable String directoryName, @RequestParam("files") List<MultipartFile> files) {
         try {
             fileService.saveFiles(directoryName, files);
             return ResponseEntity.status(HttpStatus.OK).body("file(s) uploaded successfully");
             
-        } catch (Exception e) {
-            
+        } catch (Exception e) {    
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error uploading file(s)");
         } 
     } 

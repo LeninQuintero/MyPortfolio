@@ -48,15 +48,5 @@ public class UserProfileController {
 
         return userProfileServ.profileFind(profile.getId());
     }
-
-//    @DeleteMapping("/delete-profile/{id}")
-//    public void profileDelete(@PathVariable Long id) {
-//        userProfileServ.profileDelete(id);
-//    } 
-    
-//    @PostMapping("/new-profile")
-//    public void profileCreate(@RequestBody UserProfile profile) {
-//        userProfileServ.profileCreate(profile);
-//    }
 }
 

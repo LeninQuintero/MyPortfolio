@@ -60,7 +60,7 @@ public class UserProfile implements Serializable {
 
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL,  orphanRemoval= true)
     @JsonIgnore
-    List<Experience> experienceList = new ArrayList<>();
+    private List<Experience> experienceList = new ArrayList<Experience>();
 
     public UserProfile() {
     }

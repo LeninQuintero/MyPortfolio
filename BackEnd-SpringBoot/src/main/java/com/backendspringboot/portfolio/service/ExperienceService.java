@@ -39,7 +39,11 @@ public class ExperienceService implements IExperienceService {
 
     @Override
     public Experience experienceEdit(Experience experience) {
-        return expRepo.save(experience);
+        
+        Experience expeDB = expRepo.findById(experience.getId()).orElse(null);
+        experience.setUserProfile(expeDB.getUserProfile());
+        expRepo.save(experience);
+        return expRepo.findById(experience.getId()).orElse(null);     
     }
     
     @Override
