@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExperienceController {
 
     @Autowired
-    private ExperienceService expServ;
+    private ExperienceService experienceServ;
 
     @Autowired
     private UserProfileService userProfileServ;
@@ -32,37 +32,37 @@ public class ExperienceController {
 
         if (userProfile != null) {
             experience.setUserProfile(userProfile);
-            expServ.experienceCreate(experience);
+            experienceServ.experienceCreate(experience);
         }
     }
 
     @GetMapping("/experience-list/{id}")
     @ResponseBody
     public List<Experience> experienceList(@PathVariable Long id) {
-        return expServ.userExperienceList(id);
+        return experienceServ.userExperienceList(id);
     }
 
     @DeleteMapping("/delete-experience/{id}")
     public void experienceDelete(@PathVariable Long id) {
-        Experience experience = expServ.experienceFind(id);
+        Experience experience = experienceServ.experienceFind(id);
 
         if (experience.getUserProfile() != null) {
 
             experience.setUserProfile(null);
 
         }
-        expServ.experienceDelete(id);
+        experienceServ.experienceDelete(id);
     }
 
     @PutMapping("/edit-experience")
     @ResponseBody
     public Experience experienceEdit(@RequestBody Experience experience) {
-        return expServ.experienceEdit(experience);
+        return experienceServ.experienceEdit(experience);
     }
 
     @GetMapping("/find-experience/{id}")
     @ResponseBody
     public Experience experienceFind(@PathVariable Long id) {
-        return expServ.experienceFind(id);
+        return experienceServ.experienceFind(id);
     }
 }

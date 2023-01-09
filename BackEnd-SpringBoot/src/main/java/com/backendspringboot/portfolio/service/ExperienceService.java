@@ -11,45 +11,45 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ExperienceService implements IExperienceService {
-    
+
     @Autowired
     public UserProfileRepository userProfileRepo;
 
     @Autowired
-    public ExperienceRepository expRepo;
+    public ExperienceRepository experienceRepo;
 
     @Override
     public List<Experience> experienceList() {
-        return expRepo.findAll();
+        return experienceRepo.findAll();
+    }
+
+    @Override
+    public List<Experience> userExperienceList(Long id) {
+        UserProfile user = userProfileRepo.findById(id).orElse(null);
+        return experienceRepo.findByUserProfile(user);
     }
 
     @Override
     public void experienceCreate(Experience experience) {
-        expRepo.save(experience);
+        experienceRepo.save(experience);
     }
 
     @Override
     public void experienceDelete(Long id) {
-        expRepo.deleteById(id);
+        experienceRepo.deleteById(id);
     }
 
     @Override
     public Experience experienceFind(Long id) {
-        return expRepo.findById(id).orElse(null);
+        return experienceRepo.findById(id).orElse(null);
     }
 
     @Override
     public Experience experienceEdit(Experience experience) {
-        
-        Experience expeDB = expRepo.findById(experience.getId()).orElse(null);
+
+        Experience expeDB = experienceRepo.findById(experience.getId()).orElse(null);
         experience.setUserProfile(expeDB.getUserProfile());
-        expRepo.save(experience);
-        return expRepo.findById(experience.getId()).orElse(null);     
-    }
-    
-    @Override
-    public List<Experience> userExperienceList(Long id) {
-        UserProfile user = userProfileRepo.findById(id).orElse(null);
-        return expRepo.findByUserProfile(user);
+        experienceRepo.save(experience);
+        return experienceRepo.findById(experience.getId()).orElse(null);
     }
 }
