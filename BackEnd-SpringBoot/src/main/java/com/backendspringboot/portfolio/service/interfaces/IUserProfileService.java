@@ -1,4 +1,4 @@
-package com.backendspringboot.portfolio.service;
+package com.backendspringboot.portfolio.service.interfaces;
 
 import com.backendspringboot.portfolio.model.UserProfile;
 import java.util.List;

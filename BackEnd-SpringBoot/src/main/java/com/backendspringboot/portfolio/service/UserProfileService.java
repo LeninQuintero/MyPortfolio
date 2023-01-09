@@ -1,5 +1,6 @@
 package com.backendspringboot.portfolio.service;
 
+import com.backendspringboot.portfolio.service.interfaces.IUserProfileService;
 import com.backendspringboot.portfolio.model.UserProfile;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

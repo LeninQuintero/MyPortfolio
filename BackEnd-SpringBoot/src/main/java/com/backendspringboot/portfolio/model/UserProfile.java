@@ -61,6 +61,26 @@ public class UserProfile implements Serializable {
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL,  orphanRemoval= true)
     @JsonIgnore
     private List<Experience> experienceList = new ArrayList<Experience>();
+    
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL,  orphanRemoval= true)
+    @JsonIgnore
+    private List<Education> educationList = new ArrayList<Education>();
+    
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL,  orphanRemoval= true)
+    @JsonIgnore
+    private List<Certification> certificationList = new ArrayList<Certification>();
+    
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL,  orphanRemoval= true)
+    @JsonIgnore
+    private List<Skill> skillList = new ArrayList<Skill>();
+    
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL,  orphanRemoval= true)
+    @JsonIgnore
+    private List<Project> projectList = new ArrayList<Project>();
+    
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL,  orphanRemoval= true)
+    @JsonIgnore
+    private List<Message> messageList = new ArrayList<Message>();
 
     public UserProfile() {
     }

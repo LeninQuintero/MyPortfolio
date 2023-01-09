@@ -1,4 +1,4 @@
-package com.backendspringboot.portfolio.service;
+package com.backendspringboot.portfolio.service.interfaces;
 
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;

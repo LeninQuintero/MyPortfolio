@@ -1,5 +1,6 @@
 package com.backendspringboot.portfolio.service;
 
+import com.backendspringboot.portfolio.service.interfaces.IUserCredentialsService;
 import com.backendspringboot.portfolio.model.Role;
 import com.backendspringboot.portfolio.model.UserCredentials;
 import com.backendspringboot.portfolio.model.UserProfile;

@@ -1,5 +1,6 @@
 package com.backendspringboot.portfolio.service;
 
+import com.backendspringboot.portfolio.service.interfaces.IRoleService;
 import com.backendspringboot.portfolio.model.Role;
 import com.backendspringboot.portfolio.repository.RoleRepository;
 import java.util.List;
