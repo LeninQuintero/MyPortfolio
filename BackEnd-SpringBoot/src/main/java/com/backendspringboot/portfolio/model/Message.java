@@ -2,6 +2,7 @@ package com.backendspringboot.portfolio.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,6 +40,13 @@ public class Message implements Serializable {
     @Column(name = "message", nullable = false, length = 800)
     private String message;
 
+    @Column(name = "message_date", nullable = false)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date date;
+
+    @Column(name = "message_read")
+    private Boolean read;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinColumn(name = "user_id")
@@ -46,11 +55,13 @@ public class Message implements Serializable {
     public Message() {
     }
 
-    public Message(String name, String subject, String email, String message, UserProfile userProfile) {
+    public Message(String name, String subject, String email, String message, Date date, Boolean read, UserProfile userProfile) {
         this.name = name;
         this.subject = subject;
         this.email = email;
         this.message = message;
+        this.date = date;
+        this.read = read;
         this.userProfile = userProfile;
     }
 }
