@@ -35,7 +35,7 @@ public class UserProfileController {
     public UserProfile profileFind(@PathVariable Long id) {
         return userProfileServ.profileFind(id);
     }
-    
+
     @PutMapping("/edit-profile")
     @ResponseBody
     public UserProfile profileEdit(@RequestBody UserProfile profile) {
@@ -48,5 +48,23 @@ public class UserProfileController {
 
         return userProfileServ.profileFind(profile.getId());
     }
-}
 
+    @GetMapping("/find-{username}")
+    @ResponseBody
+    public UserProfile userFind(@PathVariable String username) {
+
+        UserCredentials user = userCredentialsServ.findByUsername(username);
+
+        return userProfileServ.profileFind(user.getId());
+    }
+    
+    @GetMapping("/exist-{username}")
+    @ResponseBody
+    public Boolean userExist(@PathVariable String username) {
+
+        UserCredentials user = userCredentialsServ.findByUsername(username);
+        
+        return user.getId() > 0;
+    }
+    
+}

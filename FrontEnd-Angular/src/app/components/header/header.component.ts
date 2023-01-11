@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { UserProfile, UserService } from 'src/app/services/profile.service';
 
 @Component({
@@ -6,9 +7,12 @@ import { UserProfile, UserService } from 'src/app/services/profile.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit  {
 
-  user: UserProfile = {
+export class HeaderComponent implements OnInit {
+
+  private username;
+
+  public user: UserProfile = {
     name: '',
     title: '',
     urlProfilePic: '',
@@ -22,14 +26,13 @@ export class HeaderComponent implements OnInit  {
     id: 0
   };
 
-  constructor(private userService: UserService) { }
-  
-  ngOnInit(): void {
-    this.userService.user.subscribe( user =>{
-      this.user = user;      
-    });  
+  constructor(private userService: UserService, private route: ActivatedRoute) {
+    this.username = this.route.snapshot.paramMap.get('username');
+    this.userService.setUrl(this.username)
   }
 
-  
-
+  ngOnInit(): void {
+    this.userService.user.subscribe(user =>
+      this.user = user)
+  }
 }

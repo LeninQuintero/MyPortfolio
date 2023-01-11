@@ -42,6 +42,7 @@ import { TriggerShowCertificateComponent } from './components/buttons/trigger-sh
 import { ReactiveFormsModule } from '@angular/forms';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './components/home/home.component';
 
 
 
@@ -86,7 +87,8 @@ import { HttpClientModule } from '@angular/common/http';
     TriggerAddItemComponent,
     TriggerEditItemComponent,
     TriggerShowCertificateComponent,
-    MessagesComponent
+    MessagesComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
