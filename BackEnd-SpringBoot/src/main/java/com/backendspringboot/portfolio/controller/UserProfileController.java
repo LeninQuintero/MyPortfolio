@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.backendspringboot.portfolio.service.UserProfileService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @CrossOrigin("*")
 @RestController
@@ -57,14 +59,18 @@ public class UserProfileController {
 
         return userProfileServ.profileFind(user.getId());
     }
-    
+
     @GetMapping("/exist-{username}")
     @ResponseBody
-    public Boolean userExist(@PathVariable String username) {
-
-        UserCredentials user = userCredentialsServ.findByUsername(username);
+    public ResponseEntity<Boolean> userExist(@PathVariable String username) {
         
-        return user.getId() > 0;
+        try {
+            UserCredentials user = userCredentialsServ.findByUsername(username);
+            user.getId();
+            return ResponseEntity.status(HttpStatus.OK).body(true);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+        }
     }
-    
 }
