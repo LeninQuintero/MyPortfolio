@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProfileGuard implements CanActivate {
-private isLogged: boolean= true;
+private isLogged: boolean= false;
 
 constructor(private router: Router) { }
 
@@ -17,7 +17,7 @@ constructor(private router: Router) { }
       if(this.isLogged){
         return true;
       } else {
-        this.router.navigate(['home']);
+        this.router.navigate(['/page-not-found']);
         return false;
       }    
   }

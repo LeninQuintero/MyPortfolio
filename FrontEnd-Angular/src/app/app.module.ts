@@ -43,6 +43,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 
 
@@ -88,7 +89,8 @@ import { HomeComponent } from './components/home/home.component';
     TriggerEditItemComponent,
     TriggerShowCertificateComponent,
     MessagesComponent,
-    HomeComponent
+    HomeComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

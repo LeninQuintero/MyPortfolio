@@ -13,7 +13,7 @@ export class UserResolver implements Resolve<any> {
         const username = route.paramMap.get('username');
         return this.userService.userExist(username).pipe(
             catchError(error => {
-                this.router.navigate(['home']);
+                this.router.navigate(['/page-not-found']);
                 console.log(error);
                 return of();
             }));
