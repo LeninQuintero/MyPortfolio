@@ -14,7 +14,6 @@ export class UserResolver implements Resolve<any> {
         return this.userService.userExist(username).pipe(
             catchError(error => {
                 this.router.navigate(['/page-not-found']);
-                console.log(error);
                 return of();
             }));
     }

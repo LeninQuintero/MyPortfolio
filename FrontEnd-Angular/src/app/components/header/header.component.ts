@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserProfile, UserService } from 'src/app/services/profile.service';
+import { PartialUserProfile, UserProfile, UserService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-header',
@@ -10,29 +10,21 @@ import { UserProfile, UserService } from 'src/app/services/profile.service';
 
 export class HeaderComponent implements OnInit {
 
+  public logoUrl: string | undefined;
+
   private username;
 
-  public user: UserProfile = {
-    name: '',
-    title: '',
-    urlProfilePic: '',
-    urlBannerSm: '',
-    urlBannerLg: '',
-    aboutMe: '',
-    urlGithub: '',
-    urlTwitter: '',
-    urlLinkedin: '',
-    urlProfile: '',
-    id: 0
-  };
+  public user: PartialUserProfile = {};
 
   constructor(private userService: UserService, private route: ActivatedRoute) {
+    this.logoUrl = this.userService.getApiUrl+"uploads/defaultimages/ArgentinaProgramaLogo.png";
     this.username = this.route.snapshot.paramMap.get('username');
-    this.userService.setUrl(this.username)
+    this.userService.setUrlFind(this.username);
+ 
   }
 
   ngOnInit(): void {
-    this.userService.user.subscribe(user =>
-      this.user = user)
+    this.userService.getUser.subscribe(user =>
+      this.user = user);
   }
 }

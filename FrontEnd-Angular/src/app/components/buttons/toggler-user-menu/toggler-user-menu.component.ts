@@ -12,7 +12,7 @@ export class TogglerUserMenuComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userService.getUser().subscribe(user => {
+    this.userService.getUser.subscribe(user => {
       this.urlProfilePic = user.urlProfilePic;
     });
   }

@@ -18,7 +18,7 @@ export class AcercaDeComponent implements OnInit {
 
   
   refreshText() {
-    this.userService.getUser().subscribe(user =>
+    this.userService.getUser.subscribe(user =>
       this.aboutMe = user.aboutMe);
   }
 

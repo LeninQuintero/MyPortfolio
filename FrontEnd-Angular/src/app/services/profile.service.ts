@@ -2,29 +2,27 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
 
-  user: Observable<UserProfile>;
-  _user$: Subject<UserProfile>;
+ private user: Observable<UserProfile>;
+ private _user$: Subject<UserProfile>;
 
-  private uri = 'http://localhost:8080/';
-  private uriBase = 'http://localhost:8080/find-';
-  private apiUrlFindProfile = 'http://localhost:8080/find-profile/1';
-  private apiUrlEditProfile = 'http://localhost:8080/edit-profile';
+  private apiUrl = 'http://localhost:8080/';
+  private urlFind = this.apiUrl + 'find-';
+  private urlEdit = this.apiUrl + 'edit-profile';
 
   constructor(private http: HttpClient) {
 
-    this.user = this.http.get<UserProfile>(this.uriBase);
+    this.user = this.http.get<UserProfile>(this.apiUrl);
     this._user$= new Subject<UserProfile>();        
   }
 
-  getUser(): Observable<UserProfile> {
-     this.user = this.http.get<UserProfile>(this.uriBase);
+ get getUser(): Observable<UserProfile> {
+     this.user = this.http.get<UserProfile>(this.urlFind);
     return this.user
   }
 
@@ -32,16 +30,20 @@ export class UserService {
     return this._user$
   }
 
-  editUser(user : UserProfile): Observable<UserProfile>{
-    return this.http.put<UserProfile>(this.apiUrlEditProfile, user);
+  get getApiUrl(){
+  return this.apiUrl
   }
 
-  setUrl(username: string | null){
-   this.uriBase = this.uriBase+username;
+  editUser(user : UserProfile): Observable<UserProfile>{
+    return this.http.put<UserProfile>(this.urlEdit, user);
+  }
+
+  setUrlFind(username: string | null){
+   this.urlFind = this.urlFind+username;
   }
 
   userExist(username: string | null):Observable<boolean>{
-  return this.http.get<boolean>(this.uri+'exist-'+username);
+  return this.http.get<boolean>(this.apiUrl+'exist-'+username);
   }
 
 }

@@ -33,7 +33,7 @@ export class EditProfileTitleModalComponent {
       title: ['', [Validators.maxLength(40)]]
     });
 
-    this.userService.user.subscribe(user => {     
+    this.userService.getUser.subscribe(user => {     
       this.titleForm.controls['name'].setValue(user.name);
       this.titleForm.controls['title'].setValue(user.title);
       this.user = user;
@@ -62,6 +62,6 @@ export class EditProfileTitleModalComponent {
       this.user.name = this.titleForm.value.name;
       this.user.title = this.titleForm.value.title;
       this.userService.editUser(this.user).subscribe( user => 
-        this.userService._user$.next(user));            
+        this.userService.getUser$.next(user));            
   }};
 }

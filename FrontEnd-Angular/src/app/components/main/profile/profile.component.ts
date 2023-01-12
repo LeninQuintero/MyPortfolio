@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   editClassTriggerModalTitle: string = "btn-profile-title d-inline-block";
   
   refreshUser() {
-    const getUser = this.userService.getUser();
+    const getUser = this.userService.getUser;
 
     getUser.subscribe(user => {
       this.user.name = user.name;

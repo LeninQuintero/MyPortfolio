@@ -29,7 +29,7 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
 
   public minLengthPictureName: number = 1;
   public maxLengthPictureName: number = 50;
-  private userSuscription = this.userService.getUser().subscribe(user => {
+  private userSuscription = this.userService.getUser.subscribe(user => {
     this.user = user;
     this.actualBannerSmName = this.uploadFilesService.getUrlsName(user.urlBannerSm);
     this.actualBannerLgName = this.uploadFilesService.getUrlsName(user.urlBannerLg);

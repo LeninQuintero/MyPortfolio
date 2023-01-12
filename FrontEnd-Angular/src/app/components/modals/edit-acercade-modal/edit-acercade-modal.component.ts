@@ -30,7 +30,7 @@ export class EditAcercadeModalComponent  {
       aboutMe: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(600)]]
     });
 
-    this.userService.user.subscribe( user =>{
+    this.userService.getUser.subscribe( user =>{
       this.aboutMeForm.controls['aboutMe'].setValue(user.aboutMe);
       this.user = user;      
     });  
@@ -61,7 +61,7 @@ export class EditAcercadeModalComponent  {
     if (this.aboutMeForm.valid) {
       this.user.aboutMe = this.aboutMeForm.value.aboutMe;
       this.userService.editUser(this.user).subscribe( user =>
-        this.userService._user$.next(user));
+        this.userService.getUser$.next(user));
     }
   }
 }

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProfileGuard implements CanActivate {
-private isLogged: boolean= false;
+private isLogged: boolean= true;
 
 constructor(private router: Router) { }
 

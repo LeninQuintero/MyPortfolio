@@ -23,7 +23,7 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
   private image: any;
   private formDataImage = new FormData();
 
-  private userSuscription = this.userService.getUser().subscribe(user => {
+  private userSuscription = this.userService.getUser.subscribe(user => {
     this.user = user;
     this.actualImgName = this.uploadFilesService.getUrlsName(user.urlProfilePic);
     this.directoryName = this.uploadFilesService.getUrlsName(user.urlProfile);

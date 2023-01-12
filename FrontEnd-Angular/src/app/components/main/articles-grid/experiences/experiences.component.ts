@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './experiences.component.html',
   styleUrls: ['./experiences.component.scss']
 })
-export class ExperiencesComponent implements OnInit {
+export class ExperiencesComponent {
   editIdModal: string="#editExperienceModal";
   editTitleTriggerModal: string="Editar experiencia";
   editClassTriggerModal: string="d-inline-block";
@@ -16,7 +16,5 @@ export class ExperiencesComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
 
 }

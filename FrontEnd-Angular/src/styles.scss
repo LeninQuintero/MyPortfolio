@@ -1,7 +1,3 @@
-
-
-
-
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
 textarea {
@@ -13,20 +9,23 @@ textarea {
     cursor: pointer;
 }
 
+/*
+doesn't work in angular!!
 .scroll {
     scroll-margin-top: 4.5rem;
-}
+} 
+*/
 
 @media (min-width: 992px) {
     .scale-hover-05:hover {
-        scale: 1.05;
-        transition: 150ms;
+        scale: 1.1;
+        transition: 120ms;
     }
 }
 
- /* Experiecia */
+ /* Experience */
  .article-body {
     padding: 0 0 0 1rem;
 }
 
-/* End experiecia */
+/* End experience */
