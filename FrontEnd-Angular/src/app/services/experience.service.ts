@@ -1,5 +1,5 @@
-import { Injectable, OnInit } from '@angular/core';
-import { PartialUserProfile, UserProfile, UserService } from './profile.service';
+import { Injectable } from '@angular/core';
+import { UserService } from './profile.service';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -7,44 +7,38 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ExperienceService {
-  
-  private user: Observable<UserProfile>;
-  private _user$: Subject<UserProfile>;
- 
-   private apiUrl = 'http://localhost:8080/';
-   private urlFind = this.apiUrl + 'find-';
-   private urlEdit = this.apiUrl + 'edit-profile';
- 
-   constructor(private http: HttpClient) {
-     this.user = this.http.get<UserProfile>(this.apiUrl);
-     this._user$= new Subject<UserProfile>();        
-   }
- 
-  get getUser(): Observable<UserProfile> {
-      this.user = this.http.get<UserProfile>(this.urlFind);
-     return this.user
-   }
- 
-   get getUser$() {  
-     return this._user$
-   }
- 
-   get getApiUrl(){
-   return this.apiUrl
-   }
- 
-   editUser(user : UserProfile): Observable<UserProfile>{
-     return this.http.put<UserProfile>(this.urlEdit, user);
-   }
- 
-   setUrlFind(username: string | null){
-    this.urlFind = this.urlFind+username;
-   }
- 
-   userExist(username: string | null):Observable<boolean>{
-   return this.http.get<boolean>(this.apiUrl+'exist-'+username);
-   }
- 
 
+  private experiences: Experience[] = [];
+  private _experiences$: Subject<Experience[]>;
+  private apiUrl: string;
+  private urlGetExperiences: string;
+
+  constructor(private http: HttpClient, private userService: UserService) {
+    this.apiUrl = this.userService.getApiUrl;
+    this.urlGetExperiences = this.apiUrl + 'experience-list/';
+    this._experiences$ = new Subject();
+  }
+
+  getExperiences(userId: number): Observable<Experience[]> {
+    return this.http.get<Experience[]>(this.urlGetExperiences + userId);
+  }
+
+  get getNewExperiences$() {
+    return this._experiences$
+  }
 
 }
+export interface Experience {
+  id: number;
+  companyName: string;
+  urlCompanyLogo: string;
+  currentJob: string;
+  position: string;
+  startDate: string;
+  endDate: string;
+  location: string;
+  description: string;
+  userProfile: string;
+}
+
+export interface PartialExperience extends Partial<Experience> { }

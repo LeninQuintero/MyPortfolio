@@ -11,7 +11,7 @@ const httpOptions = {
 
 export class MessagesService {
 
-  messages: Message[];
+ messages: Message[];
 
  _messages$: Subject<Message[]>;
 
