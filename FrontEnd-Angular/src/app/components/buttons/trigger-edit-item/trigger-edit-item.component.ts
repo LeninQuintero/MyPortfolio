@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Experience } from 'src/app/services/experience.service';
 
 @Component({
   selector: 'app-trigger-edit-item',
@@ -6,13 +7,22 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./trigger-edit-item.component.scss']
 })
 export class TriggerEditItemComponent implements OnInit {
-  @Input() editIdModal: string="";
-  @Input() editTitleTriggerModal: string="";
-  @Input() editClassTriggerModal: string="";
+  @Input() editIdModal: string = "";
+  @Input() editTitleTriggerModal: string = "";
+  @Input() editClassTriggerModal: string = "";
 
-  constructor() { }
+
+  
+  @Input() idExperience: number | undefined;
+
+  public idModal: string | undefined;
+
+  constructor() {}
 
   ngOnInit(): void {
+    this.idModal = '#editExpeModal' + this.idExperience;
+    console.log("ID MODAL EN TRIGGER====>>>", this.idModal);
+
   }
 
 }

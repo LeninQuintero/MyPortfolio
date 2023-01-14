@@ -1,7 +1,7 @@
-<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="editExperienceModal" tabindex="-1"
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" [id]="idModal" tabindex="-1"
     aria-labelledby="editExperienceModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content text-bg-dark container">
+        <div class="modal-content text-bg-dark bg-dark container">
             <div class="modal-header border-light border-opacity-25">
                 <h5 class="modal-title" id="editExperienceLabel"><strong class="text-light text-opacity-75">Editar
                         experiencia</strong></h5>
@@ -9,6 +9,7 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body row">
+                <div>este es la experiencia==>> {{experience | json}}</div>
                 <form class="col-12 col-md-10 container">
                     <div class="row gy-2">
                         <div class="col-12">

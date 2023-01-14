@@ -5,11 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './edit-certification-modal.component.html',
   styleUrls: ['./edit-certification-modal.component.scss']
 })
-export class EditCertificationModalComponent implements OnInit {
+export class EditCertificationModalComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
