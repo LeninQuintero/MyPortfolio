@@ -58,6 +58,7 @@ return this.http.put<Experience>(this.apiUrl+"edit-experience", experience, http
     let dateStart = new Date(experienceForm.startYearDate, experienceForm.startMonthDate, 1).toISOString();
     let dateEnd = new Date(experienceForm.endYearDate, experienceForm.endMonthDate, 1).toISOString();
     let exp: Experience= {
+      id:0,
       companyName: '',
       urlCompanyLogo: '',
       currentJob: false,
@@ -67,6 +68,7 @@ return this.http.put<Experience>(this.apiUrl+"edit-experience", experience, http
       location: '',
       description: ''
     }
+    exp.id=experienceForm.id;
     exp.companyName=experienceForm.companyName;
     exp.currentJob=experienceForm.currentJob;
     exp.description=experienceForm.description;
@@ -110,7 +112,7 @@ return this.http.put<Experience>(this.apiUrl+"edit-experience", experience, http
 
 }
 export interface Experience {
-  id?: number;
+  id: number;
   companyName: string;
   urlCompanyLogo: string;
   currentJob: boolean;
@@ -122,7 +124,7 @@ export interface Experience {
 }
 
 export interface ExperienceForm {
-  id?: number;
+  id: number;
   position: string;
   companyName: string;
   urlCompanyLogo: string;

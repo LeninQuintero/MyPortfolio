@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Experience, ExperienceForm, ExperienceService } from 'src/app/services/experience.service';
 import { UserService } from 'src/app/services/profile.service';
-
 @Component({
   selector: 'app-experiences',
   templateUrl: './experiences.component.html',
@@ -24,7 +23,6 @@ export class ExperiencesComponent implements OnInit {
     this.refreshExperiences();
     this.experienceService.getNewExperiences$.subscribe(() =>
       this.refreshExperiences());
-    console.log("USER EN EL MODAL EXPCOMPONENT==>>", this.userId)
   }
 
   refreshExperiences() {
