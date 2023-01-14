@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Experience, ExperienceService } from 'src/app/services/experience.service';
+import { Experience, ExperienceForm, ExperienceService } from 'src/app/services/experience.service';
 import { UserService } from 'src/app/services/profile.service';
 
 @Component({
@@ -9,16 +9,14 @@ import { UserService } from 'src/app/services/profile.service';
 })
 export class ExperiencesComponent implements OnInit {
 
-  userId: number = 0;
-
-  public editIdModal: string = "#editExperienceModal45";
-
+  private userId: number | undefined;
   public editTitleTriggerModal: string = "Editar experiencia";
   public editClassTriggerModal: string = "d-inline-block";
   public addIdModal: string = "#addExperienceModal";
   public addTitleTriggerModal: string = "Agregar experiencia";
   public addClassTriggerModal: string = "";
   public experiences: Experience[] = [];
+  public expForm: ExperienceForm[] = [];
 
   constructor(private experienceService: ExperienceService, private userService: UserService) { }
 
@@ -26,6 +24,7 @@ export class ExperiencesComponent implements OnInit {
     this.refreshExperiences();
     this.experienceService.getNewExperiences$.subscribe(() =>
       this.refreshExperiences());
+    console.log("USER EN EL MODAL EXPCOMPONENT==>>", this.userId)
   }
 
   refreshExperiences() {
@@ -33,6 +32,8 @@ export class ExperiencesComponent implements OnInit {
       this.userId = user.id;
       this.experienceService.getExperiences(user.id).subscribe(experiences => {
         this.experiences = experiences;
+        this.expForm = this.experiences.map(exp =>
+          this.experienceService.expToJsonDate(exp));
       });
     });
   }
@@ -44,14 +45,12 @@ export class ExperiencesComponent implements OnInit {
       this.experienceService._experiences$.next(list);
     });
   }
-  stringToData(dateJson: string): string {
-    // replacing all '-' characters with ',' to format it
-    let date = new Date(dateJson.replace(/-/g, ','));
 
-    let month = date.toLocaleString("es-ES", { month: "long" });
-    let year = date.toLocaleString("es-ES", { year: "numeric" });
-    let formattedDate = month[0].toUpperCase() + month.slice(1) + " " + year;
+  stringToDate(month: number, year: number) {
+    let date = new Date(year, month)
+    let m = date.toLocaleString("es-ES", { month: "long" });
+    let y = date.toLocaleString("es-ES", { year: "numeric" });
+    let formattedDate = m[0].toUpperCase() + m.slice(1) + " " + y;
     return formattedDate;
   }
-
 }

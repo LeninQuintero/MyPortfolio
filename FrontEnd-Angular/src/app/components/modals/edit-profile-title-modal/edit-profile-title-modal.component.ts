@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UserProfile, UserService } from 'src/app/services/profile.service';
 
@@ -8,7 +8,7 @@ import { UserProfile, UserService } from 'src/app/services/profile.service';
   styleUrls: ['./edit-profile-title-modal.component.scss']
 })
 
-export class EditProfileTitleModalComponent {
+export class EditProfileTitleModalComponent implements OnInit{
 
   titleForm: FormGroup;
 
@@ -27,18 +27,18 @@ export class EditProfileTitleModalComponent {
   };
   
   constructor(private fb: FormBuilder, private userService: UserService) {  
-
     this.titleForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
       title: ['', [Validators.maxLength(40)]]
     });
 
-    this.userService.getUser.subscribe(user => {     
+  }
+  ngOnInit(): void {
+    this.userService.getUser.subscribe(user => {   
+      this.user = user;  
       this.titleForm.controls['name'].setValue(user.name);
       this.titleForm.controls['title'].setValue(user.title);
-      this.user = user;
     });
-
   }
 
   isValidField(field: string) {

@@ -47,7 +47,66 @@ export class ExperienceService {
 return this.http.put<Experience>(this.apiUrl+"edit-experience", experience, httpOptions);
   }
 
+  stringToDate(dateString: string): Date {
+    // replacing all '-' characters with ',' to format it
+    let date = new Date(dateString.replace(/-/g, ','));
 
+    return date;
+  }
+
+  expToDateJson(experienceForm: ExperienceForm): Experience {
+    let dateStart = new Date(experienceForm.startYearDate, experienceForm.startMonthDate, 1).toISOString();
+    let dateEnd = new Date(experienceForm.endYearDate, experienceForm.endMonthDate, 1).toISOString();
+    let exp: Experience= {
+      companyName: '',
+      urlCompanyLogo: '',
+      currentJob: false,
+      position: '',
+      startDate: '',
+      endDate: '',
+      location: '',
+      description: ''
+    }
+    exp.companyName=experienceForm.companyName;
+    exp.currentJob=experienceForm.currentJob;
+    exp.description=experienceForm.description;
+    exp.location=experienceForm.location;
+    exp.position=experienceForm.position;
+    exp.urlCompanyLogo=experienceForm.urlCompanyLogo;
+    exp.startDate=dateStart;
+    exp.endDate= dateEnd;
+      return  exp;
+    }
+
+    expToJsonDate(experience: Experience): ExperienceForm {
+      let dateStart = new Date(this.stringToDate(experience.startDate));
+      let dateEnd = new Date(this.stringToDate(experience.endDate));
+      let exp: ExperienceForm= {
+        id:0,
+        position: '',
+        companyName: '',
+        urlCompanyLogo: '',
+        currentJob: false,
+        startMonthDate: 0,
+        startYearDate: 0,
+        endMonthDate: 0,
+        endYearDate: 0,
+        location: '',
+        description: ''
+      }
+      exp.id=experience.id;
+      exp.companyName=experience.companyName;
+      exp.currentJob=experience.currentJob;
+      exp.description=experience.description;
+      exp.location=experience.location;
+      exp.position=experience.position;
+      exp.urlCompanyLogo=experience.urlCompanyLogo;
+      exp.startMonthDate=dateStart.getMonth();
+      exp.startYearDate= dateStart.getFullYear();
+      exp.endMonthDate=dateEnd.getMonth();
+      exp.endYearDate= dateEnd.getFullYear();
+        return  exp;
+      }
 
 }
 export interface Experience {

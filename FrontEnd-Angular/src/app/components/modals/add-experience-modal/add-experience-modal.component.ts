@@ -40,53 +40,29 @@ export class AddExperienceModalComponent implements OnInit {
     });
   }
 
-// expToDateJson(experienceForm: ExperienceForm): Experience{
-// let exp: Experience= {
-//   companyName: '',
-//   urlCompanyLogo: '',
-//   currentJob: false,
-//   position: '',
-//   startDate: '',
-//   endDate: '',
-//   location: '',
-//   description: ''
-// }
-// exp.companyName=experienceForm.companyName;
-// exp.currentJob=experienceForm.currentJob;
-// exp.description=experienceForm.description;
-// exp.location=experienceForm.location;
-// exp.position=experienceForm.position;
-// exp.urlCompanyLogo=experienceForm.urlCompanyLogo;
-// let dateStart = new Date(experienceForm.startYearDate, experienceForm.startMonthDate+1, 1).toISOString().slice(0,10);
-// exp.startDate=dateStart;
-// let dateEnd = new Date(experienceForm.endYearDate, experienceForm.endMonthDate+1, 1).toISOString().slice(0,10);
-// exp.endDate= dateEnd;
-//   return exp;
-// }
-
-expToDateJson(experienceForm: ExperienceForm): Experience {
-  let exp: Experience= {
-    companyName: '',
-    urlCompanyLogo: '',
-    currentJob: false,
-    position: '',
-    startDate: '',
-    endDate: '',
-    location: '',
-    description: ''
-  }
-  exp.companyName=experienceForm.companyName;
-  exp.currentJob=experienceForm.currentJob;
-  exp.description=experienceForm.description;
-  exp.location=experienceForm.location;
-  exp.position=experienceForm.position;
-  exp.urlCompanyLogo=experienceForm.urlCompanyLogo;
-  let dateStart = new Date(experienceForm.startYearDate, experienceForm.startMonthDate, 1).toISOString();
-  exp.startDate=dateStart;
-  let dateEnd = new Date(experienceForm.endYearDate, experienceForm.endMonthDate, 1).toISOString();
-  exp.endDate= dateEnd;
-    return  exp;
-  }
+// expToDateJson(experienceForm: ExperienceForm): Experience {
+//   let dateStart = new Date(experienceForm.startYearDate, experienceForm.startMonthDate, 1).toISOString();
+//   let dateEnd = new Date(experienceForm.endYearDate, experienceForm.endMonthDate, 1).toISOString();
+//   let exp: Experience= {
+//     companyName: '',
+//     urlCompanyLogo: '',
+//     currentJob: false,
+//     position: '',
+//     startDate: '',
+//     endDate: '',
+//     location: '',
+//     description: ''
+//   }
+//   exp.companyName=experienceForm.companyName;
+//   exp.currentJob=experienceForm.currentJob;
+//   exp.description=experienceForm.description;
+//   exp.location=experienceForm.location;
+//   exp.position=experienceForm.position;
+//   exp.urlCompanyLogo=experienceForm.urlCompanyLogo;
+//   exp.startDate=dateStart;
+//   exp.endDate= dateEnd;
+//     return  exp;
+//   }
 
 dateToString(date: Date):string{
   let month = date.toLocaleDateString("es-ES", { month: "long"});
@@ -126,7 +102,7 @@ dateToString(date: Date):string{
   submit(event: Event) {
 
     if (this.addExperienceForm.valid) {    
-      const newExperience = this.expToDateJson(this.addExperienceForm.value);
+      const newExperience = this.experienceService.expToDateJson(this.addExperienceForm.value);
       let list = this.experienceService.experiences;
 
       this.experienceService.addExperience(newExperience, this.id).subscribe( experience => {
