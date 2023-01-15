@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PartialUserProfile, UserService } from 'src/app/services/user.service';
+import { UserProfile, UserService } from 'src/app/services/user.service';
+import { API_URL } from 'src/environments/api-urls-config';
 
 @Component({
   selector: 'app-header',
@@ -10,14 +11,27 @@ import { PartialUserProfile, UserService } from 'src/app/services/user.service';
 
 export class HeaderComponent implements OnInit {
 
-  public logoUrl: string | undefined;
+  private apiUrl = API_URL;
+
+  public logoUrl=`${this.apiUrl}/uploads/defaultimages/ArgentinaProgramaLogo.png`;
 
   private username;
 
-  public user: PartialUserProfile = {};
+  public user: UserProfile = {
+    id: 0,
+    name: '',
+    title: '',
+    urlProfilePic: '',
+    urlBannerSm: '',
+    urlBannerLg: '',
+    aboutMe: '',
+    urlGithub: '',
+    urlTwitter: '',
+    urlLinkedin: '',
+    urlProfile: ''
+  };
 
   constructor(private userService: UserService, private route: ActivatedRoute) {
-    this.logoUrl = this.userService.getApiUrl+"uploads/defaultimages/ArgentinaProgramaLogo.png";
     this.username = this.route.snapshot.paramMap.get('username');
     this.userService.setUrlFind(this.username);
  

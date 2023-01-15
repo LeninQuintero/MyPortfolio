@@ -18,23 +18,29 @@ export class ExperiencesComponent implements OnInit {
   public expForm: ExperienceForm[] = [];
 
   constructor(private experienceService: ExperienceService, private userService: UserService) { 
-    
+
   }
 
   ngOnInit(): void {
-    this.refreshExperiences();
-    this.experienceService.getNewExperiences$.subscribe(() =>
-      this.refreshExperiences());
-  }
-
-  refreshExperiences() {
-   this.userService.getUser.subscribe( user => {
-      this.userId = user.id;
-     this.experienceService.getExperiences(this.userId).subscribe(experiences => {
-        this.experiences = experiences;
-        this.expForm = this.experiences.map( (exp) =>  this.experienceService.expToJsonDate(exp));
+    this.userService.getUser.subscribe(user => {
+      this.experienceService.getExperiences(user.id).subscribe(experiences => {
+        
+       experiences.map((exp) =>
+         this.expForm.push(this.experienceService.expToJsonDate(exp)));
+          this.experiences = experiences;
       });
-    });
+
+      // // this code has erros!!
+      // this.experienceService.getNewExperiences$.subscribe(() => {
+      //   this.experienceService.getExperiences(user.id).subscribe(experiences => {
+      //     this.expForm =[];
+      //     experiences.map((exp) =>
+      //     this.expForm.push(this.experienceService.expToJsonDate(exp)));
+      //      this.experiences = experiences;
+      //   });
+      // });
+
+    })
   }
 
   onDeleteExperience(experience: Experience) {

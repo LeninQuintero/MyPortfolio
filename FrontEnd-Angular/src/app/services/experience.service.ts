@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { UserService } from './user.service';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { API_URL } from 'src/environments/api-urls-config';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -13,16 +13,15 @@ const httpOptions = {
 })
 export class ExperienceService {
 
+  private apiUrl=API_URL;
+  private urlGetExperiences=`${this.apiUrl}/experience-list/`;
+  private urlAddExperiences= `${this.apiUrl}/new-experience/`;
+
+
   experiences: Experience[] = [];
   _experiences$: Subject<Experience[]>;
-  private apiUrl: string;
-  private urlGetExperiences: string;
-  private urlAddExperiences: string;
 
-  constructor(private http: HttpClient, private userService: UserService) {
-    this.apiUrl = this.userService.getApiUrl;
-    this.urlGetExperiences = this.apiUrl + 'experience-list/';
-    this.urlAddExperiences = this.apiUrl + 'new-experience/';
+  constructor(private http: HttpClient) {
     this._experiences$ = new Subject();
   }
 
@@ -50,7 +49,6 @@ return this.http.put<Experience>(this.apiUrl+"edit-experience", experience, http
   stringToDate(dateString: string): Date {
     // replacing all '-' characters with ',' to format it
     let date = new Date(dateString.replace(/-/g, ','));
-
     return date;
   }
 
@@ -112,7 +110,7 @@ return this.http.put<Experience>(this.apiUrl+"edit-experience", experience, http
 
 }
 export interface Experience {
-  id: number;
+  id?: number;
   companyName: string;
   urlCompanyLogo: string;
   currentJob: boolean;
@@ -124,7 +122,7 @@ export interface Experience {
 }
 
 export interface ExperienceForm {
-  id: number;
+  id?: number;
   position: string;
   companyName: string;
   urlCompanyLogo: string;
