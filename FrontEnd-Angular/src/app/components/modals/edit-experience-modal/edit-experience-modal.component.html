@@ -9,11 +9,6 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body row">
-                <div class="fs-4">Usuario ==>> {{userId}} </div>
-                <div>.</div>
-                <div class="fs-5">este es la experiencia original==>> {{experience | json}}</div>
-                <div>.</div>
-                <div class="fs-5">estos son los cambios ===>>> {{editExpForm.value | json }}</div>
                 <form 
                 (ngSubmit)="submit($event)" 
                 [formGroup]="editExpForm"

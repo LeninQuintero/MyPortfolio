@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Experience, ExperienceForm, ExperienceService } from 'src/app/services/experience.service';
-import { UserService } from 'src/app/services/profile.service';
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-add-experience-modal',
   templateUrl: './add-experience-modal.component.html',

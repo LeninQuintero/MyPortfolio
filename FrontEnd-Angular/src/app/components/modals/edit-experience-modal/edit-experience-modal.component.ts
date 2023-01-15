@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Experience, ExperienceForm, ExperienceService } from 'src/app/services/experience.service';
-import { PartialUserProfile, UserProfile, UserService } from 'src/app/services/profile.service';
+import { PartialUserProfile, UserProfile, UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-edit-experience-modal',

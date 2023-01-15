@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Experience, ExperienceForm, ExperienceService } from 'src/app/services/experience.service';
-import { UserService } from 'src/app/services/profile.service';
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-experiences',
   templateUrl: './experiences.component.html',
@@ -8,7 +8,7 @@ import { UserService } from 'src/app/services/profile.service';
 })
 export class ExperiencesComponent implements OnInit {
 
-  private userId: number | undefined;
+  public userId:number | undefined;
   public editTitleTriggerModal: string = "Editar experiencia";
   public editClassTriggerModal: string = "d-inline-block";
   public addIdModal: string = "#addExperienceModal";
@@ -17,7 +17,9 @@ export class ExperiencesComponent implements OnInit {
   public experiences: Experience[] = [];
   public expForm: ExperienceForm[] = [];
 
-  constructor(private experienceService: ExperienceService, private userService: UserService) { }
+  constructor(private experienceService: ExperienceService, private userService: UserService) { 
+    
+  }
 
   ngOnInit(): void {
     this.refreshExperiences();
@@ -26,12 +28,11 @@ export class ExperiencesComponent implements OnInit {
   }
 
   refreshExperiences() {
-    this.userService.getUser.subscribe(user => {
+   this.userService.getUser.subscribe( user => {
       this.userId = user.id;
-      this.experienceService.getExperiences(user.id).subscribe(experiences => {
+     this.experienceService.getExperiences(this.userId).subscribe(experiences => {
         this.experiences = experiences;
-        this.expForm = this.experiences.map(exp =>
-          this.experienceService.expToJsonDate(exp));
+        this.expForm = this.experiences.map( (exp) =>  this.experienceService.expToJsonDate(exp));
       });
     });
   }

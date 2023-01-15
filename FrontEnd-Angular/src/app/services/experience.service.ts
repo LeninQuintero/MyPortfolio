@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserService } from './profile.service';
+import { UserService } from './user.service';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
