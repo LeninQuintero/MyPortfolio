@@ -17,7 +17,7 @@ constructor(private router: Router) { }
       if(this.isLogged){
         return true;
       } else {
-        this.router.navigate(['/page-not-found']);
+        this.router.navigate(['page-not-found']);
         return false;
       }    
   }

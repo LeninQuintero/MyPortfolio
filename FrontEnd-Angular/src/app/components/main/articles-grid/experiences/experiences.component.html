@@ -3,57 +3,70 @@
     <div id="experiencia" class="scroll card-header d-flex justify-content-between border-0">
       <h3 class="text-light text-opacity-75"><strong>Experiencia</strong></h3>
 
-      <app-trigger-add-item
+      <app-trigger-add-item 
         [addIdModal]="addIdModal" 
-        [addTitleTriggerModal]="addTitleTriggerModal" 
-        [addClassTriggerModal]="addClassTriggerModal"
-      ></app-trigger-add-item>
+        [addTitleTriggerModal]="addTitleTriggerModal"
+        [addClassTriggerModal]="addClassTriggerModal">
+      </app-trigger-add-item>
 
     </div>
 
-    <div class="accordion accordion-flush border-top border-dark border-1 border-opacity-75"
+    <div
+      *ngFor="let experience of expForm"
+      class="accordion accordion-flush border-top border-dark border-1 border-opacity-75"
       id="accordionFlushExperiences">
+
       <div class="accordion-item bg-transparent container">
         <div class="row p-3">
           <div class="col-2 p-0">
-            <img class="rounded-circle w-100" src="./assets/imagenes/logo4.webp" alt="">
+            <img class="rounded-circle w-100" [src]=experience.urlCompanyLogo alt="Logo">
           </div>
           <div class="col-10 text-light article-body">
             <div class="d-flex justify-content-between">
-              <h5 class="d-inline-block"><strong>4ta Experiencia</strong></h5>
-              
+              <h5 class="d-inline-block"><strong>{{experience.position}}</strong></h5>
+
               <app-trigger-edit-item 
-              [editIdModal]="editIdModal" 
-              [editTitleTriggerModal]="editTitleTriggerModal" 
-              [editClassTriggerModal]="editClassTriggerModal"
-              ></app-trigger-edit-item>
-             
+                [editIdModal]="'#editExpeModal'+ experience.id"
+                [editTitleTriggerModal]="editTitleTriggerModal"
+                [editClassTriggerModal]="editClassTriggerModal">
+              </app-trigger-edit-item>
+
             </div>
-            <h6 class="opacity-75">4ta Empresa</h6>
+            <h6 class="opacity-75">{{experience.companyName}}</h6>
             <div class="opacity-50">
-              <span>Enero 2017</span> - <span>Marzo 2020</span>
+              <span>{{ stringToDate(experience.startMonthDate, experience.startYearDate) }}</span> - <span>{{ stringToDate(experience.endMonthDate, experience.endYearDate)}}</span>
             </div>
             <div class="d-flex justify-content-between">
               <div class="opacity-50">
-                <span>Buenos Aires - Argentina</span>
+                <span>{{experience.location}}</span>
               </div>
               <div class="px-1">
-                <button class="accordion-button collapsed bg-transparent shadow-none p-0" type="button"
-                  data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false"
-                  aria-controls="flush-collapseFour"></button>
+                <button 
+                  class="accordion-button collapsed bg-transparent shadow-none p-0" 
+                  type="button"
+                  data-bs-toggle="collapse" 
+                  [attr.data-bs-target]="'#flush-experience-'+ experience.id"
+                  aria-expanded="false" 
+                  [attr.aria-controls]="'flush-collapse-'+ experience.id"></button>
               </div>
             </div>
           </div>
-          <div id="flush-collapseFour" class="accordion-collapse collapse text-light"
-            aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExperiences">
-            <div class="accordion-body">4Placeholder content for this accordion, which is intended to
-              demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.
-            </div>
+          <div 
+            class="accordion-collapse collapse text-light" 
+            [attr.id]="'flush-experience-'+ experience.id"
+            [attr.aria-labelledby]="'flush-heading'+experience.id" 
+            data-bs-parent="#accordionFlushExperiences">
+            <div class="accordion-body">{{experience.description}}</div>
           </div>
         </div>
+
+        <app-edit-experience-modal 
+        [experience]=experience 
+        [idModal]="'editExpeModal'+experience.id">
+        </app-edit-experience-modal>
+
       </div>
     </div>
   </div>
   <app-add-experience-modal></app-add-experience-modal>
-  <app-edit-experience-modal></app-edit-experience-modal>
 </article>

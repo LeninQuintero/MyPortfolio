@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { UserService } from '../services/profile.service';
+import { UserService } from '../services/user.service';
 import { catchError, of } from 'rxjs';
 
 @Injectable({
