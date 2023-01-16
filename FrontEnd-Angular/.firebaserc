@@ -1,0 +1,5 @@
+{
+  "projects": {
+    "default": "ap-deploy-frontend-angular"
+  }
+}
