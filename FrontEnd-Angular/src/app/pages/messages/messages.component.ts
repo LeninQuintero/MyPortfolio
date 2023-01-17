@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Message, MessagesService } from '../../services/messages.service';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-messages',
@@ -16,7 +18,11 @@ export class MessagesComponent implements OnInit, OnDestroy {
   suscriptionGet: Subscription = new Subscription;
   refreshTimer: any;
 
-  constructor(private messageService: MessagesService) {};
+  constructor(private userService: UserService, private messageService: MessagesService, private route: ActivatedRoute) {
+    let username = this.route.snapshot.paramMap.get('username');
+    let urlFindUser = this.userService.getUrlFind+username;
+    this.userService.setUrlFindUser(urlFindUser);
+  };
 
   ngOnInit(): void {
     this.refreshMessages();

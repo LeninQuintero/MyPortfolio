@@ -22,6 +22,7 @@ export class ExperienceService {
   _experiences$: Subject<Experience[]>;
 
   constructor(private http: HttpClient) {
+    console.log("EXPERIENCIAS SERV EN EL CONSTRUCTOR!!!!");
     this._experiences$ = new Subject();
   }
 

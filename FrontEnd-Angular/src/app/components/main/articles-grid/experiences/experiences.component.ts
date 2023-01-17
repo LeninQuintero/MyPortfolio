@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Experience, ExperienceForm, ExperienceService } from 'src/app/services/experience.service';
 import { UserService } from 'src/app/services/user.service';
 @Component({
@@ -7,6 +8,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./experiences.component.scss']
 })
 export class ExperiencesComponent implements OnInit {
+
+  // private username;
+  // private urlFindUser;
 
   public userId:number | undefined;
   public editTitleTriggerModal: string = "Editar experiencia";
@@ -17,30 +21,33 @@ export class ExperiencesComponent implements OnInit {
   public experiences: Experience[] = [];
   public expForm: ExperienceForm[] = [];
 
-  constructor(private experienceService: ExperienceService, private userService: UserService) { 
+  constructor(private experienceService: ExperienceService, private userService: UserService, private route: ActivatedRoute) { 
+    console.log("EXPERIENCIAS COMP EN EL CONSTRUCTOR!!!!");
+
+    // this.username = this.route.snapshot.paramMap.get('username');
+    // this.urlFindUser = this.userService.getUrlFind+this.username;
+
+
+    // console.log('URL FIND EN EL EXP COMP CONSTRUCTOR===>>>', this.urlFindUser)
+    // console.log('USERNNAME EN EL EXP COMP CONSTRUCTOR===>>>', this.username)
+
+
 
   }
 
   ngOnInit(): void {
-    this.userService.getUser.subscribe(user => {
-      this.experienceService.getExperiences(user.id).subscribe(experiences => {
+    console.log("EXPERIENCIAS COMP EN EL ON INIT!!!!");
+    // this.userService.getUser.subscribe(user => {
+
+    //   this.experienceService.getExperiences(user.id).subscribe(experiences => {
         
-       experiences.map((exp) =>
-         this.expForm.push(this.experienceService.expToJsonDate(exp)));
-          this.experiences = experiences;
-      });
+    //    experiences.map((exp) =>
+    //      this.expForm.push(this.experienceService.expToJsonDate(exp)));
+    //       this.experiences = experiences;
 
-      // // this code has erros!!
-      // this.experienceService.getNewExperiences$.subscribe(() => {
-      //   this.experienceService.getExperiences(user.id).subscribe(experiences => {
-      //     this.expForm =[];
-      //     experiences.map((exp) =>
-      //     this.expForm.push(this.experienceService.expToJsonDate(exp)));
-      //      this.experiences = experiences;
-      //   });
-      // });
 
-    })
+    //   });
+    // })
   }
 
   onDeleteExperience(experience: Experience) {

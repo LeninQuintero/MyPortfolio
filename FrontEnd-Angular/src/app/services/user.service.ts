@@ -10,21 +10,22 @@ export class UserService {
 
   private apiUrl = API_URL;
   private urlFind = `${this.apiUrl}/find-`;
+ 
   private urlEdit = `${this.apiUrl}/edit-profile`;
   private urlExist = `${this.apiUrl}/exist-`
 
   private user: Observable<UserProfile>;
   private _user$: Subject<UserProfile>;
-  
+
+  private urlFindUser:string='';
 
   constructor(private http: HttpClient) {
-    this.user = this.http.get<UserProfile>(this.apiUrl);
+    this.user = new Observable<UserProfile>;
     this._user$ = new Subject<UserProfile>();
   }
 
   get getUser(): Observable<UserProfile> {
-    this.user = this.http.get<UserProfile>(this.urlFind);
-    return this.user
+    return this.user = this.http.get<UserProfile>(this.urlFindUser);
   }
 
   get getUser$() {
@@ -39,13 +40,18 @@ export class UserService {
     return this.http.put<UserProfile>(this.urlEdit, user);
   }
 
-  setUrlFind(username: string | null) {
-    this.urlFind =`${this.urlFind}${username}`;
+  get getUrlFind(){
+    return this.urlFind;
+  }
+
+  setUrlFindUser(url: string) {
+    this.urlFindUser = url;
   }
 
   userExist(username: string | null): Observable<boolean> {
     return this.http.get<boolean>(`${this.urlExist}${username}`);
   }
+
 
 }
 export interface UserProfile {

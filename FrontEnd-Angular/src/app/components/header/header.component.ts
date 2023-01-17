@@ -15,7 +15,9 @@ export class HeaderComponent implements OnInit {
 
   public logoUrl=`${this.apiUrl}/uploads/defaultimages/ArgentinaProgramaLogo.png`;
 
-  private username;
+  // private username;
+
+  // private urlFindUser;
 
   public user: UserProfile = {
     id: 0,
@@ -32,13 +34,18 @@ export class HeaderComponent implements OnInit {
   };
 
   constructor(private userService: UserService, private route: ActivatedRoute) {
-    this.username = this.route.snapshot.paramMap.get('username');
-    this.userService.setUrlFind(this.username);
+    // console.log("HEADER COMP EN EL CONSTRUCTOR!!!!");
+    // this.username = this.route.snapshot.paramMap.get('username');
+    // this.urlFindUser = this.userService.getUrlFindUser;
+    // console.log('URL FIND EN EL HEADER CONSTRUCTOR===>>>', this.urlFindUser)
  
   }
 
   ngOnInit(): void {
-    this.userService.getUser.subscribe(user =>
-      this.user = user);
+    console.log("HEADER COMP EN EL ON INIT!!!!");
+    // this.userService.getUser.subscribe(user =>{
+    //   this.user = user;
+    //   console.log('USER EN EL INIT DEL HEADER ====>>>', user.name)
+    // });
   }
 }
