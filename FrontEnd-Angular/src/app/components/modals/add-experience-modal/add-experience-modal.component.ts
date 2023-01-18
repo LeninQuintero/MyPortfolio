@@ -79,11 +79,11 @@ dateToString(date: Date):string{
     console.log("SUBMIT USER MODAL USER====>>>", this.id);
     if (this.addExperienceForm.valid) {    
       const newExperience = this.experienceService.expToDateJson(this.addExperienceForm.value);
-      let list = this.experienceService.experiences;
+      let list = this.experiences;
 
       this.experienceService.addExperience(newExperience, this.id).subscribe( experience => {
        list.push(experience);        
-        this.experienceService._experiences$.next(list);    
+        this.experienceService.getNewExperiences$.next(list);
       });
              
       this.alertSubmit = true;

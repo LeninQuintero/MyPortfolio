@@ -18,13 +18,24 @@ export class ExperienceService {
   private urlAddExperiences= `${this.apiUrl}/new-experience/`;
 
 
-  experiences: Experience[] = [];
-  _experiences$: Subject<Experience[]>;
+  private experiences = new Observable<Experience[]>;
+  private _experiences$ = new Subject<Experience[]>();
 
-  constructor(private http: HttpClient) {
-    console.log("EXPERIENCIAS SERV EN EL CONSTRUCTOR!!!!");
-    this._experiences$ = new Subject();
+
+  private expForm: ExperienceForm[]=[];
+
+  private _expForm$ = new Subject<Experience[]>();
+
+  constructor(private http: HttpClient) { 
+    
+   }
+
+ getExpForm(experiences: Experience[]): ExperienceForm[] {
+    experiences.map( (exp) =>
+    this.expForm.push(this.expToJsonDate(exp)));
+    return this.expForm;
   }
+
 
   getExperiences(userId: number): Observable<Experience[]> {
     return this.http.get<Experience[]>(this.urlGetExperiences + userId);

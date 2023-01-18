@@ -23,12 +23,7 @@ export class ProfileComponent implements OnInit {
     const getUser = this.userService.getUser;
 
     getUser.subscribe(user => {
-      this.user.name = user.name;
-      this.user.title = user.title;
-      this.user.urlProfilePic = user.urlProfilePic;
-      this.user.urlBannerSm = user.urlBannerSm;
-      this.user.urlBannerLg = user.urlBannerLg;
-      this.user.aboutMe = user.aboutMe;
+      this.user = user;
       this.altPic = `${user.name}'s picture.`;
     });
    }

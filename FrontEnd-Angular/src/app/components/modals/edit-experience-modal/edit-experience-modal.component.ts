@@ -1,74 +1,94 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Experience, ExperienceForm, ExperienceService } from 'src/app/services/experience.service';
-import { PartialUserProfile, UserProfile, UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-edit-experience-modal',
   templateUrl: './edit-experience-modal.component.html',
   styleUrls: ['./edit-experience-modal.component.scss']
 })
-export class EditExperienceModalComponent implements OnInit{
+export class EditExperienceModalComponent implements OnInit, OnDestroy{
 
   @Input()
-  experience: ExperienceForm | undefined;
+  experience: Experience={
+    companyName: '',
+    urlCompanyLogo: '',
+    currentJob: false,
+    position: '',
+    startDate: '',
+    endDate: '',
+    location: '',
+    description: ''
+  };
+
   @Input() idModal: string | undefined;
-  userId: number | undefined;
+
+  @Input()
+  expForm: ExperienceForm={
+    id:0,
+    position: '',
+    companyName: '',
+    urlCompanyLogo: '',
+    currentJob: false,
+    startMonthDate: 0,
+    startYearDate: 0,
+    endMonthDate: 0,
+    endYearDate: 0,
+    location: '',
+    description: ''
+  }
+  
   editExpForm: FormGroup;
 
-
   constructor(private userService: UserService, private fb: FormBuilder, private expService: ExperienceService){
-    
+    console.log("EXPERIENCESFORM EN  EL CONSTRUCTOR===>>>", JSON.stringify(this.expForm));
     this.editExpForm = this.fb.group({
-      id: [this.experience?.id, []],
-      position: [this.experience?.position, []],
-      companyName: [this.experience?.companyName, []],
-      urlCompanyLogo: [this.experience?.urlCompanyLogo, []],
-      currentJob: [this.experience?.currentJob, []],
-      startMonthDate: [this.experience?.startMonthDate, []],
-      startYearDate: [this.experience?.startYearDate, []],
-      endMonthDate: [this.experience?.endMonthDate, []],
-      endYearDate: [this.experience?.endYearDate, []],
-      location: [this.experience?.location, []],
-      description: [this.experience?.description, []]
+      id: [, [Validators.required]],
+      position: [, [Validators.required]],
+      companyName: [, [Validators.required]],
+      urlCompanyLogo: [, [Validators.required]],
+      currentJob: [, [Validators.required]],
+      startMonthDate: [, [Validators.required]],
+      startYearDate: [, [Validators.required]],
+      endMonthDate: [, [Validators.required]],
+      endYearDate: [, [Validators.required]],
+      location: [, [Validators.required]],
+      description: [, [Validators.required]]
     });
-
- 
-
   }
 
-  ngOnInit(): void {
-    this.editExpForm.controls['id'].setValue(this.experience?.id);
-    this.editExpForm.controls['position'].setValue(this.experience?.position);
-    this.editExpForm.controls['position'].setValue(this.experience?.position);
-    this.editExpForm.controls['companyName'].setValue(this.experience?.companyName);
-    this.editExpForm.controls['urlCompanyLogo'].setValue(this.experience?.urlCompanyLogo);
-    this.editExpForm.controls['startMonthDate'].setValue(this.experience?.startMonthDate);
-    this.editExpForm.controls['startYearDate'].setValue(this.experience?.startYearDate);
-    this.editExpForm.controls['endMonthDate'].setValue(this.experience?.endMonthDate);
-    this.editExpForm.controls['endYearDate'].setValue(this.experience?.endYearDate);
-    this.editExpForm.controls['location'].setValue(this.experience?.location);
-    this.editExpForm.controls['description'].setValue(this.experience?.description);
-    this.editExpForm.controls['currentJob'].setValue(this.experience?.currentJob);
 
+  ngOnDestroy(): void {
+  console.log("MODAL DESTROYYYY!!!!!")
+  }
 
+  ngOnInit(): void {  
+   
 
+    this.editExpForm.controls['id'].patchValue(this.expForm.id);
+    this.editExpForm.controls['position'].patchValue(this.expForm.position);
+    this.editExpForm.controls['companyName'].patchValue(this.expForm.companyName);
+    this.editExpForm.controls['startMonthDate'].patchValue(this.expForm.startMonthDate);
+    this.editExpForm.controls['startYearDate'].patchValue(this.expForm.startYearDate);
+    this.editExpForm.controls['endMonthDate'].patchValue(this.expForm.endMonthDate);
+    this.editExpForm.controls['endYearDate'].patchValue(this.expForm.endYearDate);
+    this.editExpForm.controls['location'].patchValue(this.expForm.location);
+    this.editExpForm.controls['description'].patchValue(this.expForm.description);
+    this.editExpForm.controls['currentJob'].patchValue(this.expForm.currentJob);
 
-
-    this.userService.getUser.subscribe(user => {   
-      this.userId = user.id; 
-    });
+ 
 
   }
 
   submit(event: Event) {
 
     if (this.editExpForm.valid){
-      this.expService.editExperience(this.expService.expToDateJson(this.editExpForm.value)).subscribe( experience => 
+      this.expService.editExperience(this.expService.expToDateJson(this.editExpForm.value)).subscribe( experience => {
 
-        console.log("EXPERINCIA EDITADA=====>>>", experience)
-        );   
-  }};
+        });   
+  }
+}
 
 }
 

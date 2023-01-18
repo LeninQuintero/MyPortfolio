@@ -8,9 +8,8 @@ import { ProfileGuard } from './guards/profile.guard';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const routerOptions: ExtraOptions = {
+  scrollOffset: [0, 70],
   anchorScrolling: 'enabled',
-  scrollPositionRestoration: 'disabled',
-  scrollOffset: [0, 75]
 };
 
 const appRoutes: Routes = [

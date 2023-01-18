@@ -7,7 +7,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./toggler-user-menu.component.scss']
 })
 export class TogglerUserMenuComponent implements OnInit {
- public urlProfilePic: string = "";
+ public urlProfilePic: string | undefined;
 
   constructor(private userService: UserService) { }
 

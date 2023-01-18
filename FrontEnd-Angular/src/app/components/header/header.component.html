@@ -13,22 +13,22 @@
         <nav class="offcanvas-body justify-content-between mx-3">
           <ul class="navbar-nav navbar-nav-lg gap-lg-1 fs-1 text-center">
             <li class="nav-item" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
-              <a class="nav-link" aria-current="page" routerLink="." [fragment]="'acercaDe'">Acerca de</a>
+              <a class="nav-link" aria-current="page" [routerLink]="'/'+username" [fragment]="'acercaDe'">Acerca de</a>
             </li>
             <li class="nav-item" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
-              <a class="nav-link" aria-current="page" routerLink="." [fragment]="'experiencia'">Experiencia</a>
+              <a class="nav-link" aria-current="page" [routerLink]="'/'+username" [fragment]="'experiencia'">Experiencia</a>
             </li>
             <li class="nav-item active" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
-              <a class="nav-link" aria-current="page" routerLink="." [fragment]="'educacion'">Educación</a>
+              <a class="nav-link" aria-current="page" [routerLink]="'/'+username" [fragment]="'educacion'">Educación</a>
             </li>
             <li class="nav-item" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
-              <a class="nav-link" aria-current="page" routerLink="." [fragment]="'skills'">Skills</a>
+              <a class="nav-link" aria-current="page" [routerLink]="'/'+username" [fragment]="'skills'">Skills</a>
             </li>
             <li class="nav-item" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
-              <a class="nav-link" aria-current="page"  routerLink="." [fragment]="'proyectos'">Proyectos</a>
+              <a class="nav-link" aria-current="page"  [routerLink]="'/'+username" [fragment]="'proyectos'">Proyectos</a>
             </li>
             <li class="nav-item" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
-              <a class="nav-link" aria-current="page" routerLink="." [fragment]="'contacto'">Contacto</a>
+              <a class="nav-link" aria-current="page" [routerLink]="'/'+username" [fragment]="'contacto'">Contacto</a>
             </li>
           </ul>
           <ul class="navbar-nav navbar-nav-lg flex-row gap-5 gap-lg-3 mt-5 mt-md-0 justify-content-center fs-1">
