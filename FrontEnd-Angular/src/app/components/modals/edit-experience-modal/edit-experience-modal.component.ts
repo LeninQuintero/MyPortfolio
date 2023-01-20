@@ -1,6 +1,7 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Experience, ExperienceForm, ExperienceService } from 'src/app/services/experience.service';
+import { ExperienceForm, ExperienceService } from 'src/app/services/experience.service';
+import { UploadFilesService } from 'src/app/services/upload-files.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -8,41 +9,35 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './edit-experience-modal.component.html',
   styleUrls: ['./edit-experience-modal.component.scss']
 })
-export class EditExperienceModalComponent implements OnInit, OnDestroy{
+export class EditExperienceModalComponent implements OnInit {
+  @Input() 
+  idModal: string | undefined;
 
   @Input()
-  experience: Experience={
-    companyName: '',
-    urlCompanyLogo: '',
-    currentJob: false,
-    position: '',
-    startDate: '',
-    endDate: '',
-    location: '',
-    description: ''
-  };
-
-  @Input() idModal: string | undefined;
-
-  @Input()
-  expForm: ExperienceForm={
-    id:0,
-    position: '',
-    companyName: '',
-    urlCompanyLogo: '',
-    currentJob: false,
-    startMonthDate: 0,
-    startYearDate: 0,
-    endMonthDate: 0,
-    endYearDate: 0,
-    location: '',
-    description: ''
-  }
+  expForm: ExperienceForm | undefined;
   
-  editExpForm: FormGroup;
+  public editExpForm: FormGroup;
 
-  constructor(private userService: UserService, private fb: FormBuilder, private expService: ExperienceService){
-    console.log("EXPERIENCESFORM EN  EL CONSTRUCTOR===>>>", JSON.stringify(this.expForm));
+
+  public minLengthPictureName: number = 1;
+  public maxLengthPictureName: number = 50;
+  public spinnerButton: boolean = false;
+  public errorMaxSize: boolean = false;
+  private directoryName: string = "";
+  private urlImgName: string = "";
+  private actualImgName: string = "";
+  private imgSize: number = 0;
+  private maxImageSize: number = 5242880;
+  private image: any;
+  private formDataImage = new FormData();
+
+
+  constructor(
+    private userService: UserService, 
+    private fb: FormBuilder, 
+    private expService: ExperienceService, 
+    private upFilesService: UploadFilesService){
+
     this.editExpForm = this.fb.group({
       id: [, [Validators.required]],
       position: [, [Validators.required]],
@@ -58,28 +53,51 @@ export class EditExperienceModalComponent implements OnInit, OnDestroy{
     });
   }
 
-
-  ngOnDestroy(): void {
-  console.log("MODAL DESTROYYYY!!!!!")
-  }
-
   ngOnInit(): void {  
-   
 
-    this.editExpForm.controls['id'].patchValue(this.expForm.id);
-    this.editExpForm.controls['position'].patchValue(this.expForm.position);
-    this.editExpForm.controls['companyName'].patchValue(this.expForm.companyName);
-    this.editExpForm.controls['startMonthDate'].patchValue(this.expForm.startMonthDate);
-    this.editExpForm.controls['startYearDate'].patchValue(this.expForm.startYearDate);
-    this.editExpForm.controls['endMonthDate'].patchValue(this.expForm.endMonthDate);
-    this.editExpForm.controls['endYearDate'].patchValue(this.expForm.endYearDate);
-    this.editExpForm.controls['location'].patchValue(this.expForm.location);
-    this.editExpForm.controls['description'].patchValue(this.expForm.description);
-    this.editExpForm.controls['currentJob'].patchValue(this.expForm.currentJob);
-
- 
+    this.editExpForm.controls['id'].setValue(this.expForm?.id);
+    this.editExpForm.controls['position'].setValue(this.expForm?.position);
+    this.editExpForm.controls['companyName'].setValue(this.expForm?.companyName);
+    this.editExpForm.controls['startMonthDate'].setValue(this.expForm?.startMonthDate);
+    this.editExpForm.controls['startYearDate'].setValue(this.expForm?.startYearDate);
+    this.editExpForm.controls['endMonthDate'].setValue(this.expForm?.endMonthDate);
+    this.editExpForm.controls['endYearDate'].setValue(this.expForm?.endYearDate);
+    this.editExpForm.controls['location'].setValue(this.expForm?.location);
+    this.editExpForm.controls['description'].setValue(this.expForm?.description);
+    this.editExpForm.controls['currentJob'].setValue(this.expForm?.currentJob);
 
   }
+
+  captureFile(event: any) {
+    this.image = event.target.files[0];
+    this.imgSize = this.image.size;
+
+    if (this.editExpForm.valid) {
+            
+      if (this.imgSize <= this.maxImageSize){
+        this.errorMaxSize= false;
+      
+
+
+
+      }
+
+
+
+
+      if (this.imgSize >= this.maxImageSize){
+        this.errorMaxSize= true;
+      }
+    } 
+
+    console.log(JSON.stringify(this.image))
+  }
+
+
+
+
+
+
 
   submit(event: Event) {
 

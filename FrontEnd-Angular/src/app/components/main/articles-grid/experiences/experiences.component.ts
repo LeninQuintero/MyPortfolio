@@ -22,7 +22,7 @@ export class ExperiencesComponent implements OnInit {
   public expForm: ExperienceForm[] = [];
 
   constructor(private expService: ExperienceService, private userService: UserService, private route: ActivatedRoute) { 
-    console.log("EXPERIENCIAS COMP EN EL CONSTRUCTOR!!!!");
+
 
     // this.username = this.route.snapshot.paramMap.get('username');
     // this.urlFindUser = this.userService.getUrlFind+this.username;
@@ -36,17 +36,28 @@ export class ExperiencesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("EXPERIENCIAS COMP EN EL ON INIT!!!!");
+
     this.userService.getUser.subscribe(user => {
         this.userId = user.id;
         this.expService.getExperiences(this.userId).subscribe(experiences => { 
           this.experiences = experiences;
-          // console.log("EXPERIENCES===>>>", JSON.stringify(experiences)) 
           this.expForm=this.expService.getExpForm(experiences); 
         });
-
-
     })
+
+    this.expService.getNewExperiences$.subscribe(() =>
+    this.userService.getUser.subscribe(user => {
+      this.userId = user.id;
+      this.expService.getExperiences(this.userId).subscribe(experiences => { 
+        this.experiences = experiences;
+        this.expForm=this.expService.getExpForm(experiences); 
+      });
+  })
+
+
+
+
+    )
 
   }
   
@@ -93,13 +104,6 @@ export class ExperiencesComponent implements OnInit {
     });
   }
 
-  // stringToDate(month: number, year: number) {
-  //   let date = new Date(year, month)
-  //   let m = date.toLocaleString("es-ES", { month: "long" });
-  //   let y = date.toLocaleString("es-ES", { year: "numeric" });
-  //   let formattedDate = m[0].toUpperCase() + m.slice(1) + " " + y;
-  //   return formattedDate;
-  // }
 
   dateStringToString(dateString: string): string {
     let date = this.expService.stringToDate(dateString);
