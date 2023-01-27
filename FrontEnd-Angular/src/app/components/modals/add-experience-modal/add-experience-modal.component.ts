@@ -10,27 +10,26 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./add-experience-modal.component.scss']
 })
 export class AddExperienceModalComponent implements OnInit {
+
+  alertSubmit: boolean= false;
+
   public experiences: Experience[] = [];
   public id: number = 0;
   switchValue: boolean = false;
   addExperienceForm: FormGroup;
-  alertSubmit: boolean;
 
-
+  private imgFormat: string | undefined;
+  private defaultLogo: string = 'https://firebasestorage.googleapis.com/v0/b/ap-deploy-frontend-angular.appspot.com/o/defaultFiles%2Flogo4.jpg?alt=media&token=aadabaef-b4d2-46cb-82ef-313680b9203b'
 
   public minLengthPictureName: number = 1;
   public maxLengthPictureName: number = 50;
   public spinnerButton: boolean = false;
   public errorMaxSize: boolean = false;
   private directoryName: any;
-  // private imgName = "";
-  // private newImageName = "";
+
   private imgSize: number = 0;
   private maxImageSize: number = 5242880;
   private image: any;
-  // private urlCompanyLogo: string = ""
-
-
 
   constructor(
     private experienceService: ExperienceService,
@@ -44,7 +43,7 @@ export class AddExperienceModalComponent implements OnInit {
       position: ['', [Validators.required]],
       companyName: ['', [Validators.required]],
       urlCompanyLogo: ['', [Validators.required]],
-      currentJob: [''],
+      currentJob: [false],
       startMonthDate: ['', [Validators.required]],
       startYearDate: ['', [Validators.required]],
       endMonthDate: ['', [Validators.required]],
@@ -62,8 +61,6 @@ export class AddExperienceModalComponent implements OnInit {
         this.experiences = experiences;
       });
     });
-
-   
   }
 
   dateToString(date: Date): string {
@@ -100,12 +97,10 @@ export class AddExperienceModalComponent implements OnInit {
     this.alertSubmit = false;
   }
 
-
-
-
   captureFile(event: any) {
     this.image = event.target.files[0];
     this.imgSize = this.image.size;
+    this.imgFormat = this.upFileService.getImageFormat(this.image.name);
     if (this.addExperienceForm.valid) {
       if (this.imgSize <= this.maxImageSize) {
         this.errorMaxSize = false;
@@ -121,27 +116,29 @@ export class AddExperienceModalComponent implements OnInit {
     if (this.addExperienceForm.valid) {
       let list = this.experiences;
       let newExperience: Experience = this.experienceService.expToDateJson(this.addExperienceForm.value);
+      newExperience.urlCompanyLogo = this.defaultLogo;
 
-      this.upFileService.uploadFileFire(this.image, this.directoryName, `experience${list.length+1}_${this.image.name}`)
+      this.experienceService.addExperience(newExperience, this.id).subscribe(experience => {
 
-        .then(resp => {
- 
-          this.upFileService.getUrlUpFile(resp).then(url => {
+        newExperience = experience;
 
-            newExperience.urlCompanyLogo = url
+        this.upFileService.uploadFileFire(this.image, this.directoryName, `experience-${experience.id}.${this.imgFormat}`)
 
-          this.experienceService.addExperience(newExperience, this.id).subscribe(experience => {
-            list.push(experience);
-            this.experienceService.getNewExperiences$.next(list);
-          });
+          .then(resp => {
 
-          }
-          ).catch(error => console.log(error))
+            this.upFileService.getUrlUpFileFire(resp).then(url => {
+              newExperience.urlCompanyLogo = url;
 
+              this.experienceService.editExperience(newExperience).subscribe(experience => {
+                list.push(experience);
+                this.experienceService.getNewExperiences$.next(list);
+              })
+            }
+            ).catch(error => console.log(error))
+          })
+          .catch(error => console.log(error))
 
-        })
-        .catch(error => console.log(error))
-
+      });
 
       this.alertSubmit = true;
 

@@ -93,11 +93,8 @@ export class ExperiencesComponent implements OnInit {
     }
 
 
-
-
-
   onDeleteExperience(experience: Experience) {
-    this.expService.deleteExperience(experience).subscribe(() => {
+    this.expService.deleteExperience(experience.id).subscribe(() => {
       let list = this.experiences;
       list.filter(exp => { return exp.id !== experience.id });
       this.expService.getNewExperiences$.next(list);

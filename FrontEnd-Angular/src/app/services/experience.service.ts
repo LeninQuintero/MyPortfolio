@@ -49,13 +49,14 @@ export class ExperienceService {
     return this.http.post<Experience>(this.urlAddExperiences + userId, experience, httpOptions);
   }
 
-  deleteExperience(experience: Experience): Observable<Experience> {
-    const url = `${this.apiUrl}delete-experience/${experience.id}`;
-    return this.http.delete<Experience>(url);
+  deleteExperience(id: number | undefined) {
+    const url = `${this.apiUrl}/delete-experience/${id}`;
+    console.log("URL A ELIMINAR===>>>", url)
+    return this.http.delete<Experience>(url, httpOptions);
   }
 
   editExperience(experience : Experience): Observable<Experience>{
-return this.http.put<Experience>(this.apiUrl+"edit-experience", experience, httpOptions);
+  return this.http.put<Experience>(`${this.apiUrl}/edit-experience`, experience, httpOptions);
   }
 
   stringToDate(dateString: string): Date {

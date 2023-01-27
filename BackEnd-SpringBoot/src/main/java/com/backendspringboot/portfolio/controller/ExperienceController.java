@@ -27,13 +27,14 @@ public class ExperienceController {
     private UserProfileService userProfileServ;
 
     @PostMapping("/new-experience/{id}")
-    public void experienceCreate(@PathVariable Long id, @RequestBody Experience experience) {
+    public Experience experienceCreate(@PathVariable Long id, @RequestBody Experience experience) {
         UserProfile userProfile = userProfileServ.profileFind(id);
 
         if (userProfile != null) {
             experience.setUserProfile(userProfile);
             experienceServ.experienceCreate(experience);
         }
+        return experience;
     }
 
     @GetMapping("/experience-list/{id}")

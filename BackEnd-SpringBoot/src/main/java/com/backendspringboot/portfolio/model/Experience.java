@@ -34,7 +34,7 @@ public class Experience implements Serializable {
     @Column(name = "company_name", nullable = false, length = 100)
     private String companyName;
 
-    @Column(name = "url_company_logo", length = 200)
+    @Column(name = "url_company_logo", length = 800)
     private String urlCompanyLogo;
 
     @Column(name = "current_job", nullable = false)
