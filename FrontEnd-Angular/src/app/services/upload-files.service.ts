@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_URL } from 'src/environments/api-urls-config';
-import { Storage, StorageReference, UploadResult, getDownloadURL, ref, uploadBytes, deleteObject, getStorage } from '@angular/fire/storage';
+import { Storage, UploadResult, getDownloadURL, ref, uploadBytes, deleteObject } from '@angular/fire/storage';
+
 
 
 @Injectable({
@@ -38,41 +39,43 @@ export class UploadFilesService {
   }
 
 uploadFileFire(file: Blob, directory: string, name:string): Promise<UploadResult> {
-const fileData = file;
 const fileRef = ref(this.storage, `${directory}/${name}`);
-return uploadBytes(fileRef, fileData)
+return uploadBytes(fileRef, file)
 }
 
 getUrlUpFileFire(upResult: UploadResult): Promise<string> {
  return getDownloadURL(upResult.ref)
 }
 
-// deleteFileFire(url: string) {
-//   const storage = getStorage();
-//   // Create a reference to the file to delete
-//   const desertRef = ref(storage, url);
-//   // Delete the file
-//   deleteObject(desertRef).then(() => {
-//     console.log("File deleted successfully")
-//   }).catch((error) => {
-//     console.log("Uh-oh, an error occurred!")
-//   });
-// }
-
 getFilePathFromUrl(url: string): any{
   const splitUrl = url.split('/');
-  const fileName = splitUrl[splitUrl.length - 1];
   splitUrl.pop();
   const filePath = splitUrl.join('/');
   return filePath
 }
 
-deleteFileFire(url: string) {
+getFileNameFromUrl(url: string): any{
   const splitUrl = url.split('/');
-  const fileName: any = splitUrl[splitUrl.length - 1];
+  const fileName = splitUrl[splitUrl.length - 1];
+  splitUrl.pop();
+  return fileName
+}
 
-console.log("A BORRAR===>>>", fileName)
-  fileName.delete();
+getFileExtFromUrl(url: string): string {
+  const extensionRegex = /(?<=\.)[^.]*(?=\?)/;
+  const extension = url.match(extensionRegex);
+  return extension ? extension[0] : '';
+}
+
+
+
+deleteFileFire(directory: string, name:string) {
+  const storageRef= ref(this.storage, `${directory}/${name}`);
+  deleteObject(storageRef).then(() => {
+    console.log("file deleted")
+  }).catch((error) => {
+    console.log(error)
+  }); 
 }
 
 getImageFormat(fileName: any){

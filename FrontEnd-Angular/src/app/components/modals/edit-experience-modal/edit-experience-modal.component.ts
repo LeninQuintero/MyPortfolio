@@ -111,19 +111,19 @@ export class EditExperienceModalComponent implements OnInit {
       }
     }
   }
-  expDelete(event: Event){
-    
+
+  expDelete(event: Event) {
       this.expService.deleteExperience(this.expForm.id).subscribe(() => {
         let list = this.experiences;
+        const fileName = this.upFilesService.getFileNameFromUrl(this.expForm.urlCompanyLogo);
+        const fileExt = this.upFilesService.getFileExtFromUrl(fileName);
+        this.upFilesService.deleteFileFire(this.directoryName, `experience-${this.expForm.id}.${fileExt}`);
         list.filter(exp => { return exp.id !== this.expForm.id });
         this.expService.getNewExperiences$.next(list);
       });
   }
 
   submit(event: Event) {
-
-    console.log("SE ACTIVO EL SUBMIT!!!")
-
     if (this.editExpForm.valid) {
       let list = this.experiences;
       let newExperience: Experience = this.expService.expToDateJson(this.editExpForm.value);

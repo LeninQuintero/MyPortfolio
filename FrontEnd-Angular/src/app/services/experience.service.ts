@@ -51,7 +51,6 @@ export class ExperienceService {
 
   deleteExperience(id: number | undefined) {
     const url = `${this.apiUrl}/delete-experience/${id}`;
-    console.log("URL A ELIMINAR===>>>", url)
     return this.http.delete<Experience>(url, httpOptions);
   }
 
