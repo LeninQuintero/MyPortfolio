@@ -10,13 +10,14 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './edit-experience-modal.component.html',
   styleUrls: ['./edit-experience-modal.component.scss']
 })
+
 export class EditExperienceModalComponent implements OnInit {
-  @Input() 
+  @Input()
   idModal: string | undefined;
 
   @Input()
-  expForm: ExperienceForm={
-    id:0,
+  expForm: ExperienceForm = {
+    id: 0,
     position: '',
     companyName: '',
     urlCompanyLogo: '',
@@ -28,10 +29,8 @@ export class EditExperienceModalComponent implements OnInit {
     location: '',
     description: ''
   }
-  
+
   public editExpForm: FormGroup;
-
-
   public minLengthPictureName: number = 1;
   public maxLengthPictureName: number = 50;
   public spinnerButton: boolean = false;
@@ -44,25 +43,24 @@ export class EditExperienceModalComponent implements OnInit {
   private image: any;
   private formDataImage = new FormData();
   private imgFormat: string | undefined;
- private experiences: Experience[]=[];
-  alertSubmit: boolean;
-  private id: number=0;
-
+  private experiences: Experience[] = [];
+  private alertSubmit: boolean;
+  private id: number = 0;
 
   constructor(
-    private userService: UserService, 
-    private fb: FormBuilder, 
-    private expService: ExperienceService, 
+    private userService: UserService,
+    private fb: FormBuilder,
+    private expService: ExperienceService,
     private upFilesService: UploadFilesService,
-    private route: ActivatedRoute){
-      
+    private route: ActivatedRoute) {
+
     this.directoryName = this.route.snapshot.paramMap.get('username');
     this.editExpForm = this.fb.group({
       id: [, [Validators.required]],
       position: [, [Validators.required]],
       companyName: [, [Validators.required]],
-      urlCompanyLogo: [, ],
-      currentJob: [false, ],
+      urlCompanyLogo: [,],
+      currentJob: [false,],
       startMonthDate: [, [Validators.required]],
       startYearDate: [, [Validators.required]],
       endMonthDate: [, [Validators.required]],
@@ -73,7 +71,7 @@ export class EditExperienceModalComponent implements OnInit {
     this.alertSubmit = false;
   }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
 
     this.userService.getUser.subscribe(user => {
       this.id = user.id;
@@ -94,7 +92,7 @@ export class EditExperienceModalComponent implements OnInit {
     this.editExpForm.controls['currentJob'].setValue(this.expForm?.currentJob);
   }
 
-  closeAlertSubmit(){
+  closeAlertSubmit() {
     this.alertSubmit = false;
   }
 
@@ -113,39 +111,44 @@ export class EditExperienceModalComponent implements OnInit {
   }
 
   expDelete(event: Event) {
-      this.expService.deleteExperience(this.expForm.id).subscribe(() => {
-        let list = this.experiences;
-        const fileName = this.upFilesService.getFileNameFromUrl(this.expForm.urlCompanyLogo);
-        const fileExt = this.upFilesService.getFileExtFromUrl(fileName);
-        this.upFilesService.deleteFileFire(this.directoryName, `experience-${this.expForm.id}.${fileExt}`);
-        list.filter(exp => { return exp.id !== this.expForm.id });
-        this.expService.getNewExperiences$.next(list);
-      });
+    this.expService.deleteExperience(this.expForm.id).subscribe(() => {
+      let list = this.experiences;
+      const fileName = this.upFilesService.getFileNameFromUrl(this.expForm.urlCompanyLogo);
+      const fileExt = this.upFilesService.getFileExtFromUrl(fileName);
+      const fileUrl = `experience-${this.expForm.id}.${fileExt}`;
+
+      if (this.expForm.urlCompanyLogo != this.expService.getExpDefaultLogo) {
+        this.upFilesService.deleteFileFire(this.directoryName, fileUrl);
+      }
+
+      list.filter(exp => { return exp.id !== this.expForm.id });
+      this.expService.getNewExperiences$.next(list);
+    });
   }
 
   submit(event: Event) {
     if (this.editExpForm.valid) {
       let list = this.experiences;
       let newExperience: Experience = this.expService.expToDateJson(this.editExpForm.value);
-      let urlLogo= this.expForm.urlCompanyLogo;
-    
-      if(this.editExpForm.get('urlCompanyLogo')?.dirty){
+      let urlLogo = this.expForm.urlCompanyLogo;
+
+      if (this.editExpForm.get('urlCompanyLogo')?.dirty) {
         this.upFilesService.uploadFileFire(this.image, this.directoryName, `experience-${this.expForm.id}.${this.imgFormat}`)
-        .then(resp => {
-            this.upFilesService.getUrlUpFileFire(resp).then( url => {
-                newExperience.urlCompanyLogo = url
-                this.expService.editExperience(newExperience).subscribe(experience => {
+          .then(resp => {
+            this.upFilesService.getUrlUpFileFire(resp).then(url => {
+              newExperience.urlCompanyLogo = url
+              this.expService.editExperience(newExperience).subscribe(experience => {
                 list.push(experience);
                 this.expService.getNewExperiences$.next(list);
-                })
+              })
             }).catch(error => console.log(error))
           })
           .catch(error => console.log(error))
       } else {
         newExperience.urlCompanyLogo = urlLogo;
         this.expService.editExperience(newExperience).subscribe(experience => {
-        list.push(experience);
-        this.expService.getNewExperiences$.next(list);
+          list.push(experience);
+          this.expService.getNewExperiences$.next(list);
         })
       }
 
@@ -159,7 +162,6 @@ export class EditExperienceModalComponent implements OnInit {
       this.editExpForm.markAllAsTouched();
     }
 
-}
-
+  }
 
 }

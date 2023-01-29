@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { API_URL } from 'src/environments/api-urls-config';
+import { API_URL, DEFAULT_EXP_LOGO_URL } from 'src/environments/api-urls-config';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -13,22 +13,18 @@ const httpOptions = {
 })
 export class ExperienceService {
 
-  private apiUrl=API_URL;
+  private apiUrl = API_URL;
+  private defaultLogo = DEFAULT_EXP_LOGO_URL;
   private urlGetExperiences=`${this.apiUrl}/experience-list/`;
   private urlAddExperiences= `${this.apiUrl}/new-experience/`;
-
-
+  
   private experiences = new Observable<Experience[]>;
   private _experiences$ = new Subject<Experience[]>();
 
-
   private expForm: ExperienceForm[]=[];
-
   private _expForm$ = new Subject<Experience[]>();
 
-  constructor(private http: HttpClient) { 
-    
-   }
+  constructor(private http: HttpClient) { }
 
  getExpForm(experiences: Experience[]): ExperienceForm[] {
     experiences.map( (exp) =>
@@ -36,6 +32,9 @@ export class ExperienceService {
     return this.expForm;
   }
 
+  get getExpDefaultLogo(){
+    return this.defaultLogo
+  }
 
   getExperiences(userId: number): Observable<Experience[]> {
     return this.http.get<Experience[]>(this.urlGetExperiences + userId);

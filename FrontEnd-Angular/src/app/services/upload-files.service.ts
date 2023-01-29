@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { API_URL } from 'src/environments/api-urls-config';
 import { Storage, UploadResult, getDownloadURL, ref, uploadBytes, deleteObject } from '@angular/fire/storage';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -67,12 +65,9 @@ getFileExtFromUrl(url: string): string {
   return extension ? extension[0] : '';
 }
 
-
-
 deleteFileFire(directory: string, name:string) {
   const storageRef= ref(this.storage, `${directory}/${name}`);
   deleteObject(storageRef).then(() => {
-    console.log("file deleted")
   }).catch((error) => {
     console.log(error)
   }); 

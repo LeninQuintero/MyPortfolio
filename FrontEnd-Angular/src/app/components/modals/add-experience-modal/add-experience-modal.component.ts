@@ -19,7 +19,6 @@ export class AddExperienceModalComponent implements OnInit {
   addExperienceForm: FormGroup;
 
   private imgFormat: string | undefined;
-  private defaultLogo: string = 'https://firebasestorage.googleapis.com/v0/b/ap-deploy-frontend-angular.appspot.com/o/defaultFiles%2Flogo4.jpg?alt=media&token=aadabaef-b4d2-46cb-82ef-313680b9203b'
 
   public minLengthPictureName: number = 1;
   public maxLengthPictureName: number = 50;
@@ -42,7 +41,7 @@ export class AddExperienceModalComponent implements OnInit {
     this.addExperienceForm = this.fb.group({
       position: ['', [Validators.required]],
       companyName: ['', [Validators.required]],
-      urlCompanyLogo: ['', [Validators.required]],
+      urlCompanyLogo: [''],
       currentJob: [false],
       startMonthDate: ['', [Validators.required]],
       startYearDate: ['', [Validators.required]],
@@ -116,19 +115,20 @@ export class AddExperienceModalComponent implements OnInit {
     if (this.addExperienceForm.valid) {
       let list = this.experiences;
       let newExperience: Experience = this.experienceService.expToDateJson(this.addExperienceForm.value);
-      newExperience.urlCompanyLogo = this.defaultLogo;
+      newExperience.urlCompanyLogo = this.experienceService.getExpDefaultLogo;
 
       this.experienceService.addExperience(newExperience, this.id).subscribe(experience => {
-
         newExperience = experience;
 
-        this.upFileService.uploadFileFire(this.image, this.directoryName, `experience-${experience.id}.${this.imgFormat}`)
+        if(this.addExperienceForm.get('urlCompanyLogo')?.dirty){
 
+          this.upFileService.uploadFileFire(this.image, this.directoryName, `experience-${experience.id}.${this.imgFormat}`)
+  
           .then(resp => {
-
+  
             this.upFileService.getUrlUpFileFire(resp).then(url => {
               newExperience.urlCompanyLogo = url;
-
+  
               this.experienceService.editExperience(newExperience).subscribe(experience => {
                 list.push(experience);
                 this.experienceService.getNewExperiences$.next(list);
@@ -137,7 +137,11 @@ export class AddExperienceModalComponent implements OnInit {
             ).catch(error => console.log(error))
           })
           .catch(error => console.log(error))
-
+  
+        } else{
+          list.push(experience);
+          this.experienceService.getNewExperiences$.next(list);
+        }
       });
 
       this.alertSubmit = true;
@@ -150,6 +154,5 @@ export class AddExperienceModalComponent implements OnInit {
       this.addExperienceForm.markAllAsTouched();
     }
   }
-
 
 }
