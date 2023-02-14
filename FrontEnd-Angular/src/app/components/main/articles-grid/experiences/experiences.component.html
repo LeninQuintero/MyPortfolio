@@ -34,7 +34,7 @@
             </div>
             <h6 class="opacity-75">{{experience.companyName}}</h6>
             <div class="opacity-50">
-              <span>{{ dateStringToString(experience.startDate) }}</span> - <span>{{ dateStringToString(experience.endDate) }}</span>
+              <span>{{ dateStringToString(experience.startDate) }}</span> - <span *ngIf="!experience.currentJob">{{ dateStringToString(experience.endDate) }}</span> <span *ngIf="experience.currentJob" class="">Actual</span>
             </div>
             <div class="d-flex justify-content-between">
               <div class="opacity-50">

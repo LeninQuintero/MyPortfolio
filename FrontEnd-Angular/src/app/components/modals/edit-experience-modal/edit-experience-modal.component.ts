@@ -90,6 +90,11 @@ export class EditExperienceModalComponent implements OnInit {
     this.editExpForm.controls['location'].setValue(this.expForm?.location);
     this.editExpForm.controls['description'].setValue(this.expForm?.description);
     this.editExpForm.controls['currentJob'].setValue(this.expForm?.currentJob);
+
+  }
+
+  get getCurrentJob(): boolean {
+    return this.editExpForm.get('currentJob')?.value
   }
 
   closeAlertSubmit() {

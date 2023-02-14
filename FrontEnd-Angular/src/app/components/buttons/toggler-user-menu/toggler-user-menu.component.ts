@@ -15,5 +15,11 @@ export class TogglerUserMenuComponent implements OnInit {
     this.userService.getUser.subscribe(user => {
       this.urlProfilePic = user.urlProfilePic;
     });
+
+    this.userService.getUser$.subscribe(() => {
+      this.userService.getUser.subscribe(user => {
+        this.urlProfilePic = user.urlProfilePic;
+      });
+    });
   }
 }

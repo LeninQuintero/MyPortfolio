@@ -11,13 +11,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AddExperienceModalComponent implements OnInit {
 
-  alertSubmit: boolean= false;
+  alertSubmit: boolean = false;
 
   public experiences: Experience[] = [];
   public id: number = 0;
-  switchValue: boolean = false;
-  addExperienceForm: FormGroup;
-
+  private switchValue: boolean = false;
   private imgFormat: string | undefined;
 
   public minLengthPictureName: number = 1;
@@ -29,6 +27,7 @@ export class AddExperienceModalComponent implements OnInit {
   private imgSize: number = 0;
   private maxImageSize: number = 5242880;
   private image: any;
+  addExperienceForm: FormGroup;
 
   constructor(
     private experienceService: ExperienceService,
@@ -41,8 +40,8 @@ export class AddExperienceModalComponent implements OnInit {
     this.addExperienceForm = this.fb.group({
       position: ['', [Validators.required]],
       companyName: ['', [Validators.required]],
-      urlCompanyLogo: [''],
-      currentJob: [false],
+      urlCompanyLogo: [,],
+      currentJob: [false,],
       startMonthDate: ['', [Validators.required]],
       startYearDate: ['', [Validators.required]],
       endMonthDate: ['', [Validators.required]],
@@ -50,7 +49,6 @@ export class AddExperienceModalComponent implements OnInit {
       location: ['', [Validators.required]],
       description: ['', [Validators.required]]
     });
-    this.alertSubmit = false;
   }
 
   ngOnInit(): void {
@@ -60,6 +58,15 @@ export class AddExperienceModalComponent implements OnInit {
         this.experiences = experiences;
       });
     });
+
+    this.addExperienceForm.get('currentJob')?.valueChanges.subscribe(val => {
+      this.switchValue = val;
+      if (val) {
+        this.addExperienceForm.controls['endYearDate'].setValue(2023);
+        this.addExperienceForm.controls['endMonthDate'].setValue(0);
+      }
+    });
+
   }
 
   dateToString(date: Date): string {
@@ -70,6 +77,9 @@ export class AddExperienceModalComponent implements OnInit {
 
   get startDate(): Date {
     return new Date(this.addExperienceForm.get('startYearDate')?.value, this.addExperienceForm.get('startMonthDate')?.value);
+  }
+  get getCurrentJob(): boolean {
+    return this.switchValue
   }
 
   isValidField(field: string) {
@@ -100,45 +110,45 @@ export class AddExperienceModalComponent implements OnInit {
     this.image = event.target.files[0];
     this.imgSize = this.image.size;
     this.imgFormat = this.upFileService.getImageFormat(this.image.name);
+
     if (this.addExperienceForm.valid) {
+      
       if (this.imgSize <= this.maxImageSize) {
         this.errorMaxSize = false;
-      }
-      if (this.imgSize >= this.maxImageSize) {
+      }else {
         this.errorMaxSize = true;
       }
+
     }
   }
 
   submit(event: Event) {
-
+   
     if (this.addExperienceForm.valid) {
       let list = this.experiences;
       let newExperience: Experience = this.experienceService.expToDateJson(this.addExperienceForm.value);
+      let logoValid = this.addExperienceForm.get('urlCompanyLogo')?.dirty;
+
       newExperience.urlCompanyLogo = this.experienceService.getExpDefaultLogo;
 
       this.experienceService.addExperience(newExperience, this.id).subscribe(experience => {
         newExperience = experience;
 
-        if(this.addExperienceForm.get('urlCompanyLogo')?.dirty){
-
+        if (logoValid) {
           this.upFileService.uploadFileFire(this.image, this.directoryName, `experience-${experience.id}.${this.imgFormat}`)
-  
-          .then(resp => {
-  
-            this.upFileService.getUrlUpFileFire(resp).then(url => {
-              newExperience.urlCompanyLogo = url;
-  
-              this.experienceService.editExperience(newExperience).subscribe(experience => {
-                list.push(experience);
-                this.experienceService.getNewExperiences$.next(list);
+            .then(resp => {
+              this.upFileService.getUrlUpFileFire(resp).then(url => {
+                newExperience.urlCompanyLogo = url;
+                this.experienceService.editExperience(newExperience).subscribe(experience => {
+                  list.push(experience);
+                  this.experienceService.getNewExperiences$.next(list);
+                })
               })
-            }
-            ).catch(error => console.log(error))
-          })
-          .catch(error => console.log(error))
-  
-        } else{
+              .catch(error => console.log(error))
+            })
+            .catch(error => console.log(error))
+
+        } else {
           list.push(experience);
           this.experienceService.getNewExperiences$.next(list);
         }
@@ -153,6 +163,6 @@ export class AddExperienceModalComponent implements OnInit {
     } else {
       this.addExperienceForm.markAllAsTouched();
     }
+    this.addExperienceForm.controls['currentJob'].setValue(false);
   }
-
 }

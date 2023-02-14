@@ -132,7 +132,7 @@
                                 <option value=2023>2023</option>
                             </select>
                         </div>
-                        <div class="col-6">
+                        <div class="col-6" *ngIf="!getCurrentJob">
                             <label for="imputMesFinExp4" class="form-label opacity-75">Mes final</label>
                             <select 
                             type="number"
@@ -154,7 +154,7 @@
                                 <option value=11>Diciembre</option>
                             </select>
                         </div>
-                        <div class="col-6">
+                        <div class="col-6" *ngIf="!getCurrentJob">
                             <label for="imputAnioFinExp4" class="form-label opacity-75">Año final</label>
                             <select 
                             type="number"

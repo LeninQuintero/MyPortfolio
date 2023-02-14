@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserProfile, UserService } from 'src/app/services/user.service';
 
@@ -7,7 +7,7 @@ import { UserProfile, UserService } from 'src/app/services/user.service';
   templateUrl: './edit-acercade-modal.component.html',
   styleUrls: ['./edit-acercade-modal.component.scss']
 })
-export class EditAcercadeModalComponent  {
+export class EditAcercadeModalComponent implements OnInit{
 
   aboutMeForm: FormGroup;
 
@@ -30,10 +30,22 @@ export class EditAcercadeModalComponent  {
       aboutMe: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(600)]]
     });
 
-    this.userService.getUser.subscribe( user =>{
+ 
+  }
+  ngOnInit(): void {
+    this.userService.getUser.subscribe( user => {
       this.aboutMeForm.controls['aboutMe'].setValue(user.aboutMe);
       this.user = user;      
-    });  
+    }); 
+
+    this.userService.getUser$.subscribe(()=> {
+      this.userService.getUser.subscribe( user => {
+        this.aboutMeForm.controls['aboutMe'].setValue(user.aboutMe);
+        this.user = user;      
+      });
+    })
+
+
   }
 
   isValidField(field: string) {

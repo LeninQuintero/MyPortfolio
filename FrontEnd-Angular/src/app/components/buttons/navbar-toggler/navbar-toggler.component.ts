@@ -5,12 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './navbar-toggler.component.html',
   styleUrls: ['./navbar-toggler.component.scss']
 })
-export class NavbarTogglerComponent implements OnInit {
+export class NavbarTogglerComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-    
-  }
 
 }

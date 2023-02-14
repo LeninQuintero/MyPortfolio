@@ -45,14 +45,14 @@ public class UserCredentialsService implements IUserCredentialsService {
                 user.getId(),
                 "Nuevo Usuario",
                 "Titulo del Portafolio",
-                "https://myportfolio-deploy-backend-springboot.onrender.com/uploads/defaultimages/foto-perfil.jpg",
-                "https://myportfolio-deploy-backend-springboot.onrender.com/uploads/defaultimages/banner-mobile.jpg",
-                "http://localhost:8080/uploads/defaultimages/banner-desktop.jpg",
+                "https://firebasestorage.googleapis.com/v0/b/ap-deploy-frontend-angular.appspot.com/o/defaultFiles%2Ffoto-perfil.jpg?alt=media&token=6d315045-d26d-4610-9dd3-bef0a7ef5d60",
+                "https://firebasestorage.googleapis.com/v0/b/ap-deploy-frontend-angular.appspot.com/o/defaultFiles%2Fbanner-mobile.jpg?alt=media&token=db5c877f-5b4b-4708-a1d6-d116304492e7",
+                "https://firebasestorage.googleapis.com/v0/b/ap-deploy-frontend-angular.appspot.com/o/defaultFiles%2Fbanner-desktop.jpg?alt=media&token=49698c92-bd42-4eed-a77f-014850de2361",
                 "Descripción del perfil del usuario",
                 "https://github.com/#",
                 "https://twitter.com/#",
                 "https://www.linkedin.com/#",
-                "http://localhost:8080/" + user.getUserName(),
+                "https://ap-deploy-frontend-angular.web.app/" + user.getUserName(),
                 user);
 
         userProfileServ.profileCreate(userProfile);

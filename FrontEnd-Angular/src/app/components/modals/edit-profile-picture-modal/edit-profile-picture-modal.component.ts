@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { UploadFilesService } from 'src/app/services/upload-files.service';
 import { UserProfile, UserService } from 'src/app/services/user.service';
 
@@ -15,13 +16,14 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
   public maxLengthPictureName: number = 50;
   public spinnerButton: boolean = false;
   public errorMaxSize: boolean = false;
-  private directoryName: string = "";
+  private directoryName: any;
   private urlImgName: string = "";
   private actualImgName: string = "";
   private imgSize: number = 0;
   private maxImageSize: number = 5242880;
   private image: any;
   private formDataImage = new FormData();
+  private imgFormat: string | undefined;
 
   private userSuscription = this.userService.getUser.subscribe(user => {
     this.user = user;
@@ -43,12 +45,16 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
     id: 0
   };
 
-  constructor(private fb: FormBuilder, private userService: UserService, private uploadFilesService: UploadFilesService) {
+  constructor(  private fb: FormBuilder,
+                private userService: UserService,
+                private uploadFilesService: UploadFilesService,
+                private route: ActivatedRoute ) {
 
     const imageValidator = /.(jpg|JPG|jpeg|JPEG|png|PNG|webp|WEBP)$/i;
     const minLengthValidator = 17 + this.minLengthPictureName;
     const maxLengthValidator = 17 + this.maxLengthPictureName;
 
+    this.directoryName = this.route.snapshot.paramMap.get('username');
     this.editForm = this.fb.group({
 
       image: ['', [Validators.required,
@@ -84,46 +90,40 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
     const fieldName = this.editForm.get(field);
     return fieldName?.hasError(validator);
   }
-
   captureFile(event: any) {
+
     this.image = event.target.files[0];
     this.imgSize = this.image.size;
+    this.imgFormat = this.uploadFilesService.getImageFormat(this.image.name);
 
     if (this.editForm.valid) {
-            
-      if (this.imgSize <= this.maxImageSize){
-        this.errorMaxSize= false;
       
-      this.urlImgName = this.uploadFilesService.uploadRef(this.directoryName, this.image.name);
-      this.user.urlProfilePic = this.urlImgName;
+      if (this.imgSize <= this.maxImageSize) {
+        this.errorMaxSize = false;
       }
-
-      if (this.imgSize >= this.maxImageSize){
-        this.errorMaxSize= true;
+      if (this.imgSize >= this.maxImageSize) {
+        this.errorMaxSize = true;
       }
-    } 
+    }
   }
 
   update() {
     if (this.editForm.valid && (this.imgSize <= this.maxImageSize)) {
       this.spinnerButton = true;
 
-      this.formDataImage.append('files', this.image);
-
-      this.uploadFilesService.deleteFile(this.directoryName, this.actualImgName).subscribe(() => {
-
-        this.uploadFilesService.uploadFile(this.directoryName, this.formDataImage).subscribe(() => {
-
-          this.userService.editUser(this.user).subscribe(() => {
-
-            setTimeout(() => {
-              location.reload();
-              // this.userService._user$.next(this.user);
-            }, 1500);
-          });
-        });
-      });
-
+      this.uploadFilesService.uploadFileFire(this.image, this.directoryName, `profilePic-${this.user.id}.${this.imgFormat}`)
+            .then(resp => {
+              this.uploadFilesService.getUrlUpFileFire(resp).then(url => {
+                this.user.urlProfilePic = url;
+                this.userService.editUser(this.user).subscribe(user => {
+                  this.userService.getUser$.next(user);
+                  this.spinnerButton = false;
+                })
+              })
+              .catch(error => console.log(error))
+            })
+            .catch(error => console.log(error))
     } 
+    
   }
 }
