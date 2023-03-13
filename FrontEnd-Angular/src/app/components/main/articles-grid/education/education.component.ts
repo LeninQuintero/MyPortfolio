@@ -6,13 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./education.component.scss']
 })
 export class EducationComponent implements OnInit {
-  editIdModal: string="#editEducationModal";
-  editTitleTriggerModal: string="Editar educación";
-  editClassTriggerModal: string="d-inline-block";
 
-  addIdModal: string="#addEducModal";
-  addTitleTriggerModal: string="Agregar Educación";
-  addClassTriggerModal: string="";
+  private userId=0;
+  public editIdModal: string="#editEducationModal";
+  public editTitleTriggerModal: string="Editar educación";
+  public editClassTriggerModal: string="d-inline-block";
+
+  public addIdModal: string="#addEducModal";
+  public addTitleTriggerModal: string="Agregar Educación";
+  public addClassTriggerModal: string="";
 
   constructor() { }
 
