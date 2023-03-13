@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UploadFilesService } from 'src/app/services/upload-files.service';
@@ -10,7 +10,7 @@ import { UserProfile, UserService } from 'src/app/services/user.service';
   styleUrls: ['./edit-profile-picture-modal.component.scss']
 })
 
-export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
+export class EditProfilePictureModalComponent implements OnInit {
   public editForm: FormGroup;
   public minLengthPictureName: number = 1;
   public maxLengthPictureName: number = 50;
@@ -25,11 +25,7 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
   private formDataImage = new FormData();
   private imgFormat: string | undefined;
 
-  private userSuscription = this.userService.getUser.subscribe(user => {
-    this.user = user;
-    this.actualImgName = this.uploadFilesService.getUrlsName(user.urlProfilePic);
-    this.directoryName = this.uploadFilesService.getUrlsName(user.urlProfile);
-  });
+
   
   private user: UserProfile = {
     name: '',
@@ -66,14 +62,19 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.userSuscription;
-    
-  }
+    this.userService.getUser.subscribe(user => {
+      this.user = user;
+      this.actualImgName = this.uploadFilesService.getUrlsName(user.urlProfilePic);
+      this.directoryName = this.uploadFilesService.getUrlsName(user.urlProfile);
+    });
 
-  ngOnDestroy(): void {
-    if (this.userSuscription) {
-      this.userSuscription.unsubscribe;
+    this.userService.getUser$.subscribe(() =>
+    this.userService.getUser.subscribe(user => {
+      this.user = user;
+      this.actualImgName = this.uploadFilesService.getUrlsName(user.urlProfilePic);
+      this.directoryName = this.uploadFilesService.getUrlsName(user.urlProfile);
     }
+    ))
   }
 
   isValidField(field: string) {
@@ -100,14 +101,14 @@ export class EditProfilePictureModalComponent implements OnInit, OnDestroy {
       
       if (this.imgSize <= this.maxImageSize) {
         this.errorMaxSize = false;
-      }
-      if (this.imgSize >= this.maxImageSize) {
+      } else {
         this.errorMaxSize = true;
       }
     }
   }
 
   update() {
+
     if (this.editForm.valid && (this.imgSize <= this.maxImageSize)) {
       this.spinnerButton = true;
 

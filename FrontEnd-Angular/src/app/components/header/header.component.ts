@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PartialUserProfile, UserService } from 'src/app/services/user.service';
-import { API_URL } from 'src/environments/api-urls-config';
+import { API_URL, DEFAULT_LOGO_HEADER } from 'src/environments/api-urls-config';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +12,7 @@ import { API_URL } from 'src/environments/api-urls-config';
 export class HeaderComponent implements OnInit {
 
   private apiUrl = API_URL;
-  public logoUrl=`${this.apiUrl}/uploads/defaultimages/ArgentinaProgramaLogo.png`;
+  public logoUrl= DEFAULT_LOGO_HEADER;
   public user: PartialUserProfile = {}
   public username;
 

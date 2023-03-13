@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Experience, ExperienceService } from 'src/app/services/experience.service';
 import { UploadFilesService } from 'src/app/services/upload-files.service';
-import { UserService } from 'src/app/services/user.service';
+import { UserProfile, UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-add-experience-modal',
   templateUrl: './add-experience-modal.component.html',
@@ -14,6 +14,21 @@ export class AddExperienceModalComponent implements OnInit {
   alertSubmit: boolean = false;
 
   public experiences: Experience[] = [];
+
+  public user: UserProfile = {
+    name: '',
+    title: '',
+    urlProfilePic: '',
+    urlBannerSm: '',
+    urlBannerLg: '',
+    aboutMe: '',
+    urlGithub: '',
+    urlTwitter: '',
+    urlLinkedin: '',
+    urlProfile: '',
+    id: 0
+  };
+
   public id: number = 0;
   private switchValue: boolean = false;
   private imgFormat: string | undefined;
@@ -54,6 +69,7 @@ export class AddExperienceModalComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUser.subscribe(user => {
       this.id = user.id;
+      this.user = user;
       this.experienceService.getExperiences(user.id).subscribe(experiences => {
         this.experiences = experiences;
       });
@@ -61,13 +77,29 @@ export class AddExperienceModalComponent implements OnInit {
 
     this.addExperienceForm.get('currentJob')?.valueChanges.subscribe(val => {
       this.switchValue = val;
+
       if (val) {
         this.addExperienceForm.controls['endYearDate'].setValue(2023);
         this.addExperienceForm.controls['endMonthDate'].setValue(0);
       }
     });
 
+
+
+    this.userService.getUser$.subscribe(() => {
+      this.userService.getUser.subscribe(user => {
+        this.id = user.id;
+        this.user = user;
+        this.experienceService.getExperiences(user.id).subscribe(experiences => {
+          this.experiences = experiences;
+        });
+      });
+    })
+
+
+
   }
+
 
   dateToString(date: Date): string {
     let month = date.toLocaleDateString("es-ES", { month: "long" });
@@ -112,18 +144,17 @@ export class AddExperienceModalComponent implements OnInit {
     this.imgFormat = this.upFileService.getImageFormat(this.image.name);
 
     if (this.addExperienceForm.valid) {
-      
+
       if (this.imgSize <= this.maxImageSize) {
         this.errorMaxSize = false;
-      }else {
+      } else {
         this.errorMaxSize = true;
       }
-
     }
   }
 
   submit(event: Event) {
-   
+
     if (this.addExperienceForm.valid) {
       let list = this.experiences;
       let newExperience: Experience = this.experienceService.expToDateJson(this.addExperienceForm.value);
@@ -131,8 +162,8 @@ export class AddExperienceModalComponent implements OnInit {
 
       newExperience.urlCompanyLogo = this.experienceService.getExpDefaultLogo;
 
-      this.experienceService.addExperience(newExperience, this.id).subscribe(experience => {
-        newExperience = experience;
+      this.experienceService.addExperience(newExperience, this.user.id).subscribe(async experience => {
+        newExperience = await experience;
 
         if (logoValid) {
           this.upFileService.uploadFileFire(this.image, this.directoryName, `experience-${experience.id}.${this.imgFormat}`)
@@ -142,27 +173,32 @@ export class AddExperienceModalComponent implements OnInit {
                 this.experienceService.editExperience(newExperience).subscribe(experience => {
                   list.push(experience);
                   this.experienceService.getNewExperiences$.next(list);
+                  this.userService.getUser$.next(this.user);
                 })
               })
-              .catch(error => console.log(error))
+                .catch(error => {
+                  console.log(error);
+                })
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+              console.log(error);
+            })
 
         } else {
           list.push(experience);
           this.experienceService.getNewExperiences$.next(list);
+          this.userService.getUser$.next(this.user);
         }
       });
 
-      this.alertSubmit = true;
-
-      setTimeout(() => this.closeAlertSubmit(), 5 * 1000);
-
-      this.addExperienceForm.reset();
+      // this.alertSubmit = true;
+      // setTimeout(() => this.closeAlertSubmit(), 5 * 1000);
+      // this.addExperienceForm.reset();
 
     } else {
-      this.addExperienceForm.markAllAsTouched();
+      // this.addExperienceForm.markAllAsTouched();
+      // alert('NO ES VALIDO EL FORMULARIO');
     }
-    this.addExperienceForm.controls['currentJob'].setValue(false);
+    // this.addExperienceForm.controls['currentJob'].setValue(false);
   }
 }

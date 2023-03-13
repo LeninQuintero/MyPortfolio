@@ -34,19 +34,18 @@ export class EditProfileTitleModalComponent implements OnInit{
 
   }
   ngOnInit(): void {
+    this.getUser();
+    this.userService.getUser$.subscribe(()=> {
+      this.getUser();
+      });
+  }
+
+  getUser():void{
     this.userService.getUser.subscribe(user => {   
       this.user = user;  
       this.titleForm.controls['name'].setValue(user.name);
       this.titleForm.controls['title'].setValue(user.title);
     });
-
-    this.userService.getUser$.subscribe(()=> {
-      this.userService.getUser.subscribe(user => {   
-        this.user = user;  
-        this.titleForm.controls['name'].setValue(user.name);
-        this.titleForm.controls['title'].setValue(user.title);
-      });
-      });
   }
 
   isValidField(field: string) {

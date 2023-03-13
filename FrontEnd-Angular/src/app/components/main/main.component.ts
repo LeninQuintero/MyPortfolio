@@ -1,19 +1,29 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {  UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent { 
+export class MainComponent implements OnInit { 
+  username;
+  urlFindUser;
 
   constructor(private userService: UserService, private route: ActivatedRoute) { 
-    let username = this.route.snapshot.paramMap.get('username');
-    let urlFindUser = this.userService.getUrlFind+username;
-    this.userService.setUrlFindUser(urlFindUser);
-
+    this.username = this.route.snapshot.paramMap.get('username');
+    this.urlFindUser = this.userService.getUrlFind+this.username;
+    this.userService.setUrlFindUser(this.urlFindUser);
   }
 
+
+  ngOnInit(): void {  
+    this.userService.getUser.subscribe(()  => {
+      this.username = this.route.snapshot.paramMap.get('username');
+      this.urlFindUser = this.userService.getUrlFind+this.username;
+      this.userService.setUrlFindUser(this.urlFindUser);
+
+    });
+  }
 }
  

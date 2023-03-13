@@ -58,27 +58,27 @@ public class UserProfile implements Serializable {
     @JsonIgnore
     private UserCredentials userCredentials;
 
-    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL,  orphanRemoval= true)
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Experience> experienceList = new ArrayList<Experience>();
     
-    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL,  orphanRemoval= true)
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Education> educationList = new ArrayList<Education>();
     
-    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL,  orphanRemoval= true)
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Certification> certificationList = new ArrayList<Certification>();
     
-    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL,  orphanRemoval= true)
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Skill> skillList = new ArrayList<Skill>();
     
-    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL,  orphanRemoval= true)
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Project> projectList = new ArrayList<Project>();
     
-    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL,  orphanRemoval= true)
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Message> messageList = new ArrayList<Message>();
 

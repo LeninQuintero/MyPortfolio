@@ -21,8 +21,8 @@ public class UserCredentialsService implements IUserCredentialsService {
     @Autowired
     public UserProfileService userProfileServ;
     
-    @Autowired
-    public FileService fileServ;
+//    @Autowired
+//    public FileService fileServ;
 
     @Override
     public List<UserCredentials> userCredentialList() {
@@ -59,16 +59,16 @@ public class UserCredentialsService implements IUserCredentialsService {
 
         userCredentialFindId(user.getId()).setUserProfile(userProfile);
 
-        fileServ.initStorage(user.getUserName());
+//        fileServ.initStorage(user.getUserName());
 
         return userProfileServ.profileFind(userProfile.getId());
     }
 
     @Override
     public void userCredentialDelete(Long id) {    
-        UserCredentials user = userCredRepo.findById(id).orElse(null);
-        userCredRepo.deleteById(id);
-        fileServ.deleteStorage(user.getUserName());          
+//        UserCredentials user = userCredRepo.findById(id).orElse(null);
+          userCredRepo.deleteById(id);
+//        fileServ.deleteStorage(user.getUserName());          
     }
 
     @Override

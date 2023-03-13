@@ -11,7 +11,7 @@ export class EditAcercadeModalComponent implements OnInit{
 
   aboutMeForm: FormGroup;
 
-  private user: UserProfile = {
+  public user: UserProfile = {
     name: '',
     title: '',
     urlProfilePic: '',
@@ -72,8 +72,9 @@ export class EditAcercadeModalComponent implements OnInit{
 
     if (this.aboutMeForm.valid) {
       this.user.aboutMe = this.aboutMeForm.value.aboutMe;
-      this.userService.editUser(this.user).subscribe( user =>
-        this.userService.getUser$.next(user));
+      this.userService.editUser(this.user).subscribe( user => {
+        this.userService.getUser$.next(user);
+      })
     }
   }
 }

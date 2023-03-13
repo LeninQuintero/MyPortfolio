@@ -37,7 +37,7 @@ export class UserService {
   }
 
   editUser(user: UserProfile): Observable<UserProfile> {
-    return this.http.put<UserProfile>(this.urlEdit, user);
+    return this.http.patch<UserProfile>(this.urlEdit, user);
   }
 
   get getUrlFind(){

@@ -9,8 +9,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ExperiencesComponent implements OnInit {
 
-  // private username;
-  // private urlFindUser;
+  private username;
+  private urlFindUser;
 
   public userId=0;
   public editTitleTriggerModal: string = "Editar experiencia";
@@ -24,12 +24,9 @@ export class ExperiencesComponent implements OnInit {
   constructor(private expService: ExperienceService, private userService: UserService, private route: ActivatedRoute) { 
 
 
-    // this.username = this.route.snapshot.paramMap.get('username');
-    // this.urlFindUser = this.userService.getUrlFind+this.username;
-
-
-    // console.log('URL FIND EN EL EXP COMP CONSTRUCTOR===>>>', this.urlFindUser)
-    // console.log('USERNNAME EN EL EXP COMP CONSTRUCTOR===>>>', this.username)
+    this.username = this.route.snapshot.paramMap.get('username');
+    this.urlFindUser = this.userService.getUrlFind+this.username;
+    this.userService.setUrlFindUser(this.urlFindUser);
 
 
 
@@ -52,6 +49,20 @@ export class ExperiencesComponent implements OnInit {
         this.experiences = experiences;
         this.expForm=this.expService.getExpForm(experiences); 
       });
+
+
+      this.userService.getUser$.subscribe(()=> {
+        this.userService.getUser.subscribe(user => {
+          this.userId = user.id;
+          this.expService.getExperiences(this.userId).subscribe(experiences => { 
+            this.experiences = experiences;
+            this.expForm=this.expService.getExpForm(experiences); 
+          });
+      })
+      })
+
+
+
   })
 
 
