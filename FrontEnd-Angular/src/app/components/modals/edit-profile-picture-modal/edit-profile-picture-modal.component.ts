@@ -125,6 +125,6 @@ export class EditProfilePictureModalComponent implements OnInit {
             })
             .catch(error => console.log(error))
     } 
-    
+    this.editForm.reset();
   }
 }

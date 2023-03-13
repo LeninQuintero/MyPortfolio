@@ -120,7 +120,7 @@ export class EditExperienceModalComponent implements OnInit {
       let list = this.experiences;
       const fileName = this.upFilesService.getFileNameFromUrl(this.expForm.urlCompanyLogo);
       const fileExt = this.upFilesService.getFileExtFromUrl(fileName);
-      const fileUrl = `experience-${this.expForm.id}.${fileExt}`;
+      const fileUrl = `experience-${this.expForm.id}-logo.${fileExt}`;
 
       if (this.expForm.urlCompanyLogo != this.expService.getExpDefaultLogo) {
         this.upFilesService.deleteFileFire(this.directoryName, fileUrl);
@@ -166,7 +166,5 @@ export class EditExperienceModalComponent implements OnInit {
     } else {
       this.editExpForm.markAllAsTouched();
     }
-
   }
-
 }

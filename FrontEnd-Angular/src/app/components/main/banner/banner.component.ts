@@ -13,14 +13,18 @@ export class BannerComponent implements OnInit {
  public urlBannerSm: string="";
  public urlBannerLg: string="";
 
-
-
   constructor(private userService: UserService) { }
-
   ngOnInit(): void {
     this.userService.getUser.subscribe(user => {
       this.urlBannerSm = user.urlBannerSm;
       this.urlBannerLg = user.urlBannerLg;
+    });
+
+    this.userService.getUser$.subscribe(() => {
+      this.userService.getUser.subscribe(user => {
+        this.urlBannerSm = user.urlBannerSm;
+        this.urlBannerLg = user.urlBannerLg;
+      });
     });
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { UploadFilesService } from 'src/app/services/upload-files.service';
 import { UserProfile, UserService } from 'src/app/services/user.service';
 
@@ -9,7 +10,7 @@ import { UserProfile, UserService } from 'src/app/services/user.service';
   styleUrls: ['./edit-banner-modal.component.scss']
 })
 export class EditBannerModalComponent implements OnInit, OnDestroy {
-  private directoryName: string = "";
+  private directoryName: any;
   public bannerForm: FormGroup;
   public spinnerButton: boolean = false;
   private maxImageSize: number = 5242880;
@@ -33,7 +34,6 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
     this.user = user;
     this.actualBannerSmName = this.uploadFilesService.getUrlsName(user.urlBannerSm);
     this.actualBannerLgName = this.uploadFilesService.getUrlsName(user.urlBannerLg);
-    this.directoryName = this.uploadFilesService.getUrlsName(user.urlProfile);
   });
 
   private actualBannerSmName: string = "";
@@ -54,7 +54,13 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
   private urlBannerSm: string = "";
   private urlBannerLg: string = "";
 
-  constructor(private fb: FormBuilder, private userService: UserService, private uploadFilesService: UploadFilesService) {
+  private imgFormatSm: string | undefined;
+  private imgFormatLg: string | undefined;
+
+  constructor(private fb: FormBuilder, 
+              private userService: UserService, 
+              private uploadFilesService: UploadFilesService,
+              private route: ActivatedRoute) {
 
     const imageValidator = /.(jpg|JPG|jpeg|JPEG|png|PNG|webp|WEBP)$/i;
     const minLengthValidator = 17 + this.minLengthPictureName;
@@ -64,6 +70,8 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
       bannerSm: ['', [Validators.required, Validators.minLength(minLengthValidator), Validators.maxLength(maxLengthValidator), Validators.pattern(imageValidator)]],
       bannerLg: ['', [Validators.required, Validators.minLength(minLengthValidator), Validators.maxLength(maxLengthValidator), Validators.pattern(imageValidator)]]
     });
+
+    this.directoryName = this.route.snapshot.paramMap.get('username');
   }
 
   ngOnDestroy(): void {
@@ -92,44 +100,33 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
   }
 
   captureBannerSm(event: any) {
-
-    if (this.bannerForm.get('bannerSm')?.valid) {
-
       this.bannerSm = event.target.files[0];
       this.bannerSmSize = this.bannerSm.size;
+      this.imgFormatSm = this.uploadFilesService.getImageFormat(this.bannerSm.name);
 
-      if (this.bannerSmSize <= this.maxImageSize) {
+      if (this.bannerForm.get('bannerSm')?.valid) {
 
-        this.urlBannerSm = this.uploadFilesService.uploadRef(this.directoryName, this.bannerSm.name);
-        this.user.urlBannerSm = this.urlBannerSm;
-        this.errorMaxSizeSm = false;
-      }
-
-      if (this.bannerSmSize >= this.maxImageSize) {
-        this.errorMaxSizeSm = true;
-      }
+        if (this.bannerSmSize <= this.maxImageSize) {
+          this.errorMaxSizeSm = false;
+        } else {
+          this.errorMaxSizeSm = true;
+        }
     }
   }
 
   captureBannerLg(event: any) {
+    this.bannerLg = event.target.files[0];
+    this.bannerLgSize = this.bannerLg.size;
+    this.imgFormatLg = this.uploadFilesService.getImageFormat(this.bannerLg.name);
 
     if (this.bannerForm.get('bannerLg')?.valid) {
 
-      this.bannerLg = event.target.files[0];
-      this.bannerLgSize = this.bannerLg.size;
-
       if (this.bannerLgSize <= this.maxImageSize) {
-
-        this.urlBannerLg = this.uploadFilesService.uploadRef(this.directoryName, this.bannerLg.name);
-        this.user.urlBannerLg = this.urlBannerLg;
         this.errorMaxSizeLg = false;
-
-      }
-
-      if (this.bannerLgSize >= this.maxImageSize) {
+      } else {
         this.errorMaxSizeLg = true;
       }
-    }
+  }
   }
 
   update() {
@@ -137,23 +134,37 @@ export class EditBannerModalComponent implements OnInit, OnDestroy {
       (this.bannerSmSize <= this.maxImageSize);
 
     if (this.bannerForm.valid && imgValidationSize) {
-
       this.spinnerButton = true;
 
-      this.bannerSmData.append("files", this.bannerSm);
-      this.bannerLgData.append("files", this.bannerLg);
+      this.uploadFilesService.uploadFileFire(this.bannerSm, this.directoryName, `bannerSm-${this.user.id}.${this.imgFormatSm}`)
+      .then(resp => {
+        this.uploadFilesService.getUrlUpFileFire(resp).then(url => {
+          this.user.urlBannerSm = url;
+          this.userService.editUser(this.user).subscribe(user => {
+            this.userService.getUser$.next(user);
+            this.spinnerButton = false;
+          })
+        })
+        .catch(error => console.log(error))
+      })
+      .catch(error => console.log(error))
 
-      this.uploadFilesService.deleteFile(this.directoryName, this.actualBannerSmName).subscribe(() => { });
-      this.uploadFilesService.deleteFile(this.directoryName, this.actualBannerLgName).subscribe(() => { });
+////////////////////////////////////
 
-      this.uploadFilesService.uploadFile(this.directoryName, this.bannerSmData).subscribe(() => { });
-      this.uploadFilesService.uploadFile(this.directoryName, this.bannerLgData).subscribe(() => { });
+this.uploadFilesService.uploadFileFire(this.bannerLg, this.directoryName, `bannerLg-${this.user.id}.${this.imgFormatLg}`)
+.then(resp => {
+  this.uploadFilesService.getUrlUpFileFire(resp).then(url => {
+    this.user.urlBannerLg = url;
+    this.userService.editUser(this.user).subscribe(user => {
+      this.userService.getUser$.next(user);
+      this.spinnerButton = false;
+    })
+  })
+  .catch(error => console.log(error))
+})
+.catch(error => console.log(error))
 
-      this.userService.editUser(this.user).subscribe(() => {
-        setTimeout(() => {
-          location.reload();
-        }, 1500);
-      });
     }
+    this.bannerForm.reset();
   }
 }

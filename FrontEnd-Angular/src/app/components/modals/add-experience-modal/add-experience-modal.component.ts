@@ -84,8 +84,6 @@ export class AddExperienceModalComponent implements OnInit {
       }
     });
 
-
-
     this.userService.getUser$.subscribe(() => {
       this.userService.getUser.subscribe(user => {
         this.id = user.id;
@@ -166,7 +164,7 @@ export class AddExperienceModalComponent implements OnInit {
         newExperience = await experience;
 
         if (logoValid) {
-          this.upFileService.uploadFileFire(this.image, this.directoryName, `experience-${experience.id}.${this.imgFormat}`)
+          this.upFileService.uploadFileFire(this.image, this.directoryName, `experience-${experience.id}-logo.${this.imgFormat}`)
             .then(resp => {
               this.upFileService.getUrlUpFileFire(resp).then(url => {
                 newExperience.urlCompanyLogo = url;
@@ -191,14 +189,13 @@ export class AddExperienceModalComponent implements OnInit {
         }
       });
 
-      // this.alertSubmit = true;
-      // setTimeout(() => this.closeAlertSubmit(), 5 * 1000);
-      // this.addExperienceForm.reset();
+      this.alertSubmit = true;
+      setTimeout(() => this.closeAlertSubmit(), 5 * 1000);
+      this.addExperienceForm.reset();
 
     } else {
-      // this.addExperienceForm.markAllAsTouched();
-      // alert('NO ES VALIDO EL FORMULARIO');
+      this.addExperienceForm.markAllAsTouched();
     }
-    // this.addExperienceForm.controls['currentJob'].setValue(false);
+    this.addExperienceForm.controls['currentJob'].setValue(false);
   }
 }

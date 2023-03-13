@@ -20,9 +20,7 @@ export class ProfileComponent implements OnInit {
   editClassTriggerModalTitle: string = "btn-profile-title d-inline-block";
   
   refreshUser() {
-    const getUser = this.userService.getUser;
-
-    getUser.subscribe(user => {
+    this.userService.getUser.subscribe(user => {
       this.user = user;
       this.altPic = `${user.name}'s picture.`;
     });
