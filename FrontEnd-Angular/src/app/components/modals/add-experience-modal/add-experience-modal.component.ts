@@ -93,11 +93,7 @@ export class AddExperienceModalComponent implements OnInit {
         });
       });
     })
-
-
-
   }
-
 
   dateToString(date: Date): string {
     let month = date.toLocaleDateString("es-ES", { month: "long" });
@@ -160,8 +156,8 @@ export class AddExperienceModalComponent implements OnInit {
 
       newExperience.urlCompanyLogo = this.experienceService.getExpDefaultLogo;
 
-      this.experienceService.addExperience(newExperience, this.user.id).subscribe(async experience => {
-        newExperience = await experience;
+      this.experienceService.addExperience(newExperience, this.user.id).subscribe(experience => {
+        newExperience = experience;
 
         if (logoValid) {
           this.upFileService.uploadFileFire(this.image, this.directoryName, `experience-${experience.id}-logo.${this.imgFormat}`)

@@ -12,7 +12,7 @@ export class ExperiencesComponent implements OnInit {
   // private username;
   // private urlFindUser;
 
-  private userId=0;
+  private userId = 0;
   public editTitleTriggerModal: string = "Editar experiencia";
   public editClassTriggerModal: string = "d-inline-block";
   public addIdModal: string = "#addExperienceModal";
@@ -21,63 +21,53 @@ export class ExperiencesComponent implements OnInit {
   public experiences: Experience[] = [];
   public expForm: ExperienceForm[] = [];
 
-  constructor(private expService: ExperienceService, private userService: UserService, private route: ActivatedRoute) { 
+  constructor(private expService: ExperienceService, private userService: UserService, private route: ActivatedRoute) {
 
 
     // this.username = this.route.snapshot.paramMap.get('username');
     // this.urlFindUser = this.userService.getUrlFind+this.username;
     // this.userService.setUrlFindUser(this.urlFindUser);
 
-
-
   }
 
   ngOnInit(): void {
 
     this.userService.getUser.subscribe(user => {
-        this.userId = user.id;
-        this.expService.getExperiences(this.userId).subscribe(experiences => { 
-          this.experiences = experiences;
-          this.expForm=this.expService.getExpForm(experiences); 
-        });
+      this.userId = user.id;
+      this.expService.getExperiences(this.userId).subscribe(experiences => {
+        this.experiences = experiences;
+        this.expForm = this.expService.getExpForm(experiences);
+      });
     })
 
     this.expService.getNewExperiences$.subscribe(() =>
-    this.userService.getUser.subscribe(user => {
-      this.userId = user.id;
-      this.expService.getExperiences(this.userId).subscribe(experiences => { 
-        this.experiences = experiences;
-        this.expForm=this.expService.getExpForm(experiences); 
-      });
+      this.userService.getUser.subscribe(user => {
+        this.userId = user.id;
+        this.expService.getExperiences(this.userId).subscribe(experiences => {
+          this.experiences = experiences;
+          this.expForm = this.expService.getExpForm(experiences);
+        });
 
 
-      this.userService.getUser$.subscribe(()=> {
-        this.userService.getUser.subscribe(user => {
-          this.userId = user.id;
-          this.expService.getExperiences(this.userId).subscribe(experiences => { 
-            this.experiences = experiences;
-            this.expForm=this.expService.getExpForm(experiences); 
-          });
+        this.userService.getUser$.subscribe(() => {
+          this.userService.getUser.subscribe(user => {
+            this.userId = user.id;
+            this.expService.getExperiences(this.userId).subscribe(experiences => {
+              this.experiences = experiences;
+              this.expForm = this.expService.getExpForm(experiences);
+            });
+          })
+        })
       })
-      })
-
-
-
-  })
-
-
-
-
     )
 
   }
-  
 
   expToJsonDate(experience: Experience): ExperienceForm {
     let dateStart = new Date(this.expService.stringToDate(experience.startDate));
     let dateEnd = new Date(this.expService.stringToDate(experience.endDate));
-    let exp: ExperienceForm= {
-      id:0,
+    let exp: ExperienceForm = {
+      id: 0,
       position: '',
       companyName: '',
       urlCompanyLogo: '',
@@ -89,19 +79,19 @@ export class ExperiencesComponent implements OnInit {
       location: '',
       description: ''
     }
-    exp.id=experience.id;
-    exp.companyName=experience.companyName;
-    exp.currentJob=experience.currentJob;
-    exp.description=experience.description;
-    exp.location=experience.location;
-    exp.position=experience.position;
-    exp.urlCompanyLogo=experience.urlCompanyLogo;
-    exp.startMonthDate=dateStart.getMonth();
-    exp.startYearDate= dateStart.getFullYear();
-    exp.endMonthDate=dateEnd.getMonth();
-    exp.endYearDate= dateEnd.getFullYear();
-      return  exp;
-    }
+    exp.id = experience.id;
+    exp.companyName = experience.companyName;
+    exp.currentJob = experience.currentJob;
+    exp.description = experience.description;
+    exp.location = experience.location;
+    exp.position = experience.position;
+    exp.urlCompanyLogo = experience.urlCompanyLogo;
+    exp.startMonthDate = dateStart.getMonth();
+    exp.startYearDate = dateStart.getFullYear();
+    exp.endMonthDate = dateEnd.getMonth();
+    exp.endYearDate = dateEnd.getFullYear();
+    return exp;
+  }
 
 
   onDeleteExperience(experience: Experience) {
@@ -111,7 +101,6 @@ export class ExperiencesComponent implements OnInit {
       this.expService.getNewExperiences$.next(list);
     });
   }
-
 
   dateStringToString(dateString: string): string {
     let date = this.expService.stringToDate(dateString);
@@ -126,7 +115,7 @@ export class ExperiencesComponent implements OnInit {
 
 
 
-  }
+}
 
 
 

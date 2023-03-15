@@ -31,21 +31,21 @@ export class EditExperienceModalComponent implements OnInit {
   }
 
   public editExpForm: FormGroup;
-  public minLengthPictureName: number = 1;
-  public maxLengthPictureName: number = 50;
+  // public minLengthPictureName: number = 1;
+  // public maxLengthPictureName: number = 50;
   public spinnerButton: boolean = false;
   public errorMaxSize: boolean = false;
   private directoryName: any;
-  private urlImgName: string = "";
-  private actualImgName: string = "";
+  // private urlImgName: string = "";
+  // private actualImgName: string = "";
   private imgSize: number = 0;
   private maxImageSize: number = 5242880;
   private image: any;
-  private formDataImage = new FormData();
+  // private formDataImage = new FormData();
   private imgFormat: string | undefined;
   private experiences: Experience[] = [];
   private alertSubmit: boolean;
-  private id: number = 0;
+  private userId: number = 0;
 
   constructor(
     private userService: UserService,
@@ -74,7 +74,7 @@ export class EditExperienceModalComponent implements OnInit {
   ngOnInit(): void {
 
     this.userService.getUser.subscribe(user => {
-      this.id = user.id;
+      this.userId = user.id;
       this.expService.getExperiences(user.id).subscribe(experiences => {
         this.experiences = experiences;
       });

@@ -10,7 +10,6 @@
             </div>
             <div class="modal-body row">
                 <form
-                (change)="startDate"
                 [formGroup]="addExperienceForm" 
                 (ngSubmit)="submit($event)" 
                 [ngClass]="{'was-validate': addExperienceForm.invalid}" 
@@ -261,7 +260,6 @@
                             >
                               <span class="fs-5">Nueva experiencia creada con éxito.</span>
                             </div>
-
 
                         </div>
                     </div>

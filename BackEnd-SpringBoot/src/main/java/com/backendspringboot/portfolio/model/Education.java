@@ -34,7 +34,7 @@ public class Education implements Serializable {
     @Column(name = "title", nullable = false, length = 45)
     private String title;
 
-    @Column(name = "url_institute_logo", length = 100)
+    @Column(name = "url_institute_logo", length = 255)
     private String urlInstituteLogo;
 
     @Column(name = "current_study", nullable = false)
