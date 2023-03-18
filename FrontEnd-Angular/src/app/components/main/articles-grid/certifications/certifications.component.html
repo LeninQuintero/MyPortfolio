@@ -1,5 +1,5 @@
 <article>
-  <div class="card bg-white bg-opacity-10 py-2">
+  <div class="card bg-white bg-opacity-10 border-0 pt-2">
     <div class="card-header d-flex justify-content-between text-light text-opacity-75">
       <h3><strong>Certificaciones & Cursos</strong></h3>
 
@@ -12,37 +12,52 @@
     </div>
     <ul class="list-group list-group-flush">
 
-      <li class="list-group-item bg-transparent border-top border-dark border-1 border-opacity-75 p-3">
+      <li 
+      *ngFor="let certification of certifications"
+      class="list-group-item bg-transparent border-top border-dark border-1 border-opacity-75 p-3">
         <div class="container">
           <div class="row">
             <div class="col-2 p-0">
-              <img class="rounded-circle w-100" src="./assets/imagenes/logo1.webp" alt="">
+              <img class="rounded-circle w-100" [src]=certification.urlInstituteLogo alt="Logo">
             </div>
             <div class="col-10 text-light article-body container">
               <div class="d-flex justify-content-between">
-                <h5 class="d-inline-block"><strong>#SéProgramar</strong></h5>
+                <h5 class="d-inline-block"><strong>{{certification.title}}</strong></h5>
               
                 <app-trigger-edit-item 
-                [editIdModal]="editIdModal" 
+                [editIdModal]="'#editCertificationModal'+certification.id" 
                 [editTitleTriggerModal]="editTitleTriggerModal" 
                 [editClassTriggerModal]="editClassTriggerModal"
                 ></app-trigger-edit-item>
                 
               </div>
-              <h6 class="opacity-75">Argentina Programa</h6>
+              <h6 class="opacity-75">{{certification.institute}}</h6>
               <div class="opacity-50">
-                <span>Junio</span> - <span>2022</span>
+                <span>{{certification.location}}</span> - <span>{{dateStringToString(certification.finishDate)}}</span>
               </div>
             </div>
             <div class="col-12 text-center">
 
-              <app-trigger-show-certificate [idCertificateModal]="idCertificateModal"></app-trigger-show-certificate>
+              <app-trigger-show-certificate 
+                [idCertificateModal]="'#showCertificateModal'+certification.id">
+              </app-trigger-show-certificate>
              
             </div>
           </div>
         </div>
-        <app-show-certificate-modal></app-show-certificate-modal>
-        <app-edit-certification-modal></app-edit-certification-modal>
+        <app-show-certificate-modal
+          [idModal]="'showCertificateModal'+certification.id"
+          [urlCertificateImg]=certification.urlCertificateImg
+          [urlCertificateValidation]=certification.urlCertificateValidation
+          [validationCode]=certification.validationCode
+        >
+        </app-show-certificate-modal>
+
+        <app-edit-certification-modal
+        [certForm]=certificationToJsonDate(certification) 
+        [idModal]="'editCertificationModal'+certification.id">
+        </app-edit-certification-modal>
+
       </li>
 
     </ul>

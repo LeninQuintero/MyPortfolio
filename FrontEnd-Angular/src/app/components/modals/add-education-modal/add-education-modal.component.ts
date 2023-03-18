@@ -13,9 +13,7 @@ import { UserProfile, UserService } from 'src/app/services/user.service';
 export class AddEducationModalComponent implements OnInit {
 
   alertSubmit: boolean = false;
-
   public educations: Education[] = [];
-
   public user: UserProfile = {
     name: '',
     title: '',

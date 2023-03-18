@@ -34,7 +34,7 @@ public class Certification implements Serializable {
     @Column(name = "title", nullable = false, length = 45)
     private String title;
 
-    @Column(name = "url_institute_logo", length = 100)
+    @Column(name = "url_institute_logo", length = 255)
     private String urlInstituteLogo;
 
     @Column(name = "finish_date", nullable = false)
@@ -44,10 +44,10 @@ public class Certification implements Serializable {
     @Column(name = "location", nullable = false, length = 100)
     private String location;
 
-    @Column(name = "url_certificate_img", length = 100)
+    @Column(name = "url_certificate_img", length = 255)
     private String urlCertificateImg;
 
-    @Column(name = "url_certificate_validation", length = 100)
+    @Column(name = "url_certificate_validation", length = 255)
     private String urlCertificateValidation;
 
     @Column(name = "validation_code", length = 45)

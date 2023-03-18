@@ -21,7 +21,7 @@ export class EducationComponent implements OnInit {
   public educations: Education[] = [];
   public educForm: EducationForm[] = [];
 
-  constructor(private educationService: EducationService, private userService: UserService,) { }
+  constructor(private educationService: EducationService, private userService: UserService) { }
 
   ngOnInit(): void {
 

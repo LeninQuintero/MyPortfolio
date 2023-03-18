@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-show-certificate-modal',
   templateUrl: './show-certificate-modal.component.html',
   styleUrls: ['./show-certificate-modal.component.scss']
 })
-export class ShowCertificateModalComponent implements OnInit {
+export class ShowCertificateModalComponent  {
+@Input()
+idModal: string | undefined;
 
-  constructor() { }
+@Input()
+urlCertificateImg: string | undefined;
 
-  ngOnInit(): void {
-  }
+@Input()
+urlCertificateValidation: string | undefined;
+
+@Input()
+validationCode: string | undefined;
 
 }
