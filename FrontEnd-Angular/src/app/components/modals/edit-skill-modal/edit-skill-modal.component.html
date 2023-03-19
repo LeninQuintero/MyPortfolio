@@ -1,4 +1,4 @@
-<div class="modal fade bg-opacity-100" data-bs-backdrop="static" data-bs-keyboard="false" id="editSkillModal"
+<div class="modal fade bg-opacity-100" data-bs-backdrop="static" data-bs-keyboard="false" [id]="idModal"
     tabindex="-1" aria-labelledby="editSkillModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content text-bg-dark container">
@@ -9,36 +9,61 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body row">
-                <form class="col-12 col-md-10 container">
+                <form 
+                [formGroup]="editSkillForm"
+                class="col-12 col-md-10 container">
                     <div class="row gy-2">
                         <div class="col-12">
                             <label for="imputTituloSkill1" class="form-label opacity-75">Titulo</label>
-                            <input class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
-                                type="text" id="imputTituloSkill1">
+                            <input 
+                                formControlName="title"
+                                class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="text" 
+                                id="imputTituloSkill1">
                         </div>
                         <div class="col-12">
                             <label for="imputIconoSkill1" class="form-label opacity-75">Icono fontawesome</label>
-                            <input class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
-                                type="text" placeholder="Ej: fa-solid fa-house" id="imputIconoSkill1">
+                            <input 
+                                formControlName="iconName"
+                                class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="text" 
+                                placeholder="Ej: fa-solid fa-house" 
+                                id="imputIconoSkill1">
                         </div>
                         <div class="col-12">
                             <label for="imputNivelSkill1" class="form-label opacity-75">Nivel</label>
-                            <select id="imputNivelSkill1"
+                            <select 
+                                formControlName="level"
+                                id="imputNivelSkill1"
                                 class="form-select text-bg-dark border border-3 border-light border-opacity-10 shadow-none">
                                 <option selected hidden>Nivel</option>
-                                <option value="1">Basico</option>
-                                <option value="2">Intermedio</option>
-                                <option value="3">Avanzado</option>
-                                <option value="4">Experto</option>
+                                <option value="Basico">Basico</option>
+                                <option value="Intermedio">Intermedio</option>
+                                <option value="Avanzado">Avanzado</option>
+                                <option value="Experto">Experto</option>
                             </select>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-6">
-                            <button type="submit" class="btn btn-danger btn-lg w-100  mt-2 mb-4">Eliminar</button>
+                            <button 
+                                data-bs-dismiss="modal"
+                                (click)="skillDelete($event)" 
+                                type="submit" 
+                                class="btn btn-danger btn-lg w-100  mt-2 mb-4"
+                                >Eliminar
+                            </button>
+
                         </div>
                         <div class="col-6">
-                            <button type="submit" class="btn btn-primary btn-lg w-100 mt-2 mb-4">Actualizar</button>
+                            <button 
+                                [disabled]=editSkillForm.invalid
+                                (click)="submit($event)"
+                                data-bs-dismiss="modal"
+                                type="submit" 
+                                class="btn btn-primary btn-lg w-100 mt-2 mb-4"
+                                >Actualizar
+                            </button>
                         </div>
                     </div>
                 </form>

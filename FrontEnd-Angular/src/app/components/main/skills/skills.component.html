@@ -12,180 +12,41 @@
     </div>
     <div class="row g-4 d-flex justify-content-center align-items-center">
 
-      <article class="col col-sm-4 col-md-3 col-lg">
+      <article 
+      *ngFor="let skill of skills" 
+      class="col col-sm-4 col-md-3 col-lg">
+      
         <div class="text-center">
           <div
-            class="progress-circle position-relative d-inline-block rounded-circle progress-75 border border-2 border-primary border-opacity-50">
+            [ngClass]=skillProgress(skill.level)
+            class="progress-circle position-relative d-inline-block rounded-circle border border-2 border-primary border-opacity-50">
             <span
               class="text-bg-dark position-absolute rounded-circle border border-2 border-primary border-opacity-50">
-              <i class="fa-solid fa-file-excel"></i>
+              <i [class]=skill.iconName></i>
             </span>
           </div>
           <div class="text-center mt-1">
-            <span class="d-inline-block w-100">Excel</span>
-            <small class="opacity-50 d-inline-block w-100">Avanzado</small>
+            <span class="d-inline-block w-100">{{ skill.title }}</span>
+            <small class="opacity-50 d-inline-block w-100">{{ skill.level }}</small>
 
             <app-trigger-edit-item 
-            [editIdModal]="editIdModal" 
+            [editIdModal]="'#editIdModal'+ skill.id" 
             [editTitleTriggerModal]="editTitleTriggerModal" 
             [editClassTriggerModal]="editClassTriggerModal"
             ></app-trigger-edit-item>
         
           </div>
         </div>
+
+      <app-edit-skill-modal
+      [idModal]="'editIdModal'+ skill.id"
+      [skill]=skill   
+      ></app-edit-skill-modal>
       </article>
 
-      <article class="col col-sm-4 col-md-3 col-lg">
-        <div class="text-center">
-          <div
-            class="progress-circle position-relative d-inline-block rounded-circle progress-25 border border-2 border-primary border-opacity-50">
-            <span
-              class="text-bg-dark position-absolute rounded-circle border border-2 border-primary border-opacity-50">
-              <i class="fa-solid fa-cloud"></i>
-            </span>
-          </div>
-          <div class="text-center mt-1">
-            <span class="d-inline-block w-100">Azure</span>
-            <small class="opacity-50 d-inline-block w-100">Basico</small>
-
-            <app-trigger-edit-item 
-            [editIdModal]="editIdModal" 
-            [editTitleTriggerModal]="editTitleTriggerModal" 
-            [editClassTriggerModal]="editClassTriggerModal"
-            ></app-trigger-edit-item>
-
-          </div>
-        </div>
-      </article>
-
-      <article class="col col-sm-4 col-md-3 col-lg">
-        <div class="text-center">
-          <div
-            class="progress-circle position-relative d-inline-block rounded-circle progress-25 border border-2 border-primary border-opacity-50">
-            <span
-              class="text-bg-dark position-absolute rounded-circle border border-2 border-primary border-opacity-50">
-              <i class="fa-brands fa-java"></i>
-            </span>
-          </div>
-          <div class="text-center mt-1">
-            <span class="d-inline-block w-100">Java</span>
-            <small class="opacity-50 d-inline-block w-100">Basico</small>
-            <app-trigger-edit-item 
-            [editIdModal]="editIdModal" 
-            [editTitleTriggerModal]="editTitleTriggerModal" 
-            [editClassTriggerModal]="editClassTriggerModal"
-            ></app-trigger-edit-item>
-          </div>
-        </div>
-      </article>
-
-      <article class="col col-sm-4 col-md-3 col-lg">
-        <div class="text-center">
-          <div
-            class="progress-circle position-relative d-inline-block rounded-circle progress-50 border border-2 border-primary border-opacity-50">
-            <span
-              class="text-bg-dark position-absolute rounded-circle border border-2 border-primary border-opacity-50">
-              <i class="fa-brands fa-angular"></i>
-            </span>
-          </div>
-          <div class="text-center mt-1">
-            <span class="d-inline-block w-100">Angular</span>
-            <small class="opacity-50 d-inline-block w-100">Intermedio</small>
-            <app-trigger-edit-item 
-            [editIdModal]="editIdModal" 
-            [editTitleTriggerModal]="editTitleTriggerModal" 
-            [editClassTriggerModal]="editClassTriggerModal"
-            ></app-trigger-edit-item>
-          </div>
-        </div>
-      </article>
-
-      <article class="col col-sm-4 col-md-3 col-lg">
-        <div class="text-center">
-          <div
-            class="progress-circle position-relative d-inline-block rounded-circle progress-50 border border-2 border-primary border-opacity-50">
-            <span
-              class="text-bg-dark position-absolute rounded-circle border border-2 border-primary border-opacity-50">
-              <i class="fa-solid fa-chart-simple"></i>
-            </span>
-          </div>
-          <div class="text-center mt-1">
-            <span class="d-inline-block w-100">Power BI</span>
-            <small class="opacity-50 d-inline-block w-100">Intermedio</small>
-            <app-trigger-edit-item 
-            [editIdModal]="editIdModal" 
-            [editTitleTriggerModal]="editTitleTriggerModal" 
-            [editClassTriggerModal]="editClassTriggerModal"
-            ></app-trigger-edit-item>
-          </div>
-        </div>
-      </article>
-
-      <article class="col col-sm-4 col-md-3 col-lg">
-        <div class="text-center">
-          <div
-            class="progress-circle position-relative d-inline-block rounded-circle progress-75 border border-2 border-primary border-opacity-50">
-            <span
-              class="text-bg-dark position-absolute rounded-circle border border-2 border-primary border-opacity-50">
-              <i class="fa-brands fa-bootstrap"></i>
-            </span>
-          </div>
-          <div class="text-center mt-1">
-            <span class="d-inline-block w-100">Bootstrap</span>
-            <small class="opacity-50 d-inline-block w-100">Avanzado</small>
-            <app-trigger-edit-item 
-            [editIdModal]="editIdModal" 
-            [editTitleTriggerModal]="editTitleTriggerModal" 
-            [editClassTriggerModal]="editClassTriggerModal"
-            ></app-trigger-edit-item>
-          </div>
-        </div>
-      </article>
-
-      <article class="col col-sm-4 col-md-3 col-lg">
-        <div class="text-center">
-          <div
-            class="progress-circle position-relative d-inline-block rounded-circle progress-50 border border-2 border-primary border-opacity-50">
-            <span
-              class="text-bg-dark position-absolute rounded-circle border border-2 border-primary border-opacity-50">
-              <i class="fa-brands fa-wordpress-simple"></i>
-            </span>
-          </div>
-          <div class="text-center mt-1">
-            <span class="d-inline-block w-100">Wordpress</span>
-            <small class="opacity-50 d-inline-block w-100">Intermedio</small>
-            <app-trigger-edit-item 
-            [editIdModal]="editIdModal" 
-            [editTitleTriggerModal]="editTitleTriggerModal" 
-            [editClassTriggerModal]="editClassTriggerModal"
-            ></app-trigger-edit-item>
-          </div>
-        </div>
-      </article>
-
-      <article class="col col-sm-4 col-md-3 col-lg">
-        <div class="text-center">
-          <div
-            class="progress-circle position-relative d-inline-block rounded-circle progress-50 border border-2 border-primary border-opacity-50">
-            <span
-              class="text-bg-dark position-absolute rounded-circle border border-2 border-primary border-opacity-50">
-              <i class="fa-solid fa-list-ol"></i>
-            </span>
-          </div>
-          <div class="text-center mt-1">
-            <span class="d-inline-block w-100">SEO</span>
-            <small class="opacity-50 d-inline-block w-100">Intermedio</small>
-            <app-trigger-edit-item 
-            [editIdModal]="editIdModal" 
-            [editTitleTriggerModal]="editTitleTriggerModal" 
-            [editClassTriggerModal]="editClassTriggerModal"
-            ></app-trigger-edit-item>
-          </div>
-        </div>
-      </article>
 
     </div>
   </div>
   <app-add-skill-modal></app-add-skill-modal>
-  <app-edit-skill-modal></app-edit-skill-modal>
+  
 </section>
