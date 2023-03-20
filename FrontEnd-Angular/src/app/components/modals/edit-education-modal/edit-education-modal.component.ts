@@ -44,7 +44,7 @@ export class EditEducationModalComponent implements OnInit {
     private upFilesService: UploadFilesService,
     private route: ActivatedRoute) {
 
-    this.directoryName = this.route.snapshot.paramMap.get('username');
+    this.directoryName = this.route.snapshot.paramMap.get('username')?.toLowerCase();
     this.editEducForm = this.fb.group({
       id: [, [Validators.required]],
       institute: ['', [Validators.required]],

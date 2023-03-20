@@ -9,33 +9,57 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body row">
-                <form class="col-12 col-md-10 container">
+                <form 
+                    [formGroup]="addProjectForm"
+                    (ngSubmit)="submit($event)"        
+                    class="col-12 col-md-10 container">
                     <div class="row gy-2">
                         <div class="col-12">
                             <label for="inputNombreproj" class="form-label opacity-75">Nombre del proyecto</label>
-                            <input class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
-                                type="text" id="inputNombreproj">
+                            <input 
+                                formControlName="title"
+                                class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="text" 
+                                id="inputNombreproj">
                         </div>
                         <div class="col-12">
                             <label for="inputImgproj" class="form-label opacity-75">Imagen</label>
-                            <input class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
-                                type="file" id="inputImgproj" accept="image/jpeg, image/webp, image/png">
+                            <input
+                                formControlName="urlProjectImg"
+                                (change)="captureFile($event)"
+                                class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="file" 
+                                id="inputImgproj" 
+                                accept="image/jpeg, image/webp, image/png">
                         </div>
                         <div class="col-12">
                             <label for="inputUrlproj" class="form-label opacity-75">Enlace</label>
-                            <input class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
-                                type="url" id="inputUrlproj" accept="image/jpeg, image/webp, image/png">
+                            <input 
+                                formControlName="urlProject"
+                                class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="url" 
+                                id="inputUrlproj" 
+                                accept="image/jpeg, image/webp, image/png">
                         </div>
                         <div class="col-12 mb-3">
                             <label for="inputDescripcionproj" class="form-label opacity-75">Descripción</label>
-                            <textarea class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
-                                type="text" id="inputDescripcionproj"></textarea>
+                                <textarea 
+                                formControlName="description"
+                                class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="text" 
+                                id="inputDescripcionproj"
+                                ></textarea>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-lg w-100 mt-2 mb-4">Agregar
-                                proyecto</button>
+                            <button 
+                                [disabled]="addProjectForm.invalid"
+                                type="submit" 
+                                data-bs-dismiss="modal"
+                                class="btn btn-primary btn-lg w-100 mt-2 mb-4"
+                                >Agregar proyecto
+                            </button>
                         </div>
                     </div>
                 </form>

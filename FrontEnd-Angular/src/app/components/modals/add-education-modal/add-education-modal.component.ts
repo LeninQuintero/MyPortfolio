@@ -50,7 +50,7 @@ export class AddEducationModalComponent implements OnInit {
     private fb: FormBuilder,
     private upFileService: UploadFilesService,
     private route: ActivatedRoute) {
-    this.directoryName = this.route.snapshot.paramMap.get('username');
+    this.directoryName = this.route.snapshot.paramMap.get('username')?.toLowerCase();
 
     this.addEducationForm = this.fb.group({
 

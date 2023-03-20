@@ -29,13 +29,13 @@ public class Project implements Serializable {
     @Column(name = "title", nullable = false, length = 45)
     private String title;
 
-    @Column(name = "url_project_img", length = 100)
+    @Column(name = "url_project_img", length = 255)
     private String urlProjectImg;
 
-    @Column(name = "url_project", length = 100)
+    @Column(name = "url_project", length = 255)
     private String urlProject;
 
-    @Column(name = "description", length = 200)
+    @Column(name = "description", length = 255)
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

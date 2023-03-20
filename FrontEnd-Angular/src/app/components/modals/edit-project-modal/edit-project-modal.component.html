@@ -1,4 +1,4 @@
-<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="editProjModal" tabindex="-1"
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" [id]="idModal" tabindex="-1"
     aria-labelledby="editProjModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content text-bg-dark container">
@@ -9,35 +9,64 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body row">
-                <form class="col-12 col-md-10 container">
+                <form 
+                    [formGroup]="editProjectForm"
+                    class="col-12 col-md-10 container">
                     <div class="row gy-2">
                         <div class="col-12">
                             <label for="inputNombreProy1" class="form-label opacity-75">Nombre del proyecto</label>
-                            <input class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
-                                type="text" id="inputNombreProy1">
+                            <input 
+                                formControlName="title"
+                                class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="text" 
+                                id="inputNombreProy1">
                         </div>
                         <div class="col-12">
                             <label for="inputImgProy1" class="form-label opacity-75">Imagen</label>
-                            <input class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
-                                type="file" id="inputImgProy1" accept="image/jpeg, image/webp, image/png">
+                            <input
+                                formControlName="urlProjectImg"
+                                (change)="captureFile($event)"
+                                class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="file" 
+                                id="inputImgProy1" 
+                                accept="image/jpeg, image/webp, image/png">
                         </div>
                         <div class="col-12">
                             <label for="inputUrlProy1" class="form-label opacity-75">Enlace</label>
-                            <input class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
-                                type="url" id="inputUrlProy1" accept="image/jpeg, image/webp, image/png">
+                            <input 
+                                formControlName="urlProject"
+                                class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="url" 
+                                id="inputUrlProy1" 
+                                accept="image/jpeg, image/webp, image/png">
                         </div>
                         <div class="col-12 mb-3">
                             <label for="inputDescripcionProy1" class="form-label opacity-75">Descripción</label>
-                            <textarea class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
-                                type="text" id="inputDescripcionProy1"></textarea>
+                            <textarea 
+                                formControlName="description"
+                                class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none"
+                                type="text" 
+                                id="inputDescripcionProy1"></textarea>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-6">
-                            <button type="submit" class="btn btn-danger btn-lg w-100  mt-2 mb-4">Eliminar</button>
+                            <button 
+                                data-bs-dismiss="modal"
+                                (click)="projectDelete($event)"
+                                type="submit" 
+                                class="btn btn-danger btn-lg w-100  mt-2 mb-4"
+                                >Eliminar
+                            </button>
                         </div>
                         <div class="col-6">
-                            <button type="submit" class="btn btn-primary btn-lg w-100 mt-2 mb-4">Actualizar</button>
+                            <button 
+                            [disabled]=editProjectForm.invalid
+                            (click)="submit($event)"
+                            data-bs-dismiss="modal"
+                            type="submit" 
+                            class="btn btn-primary btn-lg w-100 mt-2 mb-4"
+                            >Actualizar</button>
                         </div>
                     </div>
                 </form>
