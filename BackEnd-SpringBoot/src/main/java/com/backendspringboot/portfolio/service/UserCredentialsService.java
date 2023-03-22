@@ -52,7 +52,7 @@ public class UserCredentialsService implements IUserCredentialsService {
                 "https://github.com/#",
                 "https://twitter.com/#",
                 "https://www.linkedin.com/#",
-                "https://ap-deploy-frontend-angular.web.app/" + user.getUserName(),
+                "http://localhost:4200/" + user.getUserName(),
                 user);
 
         userProfileServ.profileCreate(userProfile);

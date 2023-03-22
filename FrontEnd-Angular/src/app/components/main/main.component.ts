@@ -7,8 +7,8 @@ import {  UserService } from 'src/app/services/user.service';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit { 
-  username;
-  urlFindUser;
+  private username;
+  private urlFindUser;
 
   constructor(private userService: UserService, private route: ActivatedRoute) { 
     this.username = this.route.snapshot.paramMap.get('username');

@@ -1,1 +1,31 @@
-<p class="text-light fs-1">home works!</p>
+<section id="users" class="scroll py-2">
+    <div class="container text-light my-4">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Usuarios Registrados</h2>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+            <div class="row g-4 px-2 px-md-0 justify-content-center mt-2">
+
+                <article *ngFor="let user of users" class="col-12 col-md-6 col-lg-auto">
+                    <div class="card text-light bg-light bg-opacity-10 scale-hover-05">
+                        <a [href]="user.urlProfile">
+                            <img [src]=user.urlProfilePic class="card-img-top" alt="user">
+                        </a>
+                        <div class="card-body ">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="card-title">{{user.name}}</h5>
+                                
+                            </div>
+                            <h6 class="card-subtitle">{{user.title}}</h6>
+                            <p class="card-text opacity-75">{{user.aboutMe}}</p>
+                        </div>
+                    </div>
+
+                </article>
+
+            </div>
+        </div>
+    </div>
+</section>

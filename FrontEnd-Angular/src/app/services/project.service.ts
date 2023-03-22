@@ -37,7 +37,7 @@ addProject(project: Project, userId: number): Observable<Project> {
   return this.http.post<Project>(this.urlAddProject + userId, project, httpOptions);
 }
 
-deleteProject(id: number | undefined) {
+deleteProject(id: number | undefined): Observable<Project> {
   const url = `${this.apiUrl}/delete-project/${id}`;
   return this.http.delete<Project>(url, httpOptions);
 }

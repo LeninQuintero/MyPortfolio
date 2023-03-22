@@ -14,6 +14,8 @@ export class UserService {
   private urlEdit = `${this.apiUrl}/edit-profile`;
   private urlExist = `${this.apiUrl}/exist-`
 
+  private userList: Observable<UserProfile[]>;
+
   private user: Observable<UserProfile>;
   private _user$: Subject<UserProfile>;
 
@@ -22,6 +24,7 @@ export class UserService {
   constructor(private http: HttpClient) {
     this.user = new Observable<UserProfile>;
     this._user$ = new Subject<UserProfile>();
+    this.userList = new Observable<UserProfile[]>;
   }
 
   get getUser(): Observable<UserProfile> {
@@ -50,6 +53,10 @@ export class UserService {
 
   userExist(username: string | null): Observable<boolean> {
     return this.http.get<boolean>(`${this.urlExist}${username}`);
+  }
+
+  get getUserList(): Observable<UserProfile[]> {
+    return this.userList = this.http.get<UserProfile[]>(`${this.apiUrl}/profile-list`);
   }
 
 

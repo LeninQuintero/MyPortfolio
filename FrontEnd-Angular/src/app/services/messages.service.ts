@@ -13,38 +13,44 @@ const httpOptions = {
 export class MessagesService {
   
   private apiUrl = API_URL;
+  private urlGetMessages =`${this.apiUrl}/message-list/`;
+  private urlAddMessages = `${this.apiUrl}/new-message/`;
+  private urlDeleteMessage = `${this.apiUrl}/delete-message/`;
+  private urlEditMessage = `${this.apiUrl}/edit-message/`;
 
-  messages: Message[];
-  _messages$: Subject<Message[]>;
+  private _newMessage$ = new Subject<Message>();
 
-  constructor(private http: HttpClient) {
-    this.messages = [];
-    this._messages$ = new Subject();
+  constructor(private http: HttpClient) {}
+
+  getMessages(userId: number): Observable<Message[]> {
+    return this.http.get<Message[]>(`${this.urlGetMessages}${userId}`, httpOptions);
   }
 
-  getMessages(): Observable<Message[]> {
-    return this.http.get<Message[]>(this.apiUrl);
+  deleteMessage(id: number | undefined): Observable<Message> {
+    const url = `${this.urlDeleteMessage}${id}`;
+    return this.http.delete<Message>(url, httpOptions);
   }
 
-  deleteMessage(message: Message): Observable<Message> {
-    const url = `${this.apiUrl}/${message.id}`;
-    return this.http.delete<Message>(url);
+  addMessage(message: Message, userId: number): Observable<Message> {
+    return this.http.post<Message>(`${this.urlAddMessages}${userId}`, message, httpOptions);
   }
 
-  addMessage(message: Message): Observable<Message> {
-    return this.http.post<Message>(this.apiUrl, message, httpOptions);
+  editMessage(message: Message): Observable<Message> {
+    return this.http.put<Message>(this.urlEditMessage, message, httpOptions);
   }
 
-  get getNewMessages(): Observable<Message[]> {
-    return this._messages$;
+  get getNewMessage$() {
+    return this._newMessage$;
   }
 
 }
 
 export interface Message {
   id?: number;
-  nombre: string;
+  name: string;
+  subject: string;
   email: string;
-  asunto: string;
-  mensaje: string;
+  message: string;
+  date: string;
+  read: boolean;
 }

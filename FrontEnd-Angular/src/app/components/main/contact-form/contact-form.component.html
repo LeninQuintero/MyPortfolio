@@ -19,13 +19,13 @@
           <div class="form-floating my-3">
 
             <input 
-            formControlName="nombre" 
+            formControlName="name" 
             type="text"
             class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none" 
             placeholder="Nombre"
             id="validationTooltip00" 
             aria-describedby="nameHelp"
-            [ngClass]="{'is-valid': isValidField('nombre'), 'is-invalid': isInvalidField('nombre')}" 
+            [ngClass]="{'is-valid': isValidField('name'), 'is-invalid': isInvalidField('name')}" 
             required
             >
 
@@ -33,15 +33,15 @@
 
             <div class="invalid-tooltip mx-1">
 
-              <span *ngIf="errorsFeedback('nombre', 'required')">El nombre es requerido.</span>
+              <span *ngIf="errorsFeedback('name', 'required')">El nombre es requerido.</span>
 
-              <span *ngIf="errorsFeedback('nombre', 'minlength')">El nombre debe contener por lo menos
-                {{ requiredType('nombre', 'minlength', 'requiredLength') }}
+              <span *ngIf="errorsFeedback('name', 'minlength')">El nombre debe contener por lo menos
+                {{ requiredType('name', 'minlength', 'requiredLength') }}
                 caracteres.
               </span>
 
-              <span *ngIf="errorsFeedback('nombre', 'maxlength')">El nombre debe contener menos de
-                {{ requiredType('nombre', 'maxlength', 'requiredLength') }}
+              <span *ngIf="errorsFeedback('name', 'maxlength')">El nombre debe contener menos de
+                {{ requiredType('name', 'maxlength', 'requiredLength') }}
                 caracteres.
               </span>
 
@@ -57,7 +57,8 @@
             placeholder="Email"
             id="validationTooltip01" 
             aria-describedby="emailHelp"
-            [ngClass]="{'is-valid': isValidField('email'), 'is-invalid': isInvalidField('email')}" required>
+            [ngClass]="{'is-valid': isValidField('email'), 'is-invalid': isInvalidField('email')}" 
+            required>
 
             <label for="validationTooltip01" class="form-label px-4">Email</label>
 
@@ -74,13 +75,13 @@
           <div class="form-floating my-3">
 
             <input 
-            formControlName="asunto" 
+            formControlName="subject" 
             type="text"
             class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none" 
             placeholder="Asunto"
             id="validationTooltip02" 
             aria-describedby="topicHelp"
-            [ngClass]="{'is-valid': isValidField('asunto'), 'is-invalid': isInvalidField('asunto')}" 
+            [ngClass]="{'is-valid': isValidField('subject'), 'is-invalid': isInvalidField('subject')}" 
             required
             >
 
@@ -88,15 +89,15 @@
 
             <div class="invalid-tooltip mx-1">
 
-              <span *ngIf="errorsFeedback('asunto', 'required')">El asunto es requerido.</span>
+              <span *ngIf="errorsFeedback('subject', 'required')">El asunto es requerido.</span>
 
-              <span *ngIf="errorsFeedback('asunto', 'minlength')">El asunto debe contener por lo menos
-                {{ requiredType('asunto', 'minlength', 'requiredLength') }}
+              <span *ngIf="errorsFeedback('subject', 'minlength')">El asunto debe contener por lo menos
+                {{ requiredType('subject', 'minlength', 'requiredLength') }}
                 caracteres.
               </span>
 
-              <span *ngIf="errorsFeedback('asunto', 'maxlength')">El asunto debe contener menos de
-                {{ requiredType('asunto', 'maxlength', 'requiredLength') }}
+              <span *ngIf="errorsFeedback('subject', 'maxlength')">El asunto debe contener menos de
+                {{ requiredType('subject', 'maxlength', 'requiredLength') }}
                 caracteres.
               </span>
 
@@ -107,13 +108,13 @@
           <div class="form-floating my-3">
 
             <textarea 
-            formControlName="mensaje" 
+            formControlName="message" 
             type="text"
             class="form-control border-0 bg-light bg-opacity-10 text-light shadow-none" 
             placeholder="Mensaje"
             id="validationTooltip03" 
             aria-describedby="mensajeHelp"
-            [ngClass]="{'is-valid': isValidField('mensaje'), 'is-invalid': isInvalidField('mensaje')}" 
+            [ngClass]="{'is-valid': isValidField('message'), 'is-invalid': isInvalidField('message')}" 
             required
             ></textarea>
 
@@ -122,12 +123,12 @@
             
             <div class="invalid-tooltip mx-1">
             
-              <span *ngIf="errorsFeedback('mensaje', 'required')">El mensaje es requerido.</span>
+              <span *ngIf="errorsFeedback('message', 'required')">El mensaje es requerido.</span>
             
-              <span *ngIf="errorsFeedback('mensaje', 'minlength')">Por favor escribe tu mensaje.</span>
+              <span *ngIf="errorsFeedback('message', 'minlength')">Por favor escribe tu mensaje.</span>
             
-              <span *ngIf="errorsFeedback('mensaje', 'maxlength')">El mensaje debe contener menos de
-                {{ requiredType('mensaje', 'maxlength', 'requiredLength') }}
+              <span *ngIf="errorsFeedback('message', 'maxlength')">El mensaje debe contener menos de
+                {{ requiredType('message', 'maxlength', 'requiredLength') }}
                 caracteres.
               </span>
             
@@ -150,7 +151,7 @@
             </div>
             
           </div>
-          <p class="text-light fs-2"> </p> 
+          <p class="text-light fs-2"> </p>
         </form>
       </div>
     </div>

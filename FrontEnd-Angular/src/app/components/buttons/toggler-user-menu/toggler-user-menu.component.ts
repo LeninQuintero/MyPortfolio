@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -8,8 +9,13 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class TogglerUserMenuComponent implements OnInit {
  public urlProfilePic: string | undefined;
+ public username;
+ public messagesUri;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private route: ActivatedRoute) { 
+  this.username = this.route.snapshot.paramMap.get('username')?.toLowerCase();
+  this.messagesUri = `/${this.username}/mensajes`;
+  }
 
   ngOnInit(): void {
     this.userService.getUser.subscribe(user => {
