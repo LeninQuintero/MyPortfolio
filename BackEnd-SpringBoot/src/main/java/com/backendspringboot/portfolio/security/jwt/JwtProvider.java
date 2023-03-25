@@ -1,7 +1,7 @@
 //esta clase genera el token y tiene metodos de validacion
 package com.backendspringboot.portfolio.security.jwt;
 
-import com.backendspringboot.portfolio.security.enums.entity.UsuarioPrincipal;
+import com.backendspringboot.portfolio.security.enums.entity.UserMain;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -26,15 +26,15 @@ public class JwtProvider {
     private int expiration;
 
     public String generateToken(Authentication authentication) {
-        UsuarioPrincipal usuarioPrincipal = (UsuarioPrincipal) authentication.getPrincipal();
-        return Jwts.builder().setSubject(usuarioPrincipal.getUsername())
+        UserMain userMain = (UserMain) authentication.getPrincipal();
+        return Jwts.builder().setSubject(userMain.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + expiration * 1000))
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
 
-    public String getNombreUsuarioFromToken(String token) {
+    public String getUserNameFromToken(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
     }
 

@@ -1,5 +1,6 @@
 package com.backendspringboot.portfolio.model;
 
+import com.backendspringboot.portfolio.security.enums.entity.UserCredentials;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;

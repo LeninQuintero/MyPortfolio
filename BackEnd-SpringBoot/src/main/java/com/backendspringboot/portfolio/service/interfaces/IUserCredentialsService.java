@@ -1,6 +1,6 @@
 package com.backendspringboot.portfolio.service.interfaces;
 
-import com.backendspringboot.portfolio.model.UserCredentials;
+import com.backendspringboot.portfolio.security.enums.entity.UserCredentials;
 import com.backendspringboot.portfolio.model.UserProfile;
 import java.util.List;
 

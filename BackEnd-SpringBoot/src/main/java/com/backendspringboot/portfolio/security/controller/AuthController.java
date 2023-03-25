@@ -1,14 +1,16 @@
 package com.backendspringboot.portfolio.security.controller;
 
+import com.backendspringboot.portfolio.model.UserProfile;
 import com.backendspringboot.portfolio.security.dto.JwtDto;
-import com.backendspringboot.portfolio.security.dto.LoginUsuario;
-import com.backendspringboot.portfolio.security.dto.NuevoUsuario;
-import com.backendspringboot.portfolio.security.enums.RolNombre;
-import com.backendspringboot.portfolio.security.enums.entity.Rol;
-import com.backendspringboot.portfolio.security.enums.entity.Usuario;
+import com.backendspringboot.portfolio.security.dto.LoginUser;
+import com.backendspringboot.portfolio.security.dto.NewUser;
+import com.backendspringboot.portfolio.security.enums.RoleName;
+import com.backendspringboot.portfolio.security.enums.entity.Role;
+import com.backendspringboot.portfolio.security.enums.entity.UserCredentials;
 import com.backendspringboot.portfolio.security.jwt.JwtProvider;
-import com.backendspringboot.portfolio.security.service.RolService;
-import com.backendspringboot.portfolio.security.service.UsuarioService;
+import com.backendspringboot.portfolio.security.service.RoleService;
+import com.backendspringboot.portfolio.security.service.UserCredentialsService;
+import com.backendspringboot.portfolio.service.UserProfileService;
 import java.util.HashSet;
 import java.util.Set;
 import javax.validation.Valid;
@@ -30,51 +32,74 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins={"http://localhost:4200"})
+@CrossOrigin("*")
 public class AuthController {
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
     AuthenticationManager authenticationManager;
     @Autowired
-    UsuarioService usuarioService;
+    UserCredentialsService userService;
     @Autowired
-    RolService rolService;
+    RoleService roleService;
     @Autowired
-    JwtProvider jwtProvider;
+    JwtProvider jwtProvider;   
+    @Autowired
+    public UserProfileService userProfileServ;
+
     
-    @PostMapping("/nuevo")
-    public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult){
-        if(bindingResult.hasErrors())
-            return new ResponseEntity(new Message("Campos mal puestos o email invalido"),HttpStatus.BAD_REQUEST);
-        
-        if(usuarioService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario()))
-            return new ResponseEntity(new Message("Ese nombre de usuario ya existe"),HttpStatus.BAD_REQUEST);
-        
-        if(usuarioService.existsByEmail(nuevoUsuario.getEmail()))
-            return new ResponseEntity(new Message("Ese email ya existe"),HttpStatus.BAD_REQUEST);
+    @PostMapping("/new-user")
+    public UserProfile newUser(@Valid @RequestBody NewUser newUser, BindingResult bindingResult){
          
-        Usuario usuario = new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(),
-            nuevoUsuario.getEmail(), passwordEncoder.encode(nuevoUsuario.getPassword()));
+        UserCredentials user = new UserCredentials(newUser.getUserName(), passwordEncoder.encode(newUser.getPassword()));
         
-        Set<Rol> roles = new HashSet<>();
-        roles.add(rolService.getbyRolNombre(RolNombre.ROLE_USER).get());
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getbyRoleName(RoleName.ROLE_USER).get());
         
-        if(nuevoUsuario.getRoles().contains("admin"))
-            roles.add(rolService.getbyRolNombre(RolNombre.ROLE_ADMIN).get());
-        usuario.setRoles(roles);
-        usuarioService.save(usuario);
+//        if(newUser.getRoles().contains("admin"))
+//            roles.add(roleService.getbyRoleName(RoleName.ROLE_ADMIN).get());
+//        
+
+        user.setRoles(roles);
         
-        return new ResponseEntity (new Message("Usuario guardado"), HttpStatus.CREATED);
+        userService.save(user);
+        
+                UserProfile userProfile = new UserProfile(
+                user.getId(),
+                user.getUserName(),
+                "Titulo del Portafolio",
+                "https://firebasestorage.googleapis.com/v0/b/ap-deploy-frontend-angular.appspot.com/o/defaultFiles%2Ffoto-perfil.jpg?alt=media&token=6d315045-d26d-4610-9dd3-bef0a7ef5d60",
+                "https://firebasestorage.googleapis.com/v0/b/ap-deploy-frontend-angular.appspot.com/o/defaultFiles%2Fbanner-mobile.jpg?alt=media&token=db5c877f-5b4b-4708-a1d6-d116304492e7",
+                "https://firebasestorage.googleapis.com/v0/b/ap-deploy-frontend-angular.appspot.com/o/defaultFiles%2Fbanner-desktop.jpg?alt=media&token=49698c92-bd42-4eed-a77f-014850de2361",
+                "Descripción del perfil del usuario",
+                "https://github.com/#",
+                "https://twitter.com/#",
+                "https://www.linkedin.com/#",
+                "http://localhost:4200/" + user.getUserName(),
+                user);
+        
+                userProfileServ.profileCreate(userProfile);
+                
+                user.setUserProfile(userProfile);
+                
+                if(user.getId() == 1){
+                    roles.add(roleService.getbyRoleName(RoleName.ROLE_ADMIN).get());
+                    user.setRoles(roles); 
+                }
+             
+        return userProfileServ.profileFind(userProfile.getId());
+        
     }
     
     @PostMapping("/login")
-    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult){
-      if(bindingResult.hasErrors())
-          return new ResponseEntity(new Message("Campos mal puestos"),HttpStatus.BAD_REQUEST);
+    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUser loginUsuario, BindingResult bindingResult){
+        
+      if(bindingResult.hasErrors()){
+          return new ResponseEntity(new ServerMessage("Campos mal puestos"),HttpStatus.BAD_REQUEST);
+      }
       
       Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-              loginUsuario.getNombreUsuario(), loginUsuario.getPassword()));
+              loginUsuario.getUserName(), loginUsuario.getPassword()));
       
         SecurityContextHolder.getContext().setAuthentication(authentication);
         

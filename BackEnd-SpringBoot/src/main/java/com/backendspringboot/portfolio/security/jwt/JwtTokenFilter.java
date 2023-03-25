@@ -1,4 +1,3 @@
-// usa la clase del provider para validar el token otra vez y se ejecuta cada vez q hacemos una modificacion por ej 
 package com.backendspringboot.portfolio.security.jwt;
 
 import com.backendspringboot.portfolio.security.service.UserDetailsImpl;
@@ -15,10 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-/**
- *
- * @author Usuario
- */
+
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final static Logger logger = LoggerFactory.getLogger(JwtProvider.class);
@@ -33,8 +29,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         try {
             String token = getToken(request);
             if (token != null && jwtProvider.validateToken(token)) {
-                String nombreUsuario = jwtProvider.getNombreUsuarioFromToken(token);
-                UserDetails userDetails = userDetailServiceImpl.loadUserByUsername(nombreUsuario);
+                String userName = jwtProvider.getUserNameFromToken(token);
+                UserDetails userDetails = userDetailServiceImpl.loadUserByUsername(userName);
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails,
                         null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
