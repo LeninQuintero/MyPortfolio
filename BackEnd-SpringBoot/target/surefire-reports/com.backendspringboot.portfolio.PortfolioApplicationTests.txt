@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.backendspringboot.portfolio.PortfolioApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.342 s - in com.backendspringboot.portfolio.PortfolioApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.581 s - in com.backendspringboot.portfolio.PortfolioApplicationTests

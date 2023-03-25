@@ -1,8 +1,8 @@
 package com.backendspringboot.portfolio.controller;
 
-import com.backendspringboot.portfolio.model.UserCredentials;
+import com.backendspringboot.portfolio.security.enums.entity.UserCredentials;
 import com.backendspringboot.portfolio.model.UserProfile;
-import com.backendspringboot.portfolio.service.UserCredentialsService;
+import com.backendspringboot.portfolio.security.service.UserCredentialsService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -55,7 +55,7 @@ public class UserProfileController {
     @ResponseBody
     public UserProfile userFind(@PathVariable String username) {
 
-        UserCredentials user = userCredentialsServ.findByUsername(username);
+        UserCredentials user = userCredentialsServ.findByUsername(username).orElse(null);
 
         return userProfileServ.profileFind(user.getId());
     }
@@ -65,7 +65,7 @@ public class UserProfileController {
     public ResponseEntity<Boolean> userExist(@PathVariable String username) {
         
         try {
-            UserCredentials user = userCredentialsServ.findByUsername(username);
+            UserCredentials user = userCredentialsServ.findByUsername(username).orElse(null);
             user.getId();
             return ResponseEntity.status(HttpStatus.OK).body(true);
 

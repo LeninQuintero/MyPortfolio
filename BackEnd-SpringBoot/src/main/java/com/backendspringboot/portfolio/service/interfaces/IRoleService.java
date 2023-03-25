@@ -1,6 +1,6 @@
 package com.backendspringboot.portfolio.service.interfaces;
 
-import com.backendspringboot.portfolio.model.Role;
+import com.backendspringboot.portfolio.security.enums.entity.Role;
 import java.util.List;
 
 public interface IRoleService {
