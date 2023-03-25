@@ -9,12 +9,14 @@ com\backendspringboot\portfolio\controller\EducationController.class
 com\backendspringboot\portfolio\model\Skill.class
 com\backendspringboot\portfolio\controller\SkillController.class
 com\backendspringboot\portfolio\repository\ExperienceRepository.class
+com\backendspringboot\portfolio\security\repository\IRoleRepository.class
 com\backendspringboot\portfolio\controller\MessageController.class
 com\backendspringboot\portfolio\security\enums\entity\UserCredentials.class
 com\backendspringboot\portfolio\security\repository\IUserCredentialsRepository.class
 com\backendspringboot\portfolio\security\dto\JwtDto.class
 com\backendspringboot\portfolio\controller\ExperienceController.class
 com\backendspringboot\portfolio\repository\CertificationRepository.class
+com\backendspringboot\portfolio\security\dto\LoginUser.class
 com\backendspringboot\portfolio\model\Experience.class
 com\backendspringboot\portfolio\service\ExperienceService.class
 com\backendspringboot\portfolio\service\ProjectService.class
@@ -22,7 +24,6 @@ com\backendspringboot\portfolio\security\enums\RoleName.class
 com\backendspringboot\portfolio\security\service\UserDetailsImpl.class
 com\backendspringboot\portfolio\controller\FileController.class
 com\backendspringboot\portfolio\service\interfaces\IUserCredentialsService.class
-com\backendspringboot\portfolio\security\controller\Message.class
 com\backendspringboot\portfolio\repository\SkillRepository.class
 com\backendspringboot\portfolio\security\jwt\JwtEntryPoint.class
 com\backendspringboot\portfolio\model\Certification.class
@@ -30,10 +31,9 @@ com\backendspringboot\portfolio\service\interfaces\IRoleService.class
 com\backendspringboot\portfolio\security\dto\NewUser.class
 com\backendspringboot\portfolio\service\interfaces\IProjectService.class
 com\backendspringboot\portfolio\service\interfaces\IUserProfileService.class
-com\backendspringboot\portfolio\security\repository\IRolRepository.class
+com\backendspringboot\portfolio\security\controller\ServerMessage.class
 com\backendspringboot\portfolio\service\interfaces\ICertificationService.class
 com\backendspringboot\portfolio\service\interfaces\IEducationService.class
-com\backendspringboot\portfolio\security\dto\LoginUsuario.class
 com\backendspringboot\portfolio\service\CertificationService.class
 com\backendspringboot\portfolio\repository\UserProfileRepository.class
 com\backendspringboot\portfolio\service\UserProfileService.class
