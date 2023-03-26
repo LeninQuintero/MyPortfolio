@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 @CrossOrigin("*")
 public class AuthController {
+
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
@@ -43,28 +44,28 @@ public class AuthController {
     @Autowired
     RoleService roleService;
     @Autowired
-    JwtProvider jwtProvider;   
+    JwtProvider jwtProvider;
     @Autowired
     public UserProfileService userProfileServ;
 
-    
     @PostMapping("/new-user")
-    public UserProfile newUser(@Valid @RequestBody NewUser newUser, BindingResult bindingResult){
-         
+    public UserProfile newUser(@Valid @RequestBody NewUser newUser, BindingResult bindingResult) {
+
         UserCredentials user = new UserCredentials(newUser.getUserName(), passwordEncoder.encode(newUser.getPassword()));
-        
+
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.getbyRoleName(RoleName.ROLE_USER).get());
-        
-//        if(newUser.getRoles().contains("admin"))
-//            roles.add(roleService.getbyRoleName(RoleName.ROLE_ADMIN).get());
-//        
 
         user.setRoles(roles);
-        
+
         userService.save(user);
         
-                UserProfile userProfile = new UserProfile(
+        if (user.getId() == 1) {
+            roles.add(roleService.getbyRoleName(RoleName.ROLE_ADMIN).get());
+            user.setRoles(roles);
+        }
+
+        UserProfile userProfile = new UserProfile(
                 user.getId(),
                 user.getUserName(),
                 "Titulo del Portafolio",
@@ -77,38 +78,33 @@ public class AuthController {
                 "https://www.linkedin.com/#",
                 "http://localhost:4200/" + user.getUserName(),
                 user);
-        
-                userProfileServ.profileCreate(userProfile);
-                
-                user.setUserProfile(userProfile);
-                
-                if(user.getId() == 1){
-                    roles.add(roleService.getbyRoleName(RoleName.ROLE_ADMIN).get());
-                    user.setRoles(roles); 
-                }
-             
+
+        userProfileServ.profileCreate(userProfile);
+
+        user.setUserProfile(userProfile);
+
         return userProfileServ.profileFind(userProfile.getId());
-        
+
     }
-    
+
     @PostMapping("/login")
-    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUser loginUsuario, BindingResult bindingResult){
-        
-      if(bindingResult.hasErrors()){
-          return new ResponseEntity(new ServerMessage("Campos mal puestos"),HttpStatus.BAD_REQUEST);
-      }
-      
-      Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-              loginUsuario.getUserName(), loginUsuario.getPassword()));
-      
+    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUser loginUsuario, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity(new ServerMessage("Campos mal puestos"), HttpStatus.BAD_REQUEST);
+        }
+
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                loginUsuario.getUserName(), loginUsuario.getPassword()));
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        
+
         String jwt = jwtProvider.generateToken(authentication);
-        
-        UserDetails userDetails =  (UserDetails) authentication.getPrincipal();
-        
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
         JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
-        
+
         return new ResponseEntity(jwtDto, HttpStatus.OK);
     }
 }
