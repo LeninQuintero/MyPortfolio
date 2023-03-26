@@ -1,7 +1,7 @@
 // Url API
-// export const API_URL = 'https://myportfolio-deploy-backend-springboot.onrender.com';
+export const API_URL = 'https://myportfolio-deploy-backend-springboot.onrender.com';
 
-export const API_URL = 'http://localhost:8080';
+// export const API_URL = 'http://localhost:8080';
 
 // Default images
 export const DEFAULT_LOGO_HEADER = 'https://firebasestorage.googleapis.com/v0/b/ap-deploy-frontend-angular.appspot.com/o/defaultFiles%2FArgentinaProgramaLogo.png?alt=media&token=f9144859-dd1f-40e5-951b-7dfe9348927e';

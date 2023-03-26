@@ -1,5 +1,6 @@
 package com.backendspringboot.portfolio.controller;
 
+import static com.backendspringboot.portfolio.commons.Constants.FRONTEND_URL;
 import com.backendspringboot.portfolio.model.Certification;
 import com.backendspringboot.portfolio.model.UserProfile;
 import com.backendspringboot.portfolio.service.CertificationService;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin("*")
+@CrossOrigin(FRONTEND_URL)
 @RestController
 public class CertificationController {
 

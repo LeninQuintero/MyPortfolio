@@ -1,5 +1,6 @@
 package com.backendspringboot.portfolio.security.controller;
 
+import static com.backendspringboot.portfolio.commons.Constants.FRONTEND_URL;
 import com.backendspringboot.portfolio.model.UserProfile;
 import com.backendspringboot.portfolio.security.dto.JwtDto;
 import com.backendspringboot.portfolio.security.dto.LoginUser;
@@ -32,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin("*")
+@CrossOrigin(FRONTEND_URL)
 public class AuthController {
 
     @Autowired
@@ -76,7 +77,7 @@ public class AuthController {
                 "https://github.com/#",
                 "https://twitter.com/#",
                 "https://www.linkedin.com/#",
-                "http://localhost:4200/" + user.getUserName(),
+                FRONTEND_URL + "/" + user.getUserName(),
                 user);
 
         userProfileServ.profileCreate(userProfile);

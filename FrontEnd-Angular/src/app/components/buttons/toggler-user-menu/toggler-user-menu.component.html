@@ -5,5 +5,5 @@
 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark mt-2 mx-0 fs-5">
     <li><a class="dropdown-item py-3">Ajustes de Usuario</a></li>
     <li><a class="dropdown-item py-3" [routerLink]="messagesUri">Ver Mensajes</a></li>
-    <li><a class="dropdown-item py-3" href="#">Cerrar Sesion</a></li>
+    <li><a class="dropdown-item py-3" (click)="onLogOut()">Cerrar Sesion</a></li>
 </ul>

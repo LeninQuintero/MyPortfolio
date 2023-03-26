@@ -39,7 +39,7 @@ import { AddProjectModalComponent } from './components/modals/add-project-modal/
 import { TriggerAddItemComponent } from './components/buttons/trigger-add-item/trigger-add-item.component';
 import { TriggerEditItemComponent } from './components/buttons/trigger-edit-item/trigger-edit-item.component';
 import { TriggerShowCertificateComponent } from './components/buttons/trigger-show-certificate/trigger-show-certificate.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
@@ -100,6 +100,7 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
     AppRoutingModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideStorage(() => getStorage())

@@ -56,8 +56,8 @@
       </a>
       <!-- Toggler user menu / login -->
       <div class="btn-group">
-        <app-toggler-user-menu></app-toggler-user-menu>
-        <!-- <app-trigger-login-modal></app-trigger-login-modal> -->
+        <app-toggler-user-menu *ngIf="isLogged"></app-toggler-user-menu>
+        <app-trigger-login-modal *ngIf="!isLogged"></app-trigger-login-modal>
       </div>
     </div>
   </div>

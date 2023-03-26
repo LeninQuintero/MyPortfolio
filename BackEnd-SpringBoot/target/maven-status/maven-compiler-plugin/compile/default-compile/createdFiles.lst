@@ -5,6 +5,7 @@ com\backendspringboot\portfolio\security\enums\entity\UserMain.class
 com\backendspringboot\portfolio\service\interfaces\ISkillService.class
 com\backendspringboot\portfolio\security\service\UserCredentialsService.class
 com\backendspringboot\portfolio\controller\UserProfileController.class
+com\backendspringboot\portfolio\commons\Constants.class
 com\backendspringboot\portfolio\controller\EducationController.class
 com\backendspringboot\portfolio\model\Skill.class
 com\backendspringboot\portfolio\controller\SkillController.class

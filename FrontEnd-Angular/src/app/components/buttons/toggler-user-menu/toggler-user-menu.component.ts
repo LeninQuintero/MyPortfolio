@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class TogglerUserMenuComponent implements OnInit {
  public username;
  public messagesUri;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) { 
+  constructor(private userService: UserService, private route: ActivatedRoute, private tokenService: TokenService) { 
   this.username = this.route.snapshot.paramMap.get('username')?.toLowerCase();
   this.messagesUri = `/${this.username}/mensajes`;
   }
@@ -27,5 +28,10 @@ export class TogglerUserMenuComponent implements OnInit {
         this.urlProfilePic = user.urlProfilePic;
       });
     });
+  }
+
+  onLogOut(): void {
+    this.tokenService.logOut();
+    window.location.reload();
   }
 }

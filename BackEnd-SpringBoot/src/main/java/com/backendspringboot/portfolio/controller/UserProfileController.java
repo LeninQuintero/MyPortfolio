@@ -1,5 +1,6 @@
 package com.backendspringboot.portfolio.controller;
 
+import static com.backendspringboot.portfolio.commons.Constants.FRONTEND_URL;
 import com.backendspringboot.portfolio.security.enums.entity.UserCredentials;
 import com.backendspringboot.portfolio.model.UserProfile;
 import com.backendspringboot.portfolio.security.jwt.JwtProvider;
@@ -15,11 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.backendspringboot.portfolio.service.UserProfileService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 
-@CrossOrigin("*")
+@CrossOrigin(FRONTEND_URL)
 @RestController
 public class UserProfileController {
 
@@ -32,6 +31,7 @@ public class UserProfileController {
     @Autowired
     private JwtProvider jwtProvider;
 
+ 
     @GetMapping("/profile-list")
     @ResponseBody
     public List<UserProfile> profileList() {
@@ -78,20 +78,6 @@ public class UserProfileController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
         }
-    }
-    
-    
-    @GetMapping("/edit-p")
-    @ResponseBody
-    public String profile( @RequestHeader("Authorization") String authHeader) {
-        
-        String token = authHeader;
-        
-        if (token != null && token.startsWith("Bearer")){
-           token.replace("Bearer", "");
-        }
-
-        return jwtProvider.getUserNameFromToken(token);
     }
     
 }

@@ -20,6 +20,7 @@ C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-Spr
 C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-SpringBoot\src\main\java\com\backendspringboot\portfolio\model\Skill.java
 C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-SpringBoot\src\main\java\com\backendspringboot\portfolio\service\interfaces\IMessageService.java
 C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-SpringBoot\src\main\java\com\backendspringboot\portfolio\security\repository\IRoleRepository.java
+C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-SpringBoot\src\main\java\com\backendspringboot\portfolio\commons\Constants.java
 C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-SpringBoot\src\main\java\com\backendspringboot\portfolio\security\service\RoleService.java
 C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-SpringBoot\src\main\java\com\backendspringboot\portfolio\controller\EducationController.java
 C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-SpringBoot\src\main\java\com\backendspringboot\portfolio\security\dto\NewUser.java
@@ -36,7 +37,6 @@ C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-Spr
 C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-SpringBoot\src\main\java\com\backendspringboot\portfolio\service\CertificationService.java
 C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-SpringBoot\src\main\java\com\backendspringboot\portfolio\repository\CertificationRepository.java
 C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-SpringBoot\src\main\java\com\backendspringboot\portfolio\PortfolioApplication.java
-C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-SpringBoot\src\main\java\com\backendspringboot\portfolio\service\UserCredentialsService.java
 C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-SpringBoot\src\main\java\com\backendspringboot\portfolio\model\Message.java
 C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-SpringBoot\src\main\java\com\backendspringboot\portfolio\repository\EducationRepository.java
 C:\Users\Administrator\Desktop\ARGENTINA PROGRAMA\GitHub\MyPortfolio\BackEnd-SpringBoot\src\main\java\com\backendspringboot\portfolio\security\service\UserDetailsImpl.java
