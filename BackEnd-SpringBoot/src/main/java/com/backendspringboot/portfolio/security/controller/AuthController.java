@@ -85,6 +85,7 @@ public class AuthController {
         user.setUserProfile(userProfile);
 
         return userProfileServ.profileFind(userProfile.getId());
+        
     }
 
     @PostMapping("/login")
